@@ -2,22 +2,24 @@
 
 import RelationshipGraph from "@/components/graph/RelationshipGraph"
 import AIChat from "@/components/chat/AIChat"
+import FamilyGraph from "@/components/genogram/FamilyGraph"
 
 export default function Dashboard(){
 
-  return (
+  return(
 
     <main className="p-10 space-y-10">
 
       <h1 className="text-3xl font-semibold">
-        Defrag Intelligence Dashboard
+        Defrag Relational Intelligence
       </h1>
 
       <section className="grid md:grid-cols-2 gap-6">
 
         <div className="border rounded-xl p-6">
+
           <h2 className="font-medium mb-4">
-            Relationship System Map
+            Relationship Map
           </h2>
 
           <RelationshipGraph/>
@@ -28,6 +30,18 @@ export default function Dashboard(){
 
       </section>
 
+      <section className="border rounded-xl p-6">
+
+        <h2 className="font-medium mb-4">
+          Family System Map
+        </h2>
+
+        <FamilyGraph/>
+
+      </section>
+
     </main>
+
   )
+
 }
