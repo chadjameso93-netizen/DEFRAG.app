@@ -1,45 +1,32 @@
 "use client"
 
-import { useSession } from "@/hooks/useSession"
-import SubscribeButton from "@/components/SubscribeButton"
+import RelationshipGraph from "@/components/graph/RelationshipGraph"
+import AIChat from "@/components/chat/AIChat"
 
-export default function Dashboard() {
-
-  const session = useSession()
-
-  if (!session) {
-    return (
-      <main className="p-12">
-        <h1 className="text-3xl font-semibold">Access Required</h1>
-        <p className="mt-4 text-zinc-500">
-          Please log in or start a subscription to access your dashboard.
-        </p>
-        <SubscribeButton/>
-      </main>
-    )
-  }
+export default function Dashboard(){
 
   return (
-    <main className="p-10">
 
-      <h1 className="text-3xl font-semibold">Defrag Dashboard</h1>
+    <main className="p-10 space-y-10">
 
-      <div className="mt-8 grid gap-6 md:grid-cols-2">
+      <h1 className="text-3xl font-semibold">
+        Defrag Intelligence Dashboard
+      </h1>
 
-        <div className="rounded-xl border p-6">
-          <h2 className="font-medium">Daily Insight</h2>
-          <p className="mt-2 text-zinc-600">
-            Communication dynamics appear sensitive today. 
-            Consider approaching conversations with clarity and patience.
-          </p>
+      <section className="grid md:grid-cols-2 gap-6">
+
+        <div className="border rounded-xl p-6">
+          <h2 className="font-medium mb-4">
+            Relationship System Map
+          </h2>
+
+          <RelationshipGraph/>
+
         </div>
 
-        <div className="rounded-xl border p-6">
-          <h2 className="font-medium">Relationship Map</h2>
-          <div className="h-56 rounded-lg bg-zinc-100 mt-4"/>
-        </div>
+        <AIChat/>
 
-      </div>
+      </section>
 
     </main>
   )
