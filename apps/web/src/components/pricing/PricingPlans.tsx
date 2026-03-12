@@ -1,6 +1,6 @@
 "use client"
 
-import PremiumPanel from "@/components/ui/PremiumPanel"
+import GlowCard from "@/components/ui/GlowCard"
 
 async function checkout() {
   try {
@@ -28,17 +28,14 @@ function Plan({
   points: string[]
 }) {
   return (
-    <PremiumPanel className={`p-6 ${featured ? "border-white/20 bg-white/[0.08]" : ""}`}>
+    <GlowCard className={`p-6 ${featured ? "border-white/20 bg-white/[0.07]" : ""}`}>
       <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/45">{name}</p>
       <p className="mt-4 text-4xl font-semibold tracking-tight text-white">{price}</p>
       <p className="mt-3 text-sm leading-7 text-white/60">{description}</p>
 
       <div className="mt-6 space-y-3">
         {points.map((point) => (
-          <div
-            key={point}
-            className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/70"
-          >
+          <div key={point} className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/70">
             {point}
           </div>
         ))}
@@ -52,7 +49,7 @@ function Plan({
       >
         Choose plan
       </button>
-    </PremiumPanel>
+    </GlowCard>
   )
 }
 
@@ -62,33 +59,21 @@ export default function PricingPlans() {
       <Plan
         name="Starter"
         price="Free"
-        description="A simple entry point for exploring the product."
-        points={[
-          "Core onboarding",
-          "Basic daily insight",
-          "Relationship overview",
-        ]}
+        description="Explore the platform structure and core surfaces."
+        points={["Core onboarding", "Basic dashboard", "Relationship overview"]}
       />
       <Plan
         name="Core"
         price="$24/mo"
-        description="The main plan for ongoing personal use."
+        description="Use the full product for ongoing relationship analysis."
         featured
-        points={[
-          "Full dashboard access",
-          "Simulations and AI guidance",
-          "Expanded relationship views",
-        ]}
+        points={["Dashboard access", "Simulations", "AI guidance", "Timeline tracking"]}
       />
       <Plan
         name="Practitioner"
         price="$99/mo"
-        description="For coaches, facilitators, and advanced use."
-        points={[
-          "Multiple profiles",
-          "Expanded reporting",
-          "Advanced workflow support",
-        ]}
+        description="For deeper use cases and expanded workflow support."
+        points={["Multiple profiles", "Expanded reporting", "Advanced workflow support"]}
       />
     </section>
   )
