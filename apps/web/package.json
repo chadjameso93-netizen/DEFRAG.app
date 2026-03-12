@@ -20,7 +20,7 @@
     "clsx": "^2.1.1",
     "d3": "^7.9.0",
     "dayjs": "^1.11.19",
-    "framer-motion": "^12.35.2",
+    "framer-motion": "^12.36.0",
     "graphology": "^0.26.0",
     "lodash": "^4.17.23",
     "lucide-react": "^0.577.0",
