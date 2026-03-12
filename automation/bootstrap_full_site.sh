@@ -4,7 +4,7 @@ set -euo pipefail
 REPO_DIR="${1:-$HOME/DEFRAG.app}"
 cd "$REPO_DIR"
 
-mkdir -p apps/web/src/{app/{api/{events,profile,relationships,status,subscription,insight,simulate,stripe/webhook},dashboard,login,onboarding,pricing,relationships,settings,simulations,signup,timeline},components/{chat,dashboard,genogram,graph,layout,marketing,onboarding,pricing,relationships,sim,timeline},hooks,lib/{mock}}
+mkdir -p apps/web/src/{app/{api/{events,profile,relationships,status,subscription,insight,simulate,stripe/webhook},dashboard,login,onboarding,pricing,relationships,settings,simulations,signup,timeline},components/{chat,dashboard,genogram,graph,layout,marketing,onboarding,pricing,relationships,settings,sim,timeline},hooks,lib/{mock}}
 mkdir -p apps/api/app/{routers,schemas,services}
 mkdir -p infra/supabase .github/workflows automation
 
