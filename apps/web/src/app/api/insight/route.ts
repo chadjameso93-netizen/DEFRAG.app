@@ -1,11 +1,10 @@
 import { NextResponse } from "next/server"
-import { generateInsight } from "@/lib/ai/engine"
 
 export async function POST(req: Request) {
-
   const body = await req.json()
+  const message = body?.message || "No message provided."
 
-  const insight = await generateInsight(body)
-
-  return NextResponse.json({ insight })
+  return NextResponse.json({
+    insight: `Defrag sees a pattern worth slowing down for. Based on what you shared — "${message}" — the healthiest next step may be to reduce urgency, clarify what you need, and avoid reacting too quickly.`,
+  })
 }
