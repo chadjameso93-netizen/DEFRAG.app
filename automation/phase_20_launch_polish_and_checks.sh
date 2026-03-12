@@ -1,3 +1,40 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+mkdir -p apps/web/src/components/{marketing,ui}
+mkdir -p apps/web/src/app/api/health
+
+cat > apps/web/src/components/ui/GlowButton.tsx <<'TSX'
+import Link from "next/link"
+
+export default function GlowButton({
+  href,
+  label,
+  inverted = false,
+}: {
+  href: string
+  label: string
+  inverted?: boolean
+}) {
+  return (
+    <Link
+      href={href}
+      className={[
+        "inline-flex items-center justify-center rounded-2xl px-6 py-3 text-sm font-medium transition duration-300",
+        inverted
+          ? "border border-white/10 bg-white/5 text-white hover:bg-white/10"
+          : "bg-white text-zinc-950 shadow-[0_0_0_1px_rgba(255,255,255,0.08),0_8px_30px_rgba(255,255,255,0.08)] hover:bg-zinc-100"
+      ].join(" ")}
+    >
+      {label}
+    </Link>
+  )
+}
+TSX
+
+cat > apps/web/src/components/marketing/HeroLanding.tsx <<'TSX'
 import { Network, BrainCircuit, Sparkles, ShieldCheck, Clock3, GitBranchPlus } from "lucide-react"
 import BrandMesh from "@/components/brand/BrandMesh"
 import PremiumPanel from "@/components/ui/PremiumPanel"
@@ -139,3 +176,18 @@ export default function HeroLanding() {
     </main>
   )
 }
+TSX
+
+cat > apps/web/src/app/api/health/route.ts <<'TS'
+import { NextResponse } from "next/server"
+
+export async function GET() {
+  return NextResponse.json({
+    ok: true,
+    app: "defrag",
+    status: "ready",
+  })
+}
+TS
+
+echo "phase_20_launch_polish_and_checks.sh completed"
