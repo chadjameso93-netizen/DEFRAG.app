@@ -1,5 +1,4 @@
 "use client"
-
 export default function FamilyGraph() {
   return (
     <div className="grid h-full place-items-center rounded-2xl bg-[linear-gradient(180deg,#fafafa,#f4f4f5)] p-6">
