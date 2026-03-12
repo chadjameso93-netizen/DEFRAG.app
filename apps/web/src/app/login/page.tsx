@@ -3,7 +3,6 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import AuthShell from "@/components/auth/AuthShell"
-import { supabase } from "@/lib/supabase"
 
 export default function LoginPage() {
   const router = useRouter()
@@ -16,10 +15,16 @@ export default function LoginPage() {
     setLoading(true)
     setMessage("")
 
-    const { error } = await supabase.auth.signInWithPassword({ email, password })
+    const res = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    })
 
-    if (error) {
-      setMessage(error.message)
+    const data = await res.json()
+
+    if (!res.ok || data.error) {
+      setMessage(data.error || "Unable to log in.")
       setLoading(false)
       return
     }

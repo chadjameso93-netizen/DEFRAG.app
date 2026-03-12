@@ -5,6 +5,7 @@ import Link from "next/link"
 import { LayoutDashboard, Users, Clock3, Sparkles, CreditCard, Settings, ChevronRight } from "lucide-react"
 import BrandMesh from "@/components/brand/BrandMesh"
 import PremiumPanel from "@/components/ui/PremiumPanel"
+import MobileTopBar from "@/components/layout/MobileTopBar"
 
 function NavItem({
   href,
@@ -43,8 +44,10 @@ export default function AppShell({
       <BrandMesh />
 
       <div className="relative mx-auto max-w-[1600px] px-3 py-3 sm:px-4 sm:py-4 lg:px-6 lg:py-6">
-        <div className="grid gap-4 lg:grid-cols-[320px_1fr] lg:gap-6">
-          <PremiumPanel className="h-fit p-5 lg:sticky lg:top-6 lg:p-7">
+        <MobileTopBar />
+
+        <div className="mt-3 grid gap-4 lg:mt-0 lg:grid-cols-[320px_1fr] lg:gap-6">
+          <PremiumPanel className="hidden h-fit p-5 lg:sticky lg:top-6 lg:block lg:p-7">
             <div className="flex items-center justify-between">
               <Link href="/" className="text-[11px] font-semibold uppercase tracking-[0.36em] text-zinc-500">
                 Defrag
@@ -85,7 +88,7 @@ export default function AppShell({
           </PremiumPanel>
 
           <div className="space-y-4 lg:space-y-6">
-            <PremiumPanel className="p-6 sm:p-8">
+            <PremiumPanel className="p-5 sm:p-8">
               <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
                 <div>
                   <p className="text-[11px] font-semibold uppercase tracking-[0.30em] text-zinc-500">Defrag Workspace</p>
