@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowRight, Sparkles, ShieldCheck, GitBranchPlus } from "lucide-react"
+import { ArrowRight, Sparkles, ShieldCheck, Network, Brain, Clock3 } from "lucide-react"
 import BrandBackground from "@/components/brand/BrandBackground"
 import GlassPanel from "@/components/ui/GlassPanel"
 
@@ -14,10 +14,10 @@ function Feature({
 }) {
   return (
     <GlassPanel className="p-6">
-      <div className="mb-4 inline-flex rounded-2xl border border-zinc-200 bg-white p-3 text-zinc-950 shadow-sm">
+      <div className="inline-flex rounded-2xl border border-zinc-200 bg-white p-3 shadow-sm">
         {icon}
       </div>
-      <h3 className="text-lg font-medium text-zinc-950">{title}</h3>
+      <h3 className="mt-5 text-lg font-medium text-zinc-950">{title}</h3>
       <p className="mt-3 text-sm leading-7 text-zinc-600">{body}</p>
     </GlassPanel>
   )
@@ -25,15 +25,15 @@ function Feature({
 
 export default function HeroLanding() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#f5f7fb] px-4 py-4 text-zinc-950 sm:px-6 sm:py-6">
+    <main className="relative min-h-screen overflow-hidden bg-[#f6f8fb] px-3 py-3 text-zinc-950 sm:px-4 sm:py-4 lg:px-6 lg:py-6">
       <BrandBackground />
 
-      <div className="relative mx-auto max-w-7xl space-y-6">
+      <div className="relative mx-auto max-w-7xl space-y-4 lg:space-y-6">
         <GlassPanel className="overflow-hidden px-6 py-12 sm:px-10 lg:px-14 lg:py-16">
           <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]">
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-zinc-500">Defrag</p>
-              <h1 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.34em] text-zinc-500">Defrag</p>
+              <h1 className="mt-5 max-w-4xl text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
                 Understand the patterns shaping your relationships.
               </h1>
               <p className="mt-6 max-w-2xl text-base leading-8 text-zinc-600 sm:text-lg">
@@ -97,14 +97,14 @@ export default function HeroLanding() {
           </div>
         </GlassPanel>
 
-        <section className="grid gap-6 md:grid-cols-3">
+        <section className="grid gap-4 md:grid-cols-3 md:gap-6">
           <Feature
-            icon={<GitBranchPlus size={20} />}
+            icon={<Network size={20} />}
             title="See relationship patterns"
             body="Map the people, tension points, and recurring cycles that shape your daily experience."
           />
           <Feature
-            icon={<Sparkles size={20} />}
+            icon={<Brain size={20} />}
             title="Prepare for difficult conversations"
             body="Explore likely outcomes before you act, with guidance aimed at healthier communication."
           />
@@ -114,6 +114,31 @@ export default function HeroLanding() {
             body="Get calm, practical guidance about timing, pressure, and ways to reduce avoidable friction."
           />
         </section>
+
+        <GlassPanel className="p-6 sm:p-8">
+          <div className="grid gap-6 lg:grid-cols-3">
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-zinc-500">How Defrag helps</p>
+              <h2 className="mt-4 text-3xl font-semibold tracking-tight">A premium system for relational clarity</h2>
+            </div>
+
+            <div className="rounded-2xl border border-zinc-200 bg-white/80 p-5">
+              <div className="inline-flex rounded-2xl border border-zinc-200 bg-white p-3 shadow-sm">
+                <Clock3 size={18} />
+              </div>
+              <h3 className="mt-4 text-base font-medium">Timeline awareness</h3>
+              <p className="mt-3 text-sm leading-7 text-zinc-600">Track how events build over time instead of reacting to isolated moments.</p>
+            </div>
+
+            <div className="rounded-2xl border border-zinc-200 bg-white/80 p-5">
+              <div className="inline-flex rounded-2xl border border-zinc-200 bg-white p-3 shadow-sm">
+                <Sparkles size={18} />
+              </div>
+              <h3 className="mt-4 text-base font-medium">Calm AI guidance</h3>
+              <p className="mt-3 text-sm leading-7 text-zinc-600">Receive practical insight designed to support healthier outcomes for everyone involved.</p>
+            </div>
+          </div>
+        </GlassPanel>
       </div>
     </main>
   )

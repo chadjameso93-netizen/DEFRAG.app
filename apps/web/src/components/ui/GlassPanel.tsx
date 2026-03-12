@@ -11,7 +11,7 @@ export default function GlassPanel({
   return (
     <div
       className={cn(
-        "rounded-[28px] border border-white/70 bg-white/80 shadow-[0_12px_50px_rgba(15,23,42,0.08)] backdrop-blur-xl",
+        "rounded-[32px] border border-white/70 bg-white/85 shadow-[0_20px_80px_rgba(15,23,42,0.08)] backdrop-blur-xl",
         className
       )}
     >
