@@ -1,11 +1,8 @@
-import AppShell from "@/components/layout/AppShell"
-import EventTimeline from "@/components/timeline/EventTimeline"
-import { mockEvents } from "@/lib/mock/systemData"
-
 export default function TimelinePage() {
   return (
-    <AppShell title="Timeline" subtitle="Review the moments that are shaping the current dynamic.">
-      <EventTimeline events={mockEvents} />
-    </AppShell>
+    <div style={{padding:40}}>
+      <h1>Timeline</h1>
+      <p>Temporal relational events will appear here.</p>
+    </div>
   )
 }
