@@ -28,7 +28,7 @@ export default function SimulationPanel() {
       <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/40">Simulation</p>
       <h2 className="mt-4 text-lg font-medium text-white">Test likely outcomes before you act</h2>
       <p className="mt-3 text-sm leading-7 text-white/60">
-        Compare approaches before the conversation happens. Use this to prepare, not to chase certainty.
+        Compare different approaches before the conversation happens.
       </p>
 
       <div className="mt-6 flex flex-wrap gap-3">
