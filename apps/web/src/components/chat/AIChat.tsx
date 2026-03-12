@@ -1,48 +1,56 @@
 "use client"
 
 import { useState } from "react"
+import GlowCard from "@/components/ui/GlowCard"
 
 export default function AIChat() {
   const [msg, setMsg] = useState("")
   const [reply, setReply] = useState("Describe a relationship situation, and Defrag will return structured guidance based on the pattern you describe.")
+  const [loading, setLoading] = useState(false)
 
   async function send() {
     if (!msg.trim()) return
+    setLoading(true)
 
-    const res = await fetch("/api/insight", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: msg }),
-    })
-
-    const data = await res.json()
-    setReply(data.insight || "No insight returned.")
+    try {
+      const res = await fetch("/api/insight", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: msg }),
+      })
+      const data = await res.json()
+      setReply(data.insight || "No insight returned.")
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
-    <div>
-      <h2 className="text-lg font-medium text-white">AI guidance</h2>
-      <p className="mt-2 text-sm text-white/60">
-        Turn a situation into clearer relational insight and a more useful next step.
+    <GlowCard className="p-5 sm:p-6">
+      <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/40">AI guidance</p>
+      <h2 className="mt-4 text-lg font-medium text-white">Turn the situation into clearer next steps</h2>
+      <p className="mt-3 text-sm leading-7 text-white/60">
+        Use this when you need help interpreting a live relationship dynamic before responding.
       </p>
 
-      <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-4 text-sm leading-7 text-white/70">
-        {reply}
+      <div className="mt-6 rounded-2xl border border-white/10 bg-black/20 p-4 text-sm leading-7 text-white/70">
+        {loading ? "Analyzing…" : reply}
       </div>
 
       <textarea
-        className="mt-4 min-h-[120px] w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition focus:border-white/20"
-        placeholder="Example: My sibling keeps going quiet after conflict, and I do not know whether to reach out now or wait."
+        className="mt-4 min-h-[140px] w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition focus:border-white/20"
+        placeholder="Example: A family member keeps going quiet after conflict, and I do not know whether to reach out now or wait."
         value={msg}
         onChange={(e) => setMsg(e.target.value)}
       />
 
       <button
         onClick={send}
-        className="mt-4 rounded-2xl bg-white px-5 py-3 text-sm font-medium text-zinc-950 transition hover:bg-zinc-100"
+        disabled={loading}
+        className="mt-4 rounded-2xl bg-white px-5 py-3 text-sm font-medium text-zinc-950 transition hover:bg-zinc-100 disabled:opacity-60"
       >
-        Analyze situation
+        {loading ? "Analyzing..." : "Analyze situation"}
       </button>
-    </div>
+    </GlowCard>
   )
 }
