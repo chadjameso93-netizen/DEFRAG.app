@@ -1,9 +1,6 @@
 import { NextResponse } from "next/server"
+import { getSubscription } from "@/lib/data/mockDb"
 
 export async function GET() {
-  return NextResponse.json({
-    status: "trial",
-    plan: "core",
-    trialEndsAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7).toISOString(),
-  })
+  return NextResponse.json(getSubscription())
 }
