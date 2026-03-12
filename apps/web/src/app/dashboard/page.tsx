@@ -6,12 +6,15 @@ import RelationshipGraph from "@/components/graph/RelationshipGraph"
 import AIChat from "@/components/chat/AIChat"
 import FamilyGraph from "@/components/genogram/FamilyGraph"
 import SimulationPanel from "@/components/sim/SimulationPanel"
+import EventTimeline from "@/components/timeline/EventTimeline"
+import RelationshipList from "@/components/relationships/RelationshipList"
+import { mockEvents, mockRelationships } from "@/lib/mock/systemData"
 
 export default function Dashboard() {
   return (
     <AppShell
       title="Relational intelligence"
-      subtitle="A clear view of your current system, pressure level, and likely conversation patterns."
+      subtitle="A clearer view of your current system, relationship pressure, and likely communication patterns."
     >
       <section className="grid gap-6 md:grid-cols-3">
         <StatCard label="System state" value="Elevated" note="Recent conflict signals suggest higher sensitivity." />
@@ -48,6 +51,28 @@ export default function Dashboard() {
 
         <div className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm">
           <SimulationPanel />
+        </div>
+      </section>
+
+      <section className="grid gap-6 lg:grid-cols-2">
+        <div className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm">
+          <h2 className="text-lg font-medium text-zinc-950">Current relationships</h2>
+          <p className="mt-2 text-sm text-zinc-600">
+            Track tension and trust across your current system.
+          </p>
+          <div className="mt-6">
+            <RelationshipList relationships={mockRelationships} />
+          </div>
+        </div>
+
+        <div className="rounded-3xl border border-zinc-200 bg-white p-6 shadow-sm">
+          <h2 className="text-lg font-medium text-zinc-950">Event timeline</h2>
+          <p className="mt-2 text-sm text-zinc-600">
+            Review key moments shaping the current pattern.
+          </p>
+          <div className="mt-6">
+            <EventTimeline events={mockEvents} />
+          </div>
         </div>
       </section>
     </AppShell>
