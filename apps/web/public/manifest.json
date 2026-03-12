@@ -1,0 +1,10 @@
+{
+  "name": "Defrag",
+  "short_name": "Defrag",
+  "description": "Relational intelligence platform",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#09090b",
+  "theme_color": "#09090b",
+  "icons": []
+}

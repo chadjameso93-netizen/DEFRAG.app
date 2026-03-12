@@ -2,6 +2,7 @@ import Link from "next/link"
 import { ArrowRight, ShieldCheck, Sparkles, Network, BrainCircuit, Clock3, PlayCircle } from "lucide-react"
 import BrandMesh from "@/components/brand/BrandMesh"
 import PremiumPanel from "@/components/ui/PremiumPanel"
+import PremiumFooter from "@/components/marketing/PremiumFooter"
 
 function Metric({
   label,
@@ -178,6 +179,7 @@ export default function HeroLanding() {
             </div>
           </div>
         </PremiumPanel>
+        <PremiumFooter />
       </div>
     </main>
   )

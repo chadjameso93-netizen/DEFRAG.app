@@ -1,0 +1,124 @@
+DEFRAG PRODUCTION AUDIT
+Generated: Thu Mar 12 09:10:28 PDT 2026
+
+[OK] apps/web/src/app/page.tsx
+[OK] apps/web/src/app/dashboard/page.tsx
+[OK] apps/web/src/app/relationships/page.tsx
+[OK] apps/web/src/app/timeline/page.tsx
+[OK] apps/web/src/app/simulations/page.tsx
+[OK] apps/web/src/app/pricing/page.tsx
+[OK] apps/web/src/app/settings/page.tsx
+[OK] apps/web/src/app/login/page.tsx
+[OK] apps/web/src/app/signup/page.tsx
+[OK] apps/web/src/app/onboarding/page.tsx
+[OK] apps/web/src/app/api/auth/login/route.ts
+[OK] apps/web/src/app/api/auth/signup/route.ts
+[OK] apps/web/src/app/api/billing/create-checkout/route.ts
+[OK] apps/web/src/app/api/insight/route.ts
+[OK] apps/web/src/app/api/simulate/route.ts
+[OK] apps/web/src/app/api/profile/route.ts
+[OK] apps/web/src/app/api/relationships/route.ts
+[OK] apps/web/src/app/api/events/route.ts
+[OK] apps/web/src/app/api/subscription/route.ts
+[OK] apps/web/src/lib/supabase/client.ts
+[OK] apps/web/src/lib/supabase/server.ts
+[OK] apps/web/src/lib/supabase/admin.ts
+[MISSING] apps/web/public/manifest.json
+[MISSING] apps/web/vercel.json
+[OK] infra
+[OK] docs
+[OK] docker-compose.yml
+
+ENV FILES
+APP_NAME=Defrag
+APP_URL=https://defrag.app
+NEXT_PUBLIC_API_URL=http://localhost:8000
+
+SUPABASE_URL=
+SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+
+POSTGRES_HOST=localhost
+POSTGRES_PORT=5432
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=
+POSTGRES_DB=defrag
+
+NEO4J_URI=
+NEO4J_USERNAME=neo4j
+NEO4J_PASSWORD=
+
+REDIS_URL=redis://localhost:6379
+
+STRIPE_SECRET_KEY=
+STRIPE_PUBLISHABLE_KEY=
+STRIPE_WEBHOOK_SECRET=
+STRIPE_PRICE_ID=
+
+JWT_SECRET=change-this
+JWT_EXPIRATION=7d
+
+NAMECOM_USERNAME=
+NAMECOM_TOKEN=
+NAMECOM_API_URL=https://api.name.com/v4
+
+NEXT APP FILES
+apps/web/src/app/api/events/route.ts
+apps/web/src/app/api/insight/route.ts
+apps/web/src/app/api/profile/route.ts
+apps/web/src/app/api/relationships/route.ts
+apps/web/src/app/api/simulate/route.ts
+apps/web/src/app/api/status/route.ts
+apps/web/src/app/api/stripe/webhook.ts
+apps/web/src/app/api/subscription/route.ts
+apps/web/src/app/api/system/route.ts
+apps/web/src/app/dashboard/page.tsx
+apps/web/src/app/favicon.ico
+apps/web/src/app/globals.css
+apps/web/src/app/layout.tsx
+apps/web/src/app/login/page.tsx
+apps/web/src/app/onboarding/page.tsx
+apps/web/src/app/page.tsx
+apps/web/src/app/pricing/page.tsx
+apps/web/src/app/relationships/page.tsx
+apps/web/src/app/settings/page.tsx
+apps/web/src/app/signup/page.tsx
+apps/web/src/app/simulations/page.tsx
+apps/web/src/app/timeline/page.tsx
+
+COMPONENT FILES
+apps/web/src/components/auth/AuthCard.tsx
+apps/web/src/components/auth/AuthShell.tsx
+apps/web/src/components/brand/BrandBackground.tsx
+apps/web/src/components/brand/BrandGradient.tsx
+apps/web/src/components/brand/BrandMesh.tsx
+apps/web/src/components/chat/AIChat.tsx
+apps/web/src/components/dashboard/DashboardHero.tsx
+apps/web/src/components/dashboard/StatCard.tsx
+apps/web/src/components/flow/FlowIntro.tsx
+apps/web/src/components/genogram/FamilyGraph.tsx
+apps/web/src/components/graph/RelationshipGraph.tsx
+apps/web/src/components/layout/AppShell.tsx
+apps/web/src/components/layout/MobileTopBar.tsx
+apps/web/src/components/layout/PageContainer.tsx
+apps/web/src/components/marketing/Hero.tsx
+apps/web/src/components/marketing/HeroLanding.tsx
+apps/web/src/components/marketing/PremiumFooter.tsx
+apps/web/src/components/nav/MainNav.tsx
+apps/web/src/components/onboarding/ProfileSetupForm.tsx
+apps/web/src/components/pricing/PricingCard.tsx
+apps/web/src/components/pricing/PricingPlans.tsx
+apps/web/src/components/relationships/RelationshipList.tsx
+apps/web/src/components/settings/SettingsPanel.tsx
+apps/web/src/components/settings/SettingsPanels.tsx
+apps/web/src/components/sim/SimulationPanel.tsx
+apps/web/src/components/SubscribeButton.tsx
+apps/web/src/components/timeline/EventTimeline.tsx
+apps/web/src/components/ui/Card.tsx
+apps/web/src/components/ui/FadeIn.tsx
+apps/web/src/components/ui/GlassPanel.tsx
+apps/web/src/components/ui/PremiumPanel.tsx
+apps/web/src/components/ui/SectionHeading.tsx
+apps/web/src/components/ui/Surface.tsx
+
+DONE
