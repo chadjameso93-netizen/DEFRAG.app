@@ -28,18 +28,16 @@ function Plan({
   points: string[]
 }) {
   return (
-    <PremiumPanel className={`p-6 ${featured ? "border-zinc-900 bg-zinc-950 text-white" : ""}`}>
-      <p className={`text-[11px] font-semibold uppercase tracking-[0.24em] ${featured ? "text-zinc-300" : "text-zinc-500"}`}>{name}</p>
-      <p className="mt-4 text-4xl font-semibold tracking-tight">{price}</p>
-      <p className={`mt-3 text-sm leading-7 ${featured ? "text-zinc-300" : "text-zinc-600"}`}>{description}</p>
+    <PremiumPanel className={`p-6 ${featured ? "border-white/20 bg-white/[0.08]" : ""}`}>
+      <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/45">{name}</p>
+      <p className="mt-4 text-4xl font-semibold tracking-tight text-white">{price}</p>
+      <p className="mt-3 text-sm leading-7 text-white/60">{description}</p>
 
       <div className="mt-6 space-y-3">
         {points.map((point) => (
           <div
             key={point}
-            className={`rounded-2xl border px-4 py-3 text-sm ${
-              featured ? "border-zinc-800 bg-zinc-900/70 text-zinc-200" : "border-zinc-200 bg-white/80 text-zinc-700"
-            }`}
+            className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/70"
           >
             {point}
           </div>
@@ -49,7 +47,7 @@ function Plan({
       <button
         onClick={checkout}
         className={`mt-8 w-full rounded-2xl px-5 py-3 text-sm font-medium transition ${
-          featured ? "bg-white text-zinc-950 hover:bg-zinc-100" : "bg-zinc-950 text-white hover:bg-zinc-800"
+          featured ? "bg-white text-zinc-950 hover:bg-zinc-100" : "bg-white/10 text-white hover:bg-white/15"
         }`}
       >
         Choose plan

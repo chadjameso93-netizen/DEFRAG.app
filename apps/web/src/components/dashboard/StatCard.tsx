@@ -11,9 +11,9 @@ export default function StatCard({
 }) {
   return (
     <PremiumPanel className="p-6">
-      <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-zinc-500">{label}</p>
-      <p className="mt-4 text-4xl font-semibold tracking-tight text-zinc-950">{value}</p>
-      <p className="mt-3 text-sm leading-6 text-zinc-600">{note}</p>
+      <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/40">{label}</p>
+      <p className="mt-4 text-4xl font-semibold tracking-tight text-white">{value}</p>
+      <p className="mt-3 text-sm leading-6 text-white/60">{note}</p>
     </PremiumPanel>
   )
 }

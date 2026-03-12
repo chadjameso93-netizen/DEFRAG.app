@@ -26,8 +26,8 @@ export default function DashboardPage() {
 
       <section className="grid gap-4 lg:gap-6 2xl:grid-cols-[1.15fr_0.85fr]">
         <PremiumPanel className="p-5 sm:p-6">
-          <h2 className="text-lg font-medium text-zinc-950">Relationship map</h2>
-          <p className="mt-2 text-sm text-zinc-600">Visual overview of the current relationship system.</p>
+          <h2 className="text-lg font-medium text-white">Relationship map</h2>
+          <p className="mt-2 text-sm text-white/60">Visual overview of the current relationship system.</p>
           <div className="mt-6">
             <RelationshipGraph />
           </div>
@@ -40,8 +40,8 @@ export default function DashboardPage() {
 
       <section className="grid gap-4 lg:grid-cols-2 lg:gap-6">
         <PremiumPanel className="p-5 sm:p-6">
-          <h2 className="text-lg font-medium text-zinc-950">Family system map</h2>
-          <p className="mt-2 text-sm text-zinc-600">View the wider family pattern and key roles.</p>
+          <h2 className="text-lg font-medium text-white">Family system map</h2>
+          <p className="mt-2 text-sm text-white/60">View the wider family pattern and key roles.</p>
           <div className="mt-6">
             <FamilyGraph />
           </div>
@@ -54,16 +54,16 @@ export default function DashboardPage() {
 
       <section className="grid gap-4 lg:grid-cols-2 lg:gap-6">
         <PremiumPanel className="p-5 sm:p-6">
-          <h2 className="text-lg font-medium text-zinc-950">Current relationships</h2>
-          <p className="mt-2 text-sm text-zinc-600">Track trust and tension across your current system.</p>
+          <h2 className="text-lg font-medium text-white">Current relationships</h2>
+          <p className="mt-2 text-sm text-white/60">Track trust and tension across your current system.</p>
           <div className="mt-6">
             <RelationshipList relationships={mockRelationships} />
           </div>
         </PremiumPanel>
 
         <PremiumPanel className="p-5 sm:p-6">
-          <h2 className="text-lg font-medium text-zinc-950">Event timeline</h2>
-          <p className="mt-2 text-sm text-zinc-600">Review the moments shaping the current pattern.</p>
+          <h2 className="text-lg font-medium text-white">Event timeline</h2>
+          <p className="mt-2 text-sm text-white/60">Review the moments shaping the current pattern.</p>
           <div className="mt-6">
             <EventTimeline events={mockEvents} />
           </div>
