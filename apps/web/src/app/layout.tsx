@@ -2,10 +2,23 @@ import type { Metadata, Viewport } from "next"
 import "./globals.css"
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"),
   title: "Defrag",
   description: "Relational intelligence platform",
+  openGraph: {
+    title: "Defrag",
+    description: "Relational intelligence platform",
+    url: "/",
+    siteName: "Defrag",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Defrag",
+    description: "Relational intelligence platform",
+  },
   applicationName: "Defrag",
-  manifest: "/manifest.json"
+  manifest: "/site.webmanifest"
 }
 
 export const viewport: Viewport = {
