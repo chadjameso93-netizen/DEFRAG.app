@@ -1,4 +1,4 @@
-import Surface from "@/components/ui/Surface"
+import PremiumPanel from "@/components/ui/PremiumPanel"
 
 export default function StatCard({
   label,
@@ -10,10 +10,10 @@ export default function StatCard({
   note: string
 }) {
   return (
-    <Surface className="p-6">
-      <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">{label}</p>
+    <PremiumPanel className="p-6">
+      <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-zinc-500">{label}</p>
       <p className="mt-4 text-4xl font-semibold tracking-tight text-zinc-950">{value}</p>
       <p className="mt-3 text-sm leading-6 text-zinc-600">{note}</p>
-    </Surface>
+    </PremiumPanel>
   )
 }

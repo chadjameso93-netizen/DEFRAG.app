@@ -1,6 +1,6 @@
 import AppShell from "@/components/layout/AppShell"
 import StatCard from "@/components/dashboard/StatCard"
-import Surface from "@/components/ui/Surface"
+import PremiumPanel from "@/components/ui/PremiumPanel"
 import RelationshipGraph from "@/components/graph/RelationshipGraph"
 import FamilyGraph from "@/components/genogram/FamilyGraph"
 import AIChat from "@/components/chat/AIChat"
@@ -21,50 +21,50 @@ export default function DashboardPage() {
         <StatCard label="Daily insight" value="Pause first" note="Allow a beat before reacting to sensitive messages." />
       </section>
 
-      <section className="grid gap-6 2xl:grid-cols-[1.15fr_0.85fr]">
-        <Surface className="p-5 sm:p-6">
+      <section className="grid gap-4 lg:gap-6 2xl:grid-cols-[1.15fr_0.85fr]">
+        <PremiumPanel className="p-5 sm:p-6">
           <h2 className="text-lg font-medium text-zinc-950">Relationship map</h2>
           <p className="mt-2 text-sm text-zinc-600">Visual overview of the current relationship system.</p>
           <div className="mt-6">
             <RelationshipGraph />
           </div>
-        </Surface>
+        </PremiumPanel>
 
-        <Surface className="p-5 sm:p-6">
+        <PremiumPanel className="p-5 sm:p-6">
           <AIChat />
-        </Surface>
+        </PremiumPanel>
       </section>
 
-      <section className="grid gap-6 lg:grid-cols-2">
-        <Surface className="p-5 sm:p-6">
+      <section className="grid gap-4 lg:grid-cols-2 lg:gap-6">
+        <PremiumPanel className="p-5 sm:p-6">
           <h2 className="text-lg font-medium text-zinc-950">Family system map</h2>
           <p className="mt-2 text-sm text-zinc-600">View the wider family pattern and key roles.</p>
           <div className="mt-6">
             <FamilyGraph />
           </div>
-        </Surface>
+        </PremiumPanel>
 
-        <Surface className="p-5 sm:p-6">
+        <PremiumPanel className="p-5 sm:p-6">
           <SimulationPanel />
-        </Surface>
+        </PremiumPanel>
       </section>
 
-      <section className="grid gap-6 lg:grid-cols-2">
-        <Surface className="p-5 sm:p-6">
+      <section className="grid gap-4 lg:grid-cols-2 lg:gap-6">
+        <PremiumPanel className="p-5 sm:p-6">
           <h2 className="text-lg font-medium text-zinc-950">Current relationships</h2>
           <p className="mt-2 text-sm text-zinc-600">Track trust and tension across your current system.</p>
           <div className="mt-6">
             <RelationshipList relationships={mockRelationships} />
           </div>
-        </Surface>
+        </PremiumPanel>
 
-        <Surface className="p-5 sm:p-6">
+        <PremiumPanel className="p-5 sm:p-6">
           <h2 className="text-lg font-medium text-zinc-950">Event timeline</h2>
           <p className="mt-2 text-sm text-zinc-600">Review the moments shaping the current pattern.</p>
           <div className="mt-6">
             <EventTimeline events={mockEvents} />
           </div>
-        </Surface>
+        </PremiumPanel>
       </section>
     </AppShell>
   )

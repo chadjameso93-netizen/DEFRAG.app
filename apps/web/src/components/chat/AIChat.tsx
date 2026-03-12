@@ -22,11 +22,9 @@ export default function AIChat() {
   return (
     <div>
       <h2 className="text-lg font-medium text-zinc-950">Defrag AI</h2>
-      <p className="mt-2 text-sm text-zinc-600">
-        Clear guidance for real relationship dynamics.
-      </p>
+      <p className="mt-2 text-sm text-zinc-600">Clear guidance for real relationship dynamics.</p>
 
-      <div className="mt-6 rounded-2xl border border-zinc-200 bg-zinc-50 p-4 text-sm leading-6 text-zinc-700">
+      <div className="mt-6 rounded-2xl border border-zinc-200 bg-zinc-50 p-4 text-sm leading-7 text-zinc-700">
         {reply}
       </div>
 
