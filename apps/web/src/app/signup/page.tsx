@@ -39,17 +39,17 @@ export default function SignupPage() {
   return (
     <AuthShell
       eyebrow="Signup"
-      title="Start with a calm, simple setup"
-      body="Create your account first. Then Defrag will guide you through a short onboarding flow."
+      title="Create your account and begin building your relationship system"
+      body="Start your Defrag workspace, complete onboarding, and unlock your dashboard, timelines, simulations, and guidance tools."
       footerText="Already have an account?"
       footerLinkLabel="Log in"
       footerLinkHref="/login"
     >
       <div className="space-y-4">
         <div>
-          <label className="mb-2 block text-sm font-medium text-zinc-900">Email</label>
+          <label className="mb-2 block text-sm font-medium text-white">Email</label>
           <input
-            className="w-full rounded-2xl border border-zinc-200 px-4 py-3 text-sm outline-none transition focus:border-zinc-400"
+            className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition focus:border-white/20"
             placeholder="you@example.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -57,10 +57,10 @@ export default function SignupPage() {
         </div>
 
         <div>
-          <label className="mb-2 block text-sm font-medium text-zinc-900">Password</label>
+          <label className="mb-2 block text-sm font-medium text-white">Password</label>
           <input
             type="password"
-            className="w-full rounded-2xl border border-zinc-200 px-4 py-3 text-sm outline-none transition focus:border-zinc-400"
+            className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition focus:border-white/20"
             placeholder="Create password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -70,12 +70,12 @@ export default function SignupPage() {
         <button
           onClick={handleSignup}
           disabled={loading}
-          className="w-full rounded-2xl bg-zinc-950 px-5 py-3 text-sm font-medium text-white transition hover:bg-zinc-800 disabled:cursor-not-allowed disabled:opacity-60"
+          className="w-full rounded-2xl bg-white px-5 py-3 text-sm font-medium text-zinc-950 transition hover:bg-zinc-100 disabled:cursor-not-allowed disabled:opacity-60"
         >
           {loading ? "Creating account..." : "Create account"}
         </button>
 
-        {message ? <p className="text-sm text-zinc-600">{message}</p> : null}
+        {message ? <p className="text-sm text-white/60">{message}</p> : null}
       </div>
     </AuthShell>
   )

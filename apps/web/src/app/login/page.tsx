@@ -36,17 +36,17 @@ export default function LoginPage() {
   return (
     <AuthShell
       eyebrow="Login"
-      title="Return to your workspace"
-      body="Log in to continue with your dashboard, system map, simulations, and daily insight."
+      title="Return to your Defrag workspace"
+      body="Log in to access your dashboard, relationship maps, timeline, simulations, and AI guidance."
       footerText="Need an account?"
       footerLinkLabel="Start free trial"
       footerLinkHref="/signup"
     >
       <div className="space-y-4">
         <div>
-          <label className="mb-2 block text-sm font-medium text-zinc-900">Email</label>
+          <label className="mb-2 block text-sm font-medium text-white">Email</label>
           <input
-            className="w-full rounded-2xl border border-zinc-200 px-4 py-3 text-sm outline-none transition focus:border-zinc-400"
+            className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition focus:border-white/20"
             placeholder="you@example.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -54,10 +54,10 @@ export default function LoginPage() {
         </div>
 
         <div>
-          <label className="mb-2 block text-sm font-medium text-zinc-900">Password</label>
+          <label className="mb-2 block text-sm font-medium text-white">Password</label>
           <input
             type="password"
-            className="w-full rounded-2xl border border-zinc-200 px-4 py-3 text-sm outline-none transition focus:border-zinc-400"
+            className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition focus:border-white/20"
             placeholder="Enter password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -67,12 +67,12 @@ export default function LoginPage() {
         <button
           onClick={handleLogin}
           disabled={loading}
-          className="w-full rounded-2xl bg-zinc-950 px-5 py-3 text-sm font-medium text-white transition hover:bg-zinc-800 disabled:cursor-not-allowed disabled:opacity-60"
+          className="w-full rounded-2xl bg-white px-5 py-3 text-sm font-medium text-zinc-950 transition hover:bg-zinc-100 disabled:cursor-not-allowed disabled:opacity-60"
         >
           {loading ? "Logging in..." : "Log in"}
         </button>
 
-        {message ? <p className="text-sm text-rose-600">{message}</p> : null}
+        {message ? <p className="text-sm text-rose-400">{message}</p> : null}
       </div>
     </AuthShell>
   )
