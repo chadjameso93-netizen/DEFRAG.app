@@ -11,7 +11,7 @@ export default function PremiumPanel({
   return (
     <div
       className={cn(
-        "rounded-[30px] border border-white/70 bg-white/82 shadow-[0_24px_100px_rgba(15,23,42,0.10)] backdrop-blur-2xl",
+        "rounded-[32px] border border-white/10 bg-white/5 shadow-[0_24px_100px_rgba(0,0,0,0.28),0_2px_10px_rgba(0,0,0,0.30)] backdrop-blur-2xl transition duration-300 hover:border-white/15 hover:bg-white/[0.07]",
         className
       )}
     >

@@ -1,4 +1,5 @@
 import AppShell from "@/components/layout/AppShell"
+import SettingsPanels from "@/components/settings/SettingsPanels"
 import PremiumPanel from "@/components/ui/PremiumPanel"
 
 export default function SettingsPage() {
@@ -7,17 +8,17 @@ export default function SettingsPage() {
       title="Settings"
       subtitle="Manage profile details, access, and account preferences."
     >
-      <div className="grid gap-4 lg:grid-cols-2 lg:gap-6">
-        <PremiumPanel className="p-6">
-          <h3 className="text-lg font-medium text-zinc-950">Account</h3>
-          <p className="mt-2 text-sm leading-7 text-zinc-600">Manage email, password recovery, and account access.</p>
-        </PremiumPanel>
+      <PremiumPanel className="p-6 sm:p-8">
+        <div className="max-w-3xl">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-zinc-500">Account management</p>
+          <h3 className="mt-4 text-3xl font-semibold tracking-tight text-zinc-950">Control access, profile details, and future subscription settings.</h3>
+          <p className="mt-4 text-sm leading-7 text-zinc-600">
+            Your profile, billing status, and future account preferences will be managed here.
+          </p>
+        </div>
+      </PremiumPanel>
 
-        <PremiumPanel className="p-6">
-          <h3 className="text-lg font-medium text-zinc-950">Subscription</h3>
-          <p className="mt-2 text-sm leading-7 text-zinc-600">View current plan and future billing actions.</p>
-        </PremiumPanel>
-      </div>
+      <SettingsPanels />
     </AppShell>
   )
 }

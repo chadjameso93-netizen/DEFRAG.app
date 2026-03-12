@@ -1,4 +1,5 @@
 import AppShell from "@/components/layout/AppShell"
+import DashboardHero from "@/components/dashboard/DashboardHero"
 import StatCard from "@/components/dashboard/StatCard"
 import PremiumPanel from "@/components/ui/PremiumPanel"
 import RelationshipGraph from "@/components/graph/RelationshipGraph"
@@ -15,6 +16,8 @@ export default function DashboardPage() {
       title="Relational intelligence"
       subtitle="A clearer view of your current system, relationship pressure, and likely communication patterns."
     >
+      <DashboardHero />
+
       <section className="grid gap-4 sm:gap-6 md:grid-cols-3">
         <StatCard label="System state" value="Elevated" note="Recent conflict signals suggest higher sensitivity." />
         <StatCard label="Repair potential" value="Moderate" note="Small clarifications may improve outcomes." />
