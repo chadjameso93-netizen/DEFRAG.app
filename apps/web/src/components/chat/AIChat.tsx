@@ -2,24 +2,38 @@
 
 import { useState } from "react"
 import GlowCard from "@/components/ui/GlowCard"
+import { useSession } from "@/hooks/useSession"
 
 export default function AIChat() {
   const [msg, setMsg] = useState("")
   const [reply, setReply] = useState("Describe a relationship situation, and Defrag will return structured guidance based on the pattern you describe.")
   const [loading, setLoading] = useState(false)
+  const { session } = useSession()
+  const userId = session?.user?.id
 
   async function send() {
     if (!msg.trim()) return
+    if (!userId) {
+      setReply("Sign in to generate strategic guidance.")
+      return
+    }
+
     setLoading(true)
 
     try {
-      const res = await fetch("/api/insight", {
+      const res = await fetch("/api/insights", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: msg }),
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({}),
       })
-      const data = await res.json()
-      setReply(data.insight || "No insight returned.")
+      if (!res.ok) {
+        throw new Error(`Request failed: ${res.status}`)
+      }
+      const data = (await res.json()) as { insight?: { summary?: string }; guidance?: string }
+      setReply(data.insight?.summary || "No insight returned.")
+      if (data.guidance) {
+        setReply((previous) => `${previous}\n\nSuggested next step: ${data.guidance}`)
+      }
     } finally {
       setLoading(false)
     }
@@ -33,7 +47,7 @@ export default function AIChat() {
         Use this when you need help interpreting a live relationship dynamic before responding.
       </p>
 
-      <div className="mt-6 rounded-2xl border border-white/10 bg-black/20 p-4 text-sm leading-7 text-white/70">
+      <div className="mt-6 whitespace-pre-line rounded-2xl border border-white/10 bg-black/20 p-4 text-sm leading-7 text-white/70">
         {loading ? "Analyzing…" : reply}
       </div>
 

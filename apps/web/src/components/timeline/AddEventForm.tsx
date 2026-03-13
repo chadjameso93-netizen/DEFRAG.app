@@ -14,7 +14,7 @@ export default function AddEventForm() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        event_type: eventType,
+        eventType,
         actor: "You",
         target: target || "Other",
         severity: 0.4,
