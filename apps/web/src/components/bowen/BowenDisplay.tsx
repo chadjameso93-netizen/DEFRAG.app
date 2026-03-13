@@ -37,7 +37,7 @@ function PersonNode({ data }: { data: { name: string; state: string; descriptor:
 
 const nodeTypes = { person: PersonNode }
 
-function buildGraph(relationships: Relationship[], events: TimelineEvent[]) {
+export function buildGraph(relationships: Relationship[], events: TimelineEvent[]) {
   if (!relationships.length) {
     return {
       nodes: [
@@ -109,9 +109,15 @@ export default function BowenDisplay({
   events?: TimelineEvent[]
 }) {
   const { nodes, edges } = buildGraph(relationships, events)
+  const isEmpty = relationships.length === 0
 
   return (
-    <div className="h-[420px] rounded-[28px] border border-white/10 bg-[radial-gradient(circle_at_top,#1c1b18,#0b0a09)]">
+    <div className="relative h-[420px] rounded-[28px] border border-white/10 bg-[radial-gradient(circle_at_top,#1c1b18,#0b0a09)]">
+      {isEmpty ? (
+        <div className="pointer-events-none absolute left-4 top-4 z-10 rounded-xl border border-white/10 bg-black/30 px-3 py-2 text-xs text-white/70">
+          Add relationships to activate the live relationship display.
+        </div>
+      ) : null}
       <ReactFlow
         nodes={nodes}
         edges={edges}

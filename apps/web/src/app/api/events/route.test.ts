@@ -41,6 +41,32 @@ describe("/api/events", () => {
     )
   })
 
+  it("accepts relationship linkage on create", async () => {
+    getRouteUserId.mockResolvedValue("user-1")
+    createRelationalEvent.mockResolvedValue({ id: "evt-2", relationship_id: "11111111-1111-4111-8111-111111111111" })
+    const { POST } = await import("./route")
+
+    const res = await POST(
+      new Request("http://localhost/api/events", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          relationshipId: "11111111-1111-4111-8111-111111111111",
+          eventType: "repair",
+          severity: 0.3,
+        }),
+      })
+    )
+
+    expect(res.status).toBe(201)
+    expect(createRelationalEvent).toHaveBeenCalledWith(
+      expect.objectContaining({
+        relationshipId: "11111111-1111-4111-8111-111111111111",
+        eventType: "repair",
+      })
+    )
+  })
+
   it("returns owned event records", async () => {
     getRouteUserId.mockResolvedValue("user-2")
     listRelationalEvents.mockResolvedValue([{ id: "evt-1", user_id: "user-2" }])

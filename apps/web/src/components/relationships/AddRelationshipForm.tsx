@@ -15,11 +15,11 @@ export default function AddRelationshipForm() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        source_name: "You",
-        target_name: target,
-        relationship_type: type,
-        tension_score: 0.35,
-        trust_score: 0.5,
+        sourceName: "You",
+        targetName: target,
+        relationshipType: type,
+        tensionScore: 0.35,
+        trustScore: 0.5,
       }),
     })
 
