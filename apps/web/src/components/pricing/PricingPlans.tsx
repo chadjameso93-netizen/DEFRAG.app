@@ -74,7 +74,7 @@ export default function PricingPlans() {
       />
       <Plan
         name="Core"
-        price="$24/mo"
+        price="$24/month"
         description="Use the full platform for ongoing relationship clarity, timeline tracking, and AI support."
         featured
         cta="Choose Core"
