@@ -8,6 +8,8 @@ export default function AIChat() {
   const [msg, setMsg] = useState("")
   const [reply, setReply] = useState("Describe a relationship situation, and Defrag will return structured guidance based on the pattern you describe.")
   const [loading, setLoading] = useState(false)
+  const [simulationDisabled, setSimulationDisabled] = useState(false)
+  const [guardrailIssues, setGuardrailIssues] = useState<string[]>([])
   const { session } = useSession()
   const userId = session?.user?.id
 
@@ -24,14 +26,25 @@ export default function AIChat() {
       const res = await fetch("/api/insights", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({}),
+        body: JSON.stringify({ message: msg }),
       })
       if (!res.ok) {
         throw new Error(`Request failed: ${res.status}`)
       }
-      const data = (await res.json()) as { insight?: { summary?: string }; guidance?: string }
-      setReply(data.insight?.summary || "No insight returned.")
-      if (data.guidance) {
+      const data = (await res.json()) as {
+        insight?: { summary?: string }
+        narrative?: string
+        guidance?: string
+        guardrail?: { simulation_disabled?: boolean; issues?: string[] }
+      }
+      const disabled = Boolean(data.guardrail?.simulation_disabled)
+      setSimulationDisabled(disabled)
+      setGuardrailIssues(data.guardrail?.issues ?? [])
+
+      const baseReply = data.narrative || data.insight?.summary || "No insight returned."
+      setReply(baseReply)
+
+      if (data.guidance && !disabled) {
         setReply((previous) => `${previous}\n\nSuggested next step: ${data.guidance}`)
       }
     } finally {
@@ -50,6 +63,14 @@ export default function AIChat() {
       <div className="mt-6 whitespace-pre-line rounded-2xl border border-white/10 bg-black/20 p-4 text-sm leading-7 text-white/70">
         {loading ? "Analyzing…" : reply}
       </div>
+      {simulationDisabled ? (
+        <div className="mt-3 rounded-xl border border-amber-300/30 bg-amber-200/10 p-3 text-xs text-amber-100">
+          Safety mode is active. Simulation actions are disabled for this response.
+        </div>
+      ) : null}
+      {!simulationDisabled && guardrailIssues.length ? (
+        <p className="mt-3 text-xs text-white/50">Guardrail adjustments: {guardrailIssues.join(", ")}</p>
+      ) : null}
 
       <textarea
         className="mt-4 min-h-[140px] w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition focus:border-white/20"

@@ -11,6 +11,8 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),
+      "@defrag/language-governor": path.resolve(__dirname, "../../packages/language-governor/src/index.ts"),
+      "@defrag/narrative-composer": path.resolve(__dirname, "../../packages/narrative-composer/src/index.ts"),
     },
   },
 })

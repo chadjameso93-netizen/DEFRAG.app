@@ -4,8 +4,11 @@ import { getRouteUserId } from "@/lib/auth/routeUser"
 import { buildInsight } from "@/lib/insights/relationalInference"
 import { createInsight, listInsights } from "@/lib/data/insightRepository"
 import { listRelationalEvents } from "@/lib/data/eventRepository"
+import { composeNarrative } from "@defrag/narrative-composer"
+import { enforceLanguageGuardrails } from "@defrag/language-governor"
 
 const generateSchema = z.object({
+  message: z.string().max(2000).optional(),
   relationshipId: z.string().uuid().optional(),
 })
 
@@ -36,13 +39,44 @@ export async function POST(req: Request) {
   }
 
   try {
+    const userMessage = parsed.data.message?.trim() ?? ""
+    const precheck = enforceLanguageGuardrails(userMessage)
+
+    if (precheck.crisisDetected) {
+      return NextResponse.json(
+        {
+          ok: true,
+          narrative: precheck.text,
+          guardrail: {
+            rewritten: precheck.rewritten,
+            issues: precheck.issues,
+            simulation_disabled: true,
+          },
+        },
+        { status: 200 }
+      )
+    }
+
     const events = await listRelationalEvents(userId)
     const draft = buildInsight(events)
+
+    const composed = composeNarrative({
+      acknowledgement: "That sounds like a difficult interaction.",
+      patternContext:
+        draft.pattern === "recurring_conflict"
+          ? "This can follow a pattern where pressure builds and conversations become reactive."
+          : "This can follow a pattern where communication shifts based on timing and pressure.",
+      insight: draft.summary,
+      guidance: draft.guidance,
+      reflectionPrompt: "What tends to change when the pace of the conversation slows down?",
+    })
+
+    const guarded = enforceLanguageGuardrails(composed.narrative)
 
     const insight = await createInsight({
       userId,
       relationshipId: parsed.data.relationshipId ?? null,
-      summary: `${draft.summary} ${draft.guidance}`,
+      summary: guarded.text,
       confidence: draft.confidence,
       evidence: draft.evidence,
       alternateExplanations: draft.alternateExplanations,
@@ -50,10 +84,17 @@ export async function POST(req: Request) {
 
     return NextResponse.json(
       {
+        ok: true,
         insight,
+        narrative: guarded.text,
         pattern: draft.pattern,
         guidance: draft.guidance,
         features: draft.features,
+        guardrail: {
+          rewritten: guarded.rewritten,
+          issues: guarded.issues,
+          simulation_disabled: guarded.simulationDisabled,
+        },
       },
       { status: 201 }
     )

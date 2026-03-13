@@ -9,7 +9,8 @@
     "lint": "eslint",
     "preview:dev": "next dev -H 0.0.0.0 -p 3000",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "guardrails:check": "node scripts/check_guarded_output_terms.mjs"
   },
   "dependencies": {
     "@defrag/explanation-engine": "workspace:*",
@@ -47,7 +48,9 @@
     "tailwind-merge": "^3.5.0",
     "uuid": "^13.0.0",
     "zod": "^4.3.6",
-    "zustand": "^5.0.11"
+    "zustand": "^5.0.11",
+    "@defrag/language-governor": "workspace:*",
+    "@defrag/narrative-composer": "workspace:*"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

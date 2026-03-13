@@ -19,7 +19,9 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@defrag/language-governor": ["../../packages/language-governor/src/index.ts"],
+      "@defrag/narrative-composer": ["../../packages/narrative-composer/src/index.ts"]
     }
   },
   "include": [
