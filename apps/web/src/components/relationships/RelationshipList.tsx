@@ -22,7 +22,7 @@ export default function RelationshipList({
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-base font-medium text-white">
-                {rel.source_name} → {rel.target_name}
+                {rel.source_name}{" -> "}{rel.target_name}
               </p>
               <p className="mt-1 text-xs uppercase tracking-[0.18em] text-white/40">
                 {rel.relationship_type}
@@ -30,7 +30,7 @@ export default function RelationshipList({
             </div>
 
             <div className="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-xs font-medium text-white/65">
-              Live signal
+              Live pattern
             </div>
           </div>
 
@@ -55,7 +55,7 @@ export default function RelationshipList({
               </div>
               <div className="h-2 rounded-full bg-white/10">
                 <div
-                  className="h-2 rounded-full rounded-full bg-sky-300"
+                  className="h-2 rounded-full rounded-full bg-[#e9dfcf]"
                   style={{ width: `${Math.max(8, rel.trust_score * 100)}%` }}
                 />
               </div>

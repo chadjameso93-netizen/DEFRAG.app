@@ -5,7 +5,9 @@ import GlowCard from "@/components/ui/GlowCard"
 
 export default function AIChat() {
   const [msg, setMsg] = useState("")
-  const [reply, setReply] = useState("Describe a relationship situation, and Defrag will return structured guidance based on the pattern you describe.")
+  const [reply, setReply] = useState(
+    "Describe a relationship situation, and Defrag will return structured guidance based on the pattern you describe."
+  )
   const [loading, setLoading] = useState(false)
 
   async function send() {
@@ -33,8 +35,8 @@ export default function AIChat() {
         Use this when you need help interpreting a live relationship dynamic before responding.
       </p>
 
-      <div className="mt-6 rounded-2xl border border-white/10 bg-black/20 p-4 text-sm leading-7 text-white/70">
-        {loading ? "Analyzing…" : reply}
+      <div className="mt-6 whitespace-pre-line rounded-2xl border border-white/10 bg-black/20 p-4 text-sm leading-7 text-white/70">
+        {loading ? "Analyzing..." : reply}
       </div>
 
       <textarea

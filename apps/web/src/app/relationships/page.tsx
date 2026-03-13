@@ -7,14 +7,23 @@ import { mockRelationships } from "@/lib/mock/systemData"
 
 export default function RelationshipsPage() {
   return (
-    <AppShell
-      title="Relationships"
-      subtitle="Build and maintain the relationship layer of the platform."
-    >
+    <AppShell title="Relationships" subtitle="Build and maintain the relationship layer of the platform.">
       <div className="grid gap-4 lg:grid-cols-3 lg:gap-6">
-        <InfoCard eyebrow="Purpose" title="Map the people in the system" body="Track the connections that meaningfully affect the dynamic you are trying to understand." />
-        <InfoCard eyebrow="Use" title="Review trust and tension" body="Each relationship can be reviewed through connection type, tension level, and overall trust signal." />
-        <InfoCard eyebrow="Outcome" title="Create a clearer system view" body="This makes it easier to spot where strain, influence, or repair potential is actually located." />
+        <InfoCard
+          eyebrow="Purpose"
+          title="Map the people in the system"
+          body="Track the connections that meaningfully affect the dynamic you are trying to understand."
+        />
+        <InfoCard
+          eyebrow="Use"
+          title="Review trust and tension"
+          body="Each relationship can be reviewed through connection type, tension level, and overall trust pattern."
+        />
+        <InfoCard
+          eyebrow="Outcome"
+          title="Create a clearer system view"
+          body="This makes it easier to spot where strain, influence, or repair potential is actually located."
+        />
       </div>
 
       <div className="grid gap-4 xl:grid-cols-[1.1fr_0.9fr] xl:gap-6">
