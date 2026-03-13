@@ -9,8 +9,15 @@ type EventItem = {
 }
 
 export default function EventTimeline({ events }: { events: EventItem[] }) {
+  const guidance = buildGuidance(events)
+
   return (
     <div className="space-y-4">
+      {guidance ? (
+        <div className="rounded-[22px] border border-white/10 bg-black/20 p-4 text-sm text-white/70">
+          {guidance}
+        </div>
+      ) : null}
       {events.map((event) => (
         <div
           key={event.id}
@@ -20,9 +27,7 @@ export default function EventTimeline({ events }: { events: EventItem[] }) {
             <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/40">
               {event.event_type}
             </p>
-            <p className="text-xs text-white/45">
-              {new Date(event.created_at).toLocaleString()}
-            </p>
+            <p className="text-xs text-white/45">{new Date(event.created_at).toLocaleString()}</p>
           </div>
 
           <p className="mt-4 text-sm text-white/75">
@@ -39,7 +44,7 @@ export default function EventTimeline({ events }: { events: EventItem[] }) {
             </div>
             <div className="h-2 rounded-full bg-white/10">
               <div
-                className="h-2 rounded-full bg-fuchsia-300"
+                className="h-2 rounded-full bg-[#e9dfcf]"
                 style={{ width: `${Math.max(8, event.severity * 100)}%` }}
               />
             </div>
@@ -48,4 +53,20 @@ export default function EventTimeline({ events }: { events: EventItem[] }) {
       ))}
     </div>
   )
+}
+
+function buildGuidance(events: EventItem[]) {
+  if (!events.length) return "Add a few events to unlock timing guidance."
+
+  const recent = events[0]
+  if (recent.event_type === "conflict") {
+    return "Recent tension suggests this conversation may escalate if addressed immediately."
+  }
+  if (recent.event_type === "repair") {
+    return "Recent repair suggests this may be a better time to revisit the topic."
+  }
+  if (recent.event_type === "withdrawal") {
+    return "Distance has been increasing; a gentle check‑in may lower pressure."
+  }
+  return "Timing looks neutral; consider what would reduce pressure before the next step."
 }

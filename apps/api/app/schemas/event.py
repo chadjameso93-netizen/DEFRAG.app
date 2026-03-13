@@ -1,9 +1,12 @@
 from pydantic import BaseModel
-from typing import Optional
 
 class EventCreate(BaseModel):
+    user_id: str
+    relationship_id: str | None = None
     event_type: str
-    actor: Optional[str] = None
-    target: Optional[str] = None
     severity: float = 0.5
-    notes: Optional[str] = None
+    notes: str | None = None
+    occurred_at: str
+
+class EventOut(EventCreate):
+    id: str

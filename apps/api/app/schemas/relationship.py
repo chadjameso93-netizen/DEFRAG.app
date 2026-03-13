@@ -1,8 +1,12 @@
 from pydantic import BaseModel
 
 class RelationshipCreate(BaseModel):
-    source_name: str
-    target_name: str
+    user_id: str
+    source_person_id: str
+    target_person_id: str
     relationship_type: str = "personal"
-    tension_score: float = 0.2
-    trust_score: float = 0.5
+    tension_score: float | None = None
+    trust_score: float | None = None
+
+class RelationshipOut(RelationshipCreate):
+    id: str

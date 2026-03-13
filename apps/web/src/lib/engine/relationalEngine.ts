@@ -4,7 +4,7 @@ export function generateInsight(message: string) {
   const m = message.toLowerCase()
 
   if (m.includes("conflict"))
-    return "Signals show elevated tension. A slower response may improve outcomes."
+    return "Pattern shows elevated tension. A slower response may improve outcomes."
 
   if (m.includes("family"))
     return "Family systems often repeat patterns. Small shifts can interrupt the loop."

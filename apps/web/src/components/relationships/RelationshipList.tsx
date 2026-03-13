@@ -30,7 +30,7 @@ export default function RelationshipList({
             </div>
 
             <div className="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-xs font-medium text-white/65">
-              Live signal
+              Live pattern
             </div>
           </div>
 

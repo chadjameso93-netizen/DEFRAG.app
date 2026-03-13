@@ -4,3 +4,4 @@ python-dotenv
 stripe
 neo4j
 redis
+asyncpg
