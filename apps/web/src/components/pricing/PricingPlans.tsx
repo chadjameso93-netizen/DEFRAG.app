@@ -1,20 +1,7 @@
 "use client"
 
+import { useState } from "react"
 import GlowCard from "@/components/ui/GlowCard"
-
-async function checkoutCore() {
-  try {
-    const res = await fetch("/api/billing/create-checkout", { method: "POST" })
-    const data = await res.json()
-    if (data?.url) {
-      window.location.href = data.url
-      return
-    }
-  } catch {
-    // Fall back to signup if checkout cannot be created.
-  }
-  window.location.href = "/signup"
-}
 
 function Plan({
   name,
@@ -24,6 +11,7 @@ function Plan({
   featured = false,
   points,
   onClick,
+  disabled,
 }: {
   name: string
   price: string
@@ -32,6 +20,7 @@ function Plan({
   featured?: boolean
   points: string[]
   onClick: () => void
+  disabled?: boolean
 }) {
   return (
     <GlowCard className={`p-6 ${featured ? "border-white/20 bg-white/[0.07]" : ""}`}>
@@ -49,7 +38,8 @@ function Plan({
 
       <button
         onClick={onClick}
-        className={`mt-8 w-full rounded-2xl px-5 py-3 text-sm font-medium transition ${
+        disabled={disabled}
+        className={`mt-8 w-full rounded-2xl px-5 py-3 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-60 ${
           featured ? "bg-white text-zinc-950 hover:bg-zinc-100" : "bg-white/10 text-white hover:bg-white/15"
         }`}
       >
@@ -60,6 +50,30 @@ function Plan({
 }
 
 export default function PricingPlans() {
+  const [checkoutLoading, setCheckoutLoading] = useState(false)
+  const [checkoutError, setCheckoutError] = useState("")
+
+  async function checkoutCore() {
+    if (checkoutLoading) return
+
+    setCheckoutLoading(true)
+    setCheckoutError("")
+
+    try {
+      const res = await fetch("/api/billing/create-checkout", { method: "POST" })
+      const data = await res.json()
+      if (res.ok && data?.url) {
+        window.location.href = data.url
+        return
+      }
+      setCheckoutError(data?.error || "Checkout could not be started. Please try again.")
+    } catch {
+      setCheckoutError("Network issue while starting checkout. Please try again.")
+    } finally {
+      setCheckoutLoading(false)
+    }
+  }
+
   return (
     <section className="grid gap-4 lg:grid-cols-3 lg:gap-6">
       <Plan
@@ -72,15 +86,19 @@ export default function PricingPlans() {
           window.location.href = "/signup"
         }}
       />
-      <Plan
-        name="Core"
-        price="$24/month"
-        description="Use the full platform for ongoing relationship clarity, timeline tracking, and AI support."
-        featured
-        cta="Choose Core"
-        points={["Daily read", "Relationship display", "AI guidance", "Timeline and invite flow"]}
-        onClick={checkoutCore}
-      />
+      <div>
+        <Plan
+          name="Core"
+          price="$24/month"
+          description="Use the full platform for ongoing relationship clarity, timeline tracking, and AI support."
+          featured
+          cta={checkoutLoading ? "Starting checkout..." : "Choose Core"}
+          points={["Daily read", "Relationship display", "AI guidance", "Timeline and invite flow"]}
+          onClick={checkoutCore}
+          disabled={checkoutLoading}
+        />
+        {checkoutError ? <p className="mt-2 text-sm text-rose-300">{checkoutError}</p> : null}
+      </div>
       <Plan
         name="Developer / API"
         price="Contact"

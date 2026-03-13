@@ -24,6 +24,18 @@ export type EventRecord = {
   created_at: string
 }
 
+export type InviteRecord = {
+  id: string
+  name: string
+  email?: string
+  phone?: string
+  relationship: string
+  deliveryMethod: "email" | "sms" | "manual"
+  status: "draft" | "sent" | "completed"
+  created_at: string
+  intake?: ProfileRecord
+}
+
 let profile: ProfileRecord = {}
 
 let relationships: RelationshipRecord[] = [
@@ -74,6 +86,18 @@ let events: EventRecord[] = [
   },
 ]
 
+let invites: InviteRecord[] = [
+  {
+    id: "inv_1",
+    name: "Jordan",
+    email: "jordan@example.com",
+    relationship: "partner",
+    deliveryMethod: "email",
+    status: "sent",
+    created_at: new Date(Date.now() - 1000 * 60 * 90).toISOString(),
+  },
+]
+
 export function getProfile() {
   return profile
 }
@@ -116,4 +140,50 @@ export function getSubscription() {
     plan: "core",
     trialEndsAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7).toISOString(),
   }
+}
+
+export function getInvites() {
+  return invites
+}
+
+export function getInvite(id: string) {
+  return invites.find((invite) => invite.id === id)
+}
+
+export function addInvite(item: Omit<InviteRecord, "id" | "created_at" | "status">) {
+  const record: InviteRecord = {
+    id: `inv_${Date.now()}`,
+    created_at: new Date().toISOString(),
+    status: "sent",
+    ...item,
+  }
+  invites = [record, ...invites]
+  return record
+}
+
+export function completeInviteIntake(
+  id: string,
+  intake: Required<Pick<ProfileRecord, "fullName" | "birthDate" | "birthTime" | "birthPlace">>
+) {
+  let updated: InviteRecord | undefined
+  let alreadyCompleted = false
+
+  invites = invites.map((invite) => {
+    if (invite.id !== id) return invite
+
+    if (invite.status === "completed") {
+      alreadyCompleted = true
+      updated = invite
+      return invite
+    }
+
+    updated = {
+      ...invite,
+      status: "completed",
+      intake,
+    }
+    return updated
+  })
+
+  return { invite: updated, alreadyCompleted }
 }

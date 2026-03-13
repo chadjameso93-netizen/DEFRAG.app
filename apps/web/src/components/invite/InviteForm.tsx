@@ -10,36 +10,66 @@ export default function InviteForm() {
   const [email, setEmail] = useState("")
   const [phone, setPhone] = useState("")
   const [message, setMessage] = useState("")
+  const [error, setError] = useState("")
+  const [submitting, setSubmitting] = useState(false)
 
   async function submit() {
-    setMessage("")
-    const res = await fetch("/api/invites", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name,
-        relationship,
-        deliveryMethod,
-        email: deliveryMethod === "email" ? email : undefined,
-        phone: deliveryMethod === "sms" ? phone : undefined,
-      }),
-    })
+    if (submitting) return
 
-    const data = await res.json()
-    if (!res.ok || !data?.ok) {
-      setMessage("Invite could not be created.")
+    setMessage("")
+    setError("")
+
+    if (!name.trim()) {
+      setError("Add a name before creating the invite.")
       return
     }
 
-    const invitePath = `/intake/${data.invite.id}`
-    const routeMessage =
-      deliveryMethod === "manual"
-        ? `Invite created. Share ${window.location.origin}${invitePath}`
-        : `Invite created. Intake route: ${invitePath}`
-    setMessage(routeMessage)
-    setName("")
-    setEmail("")
-    setPhone("")
+    if (deliveryMethod === "email" && !email.trim()) {
+      setError("Add an email address for this invite.")
+      return
+    }
+
+    if (deliveryMethod === "sms" && !phone.trim()) {
+      setError("Add a phone number for this invite.")
+      return
+    }
+
+    setSubmitting(true)
+
+    try {
+      const res = await fetch("/api/invites", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          relationship,
+          deliveryMethod,
+          email: deliveryMethod === "email" ? email : undefined,
+          phone: deliveryMethod === "sms" ? phone : undefined,
+        }),
+      })
+
+      const data = await res.json()
+      if (!res.ok || !data?.ok) {
+        setError(data?.error || "Invite could not be created.")
+        return
+      }
+
+      const invitePath = `/intake/${data.invite.id}`
+      const routeMessage =
+        deliveryMethod === "manual"
+          ? `Invite created. Share ${window.location.origin}${invitePath}`
+          : `Invite created. Intake route: ${invitePath}`
+
+      setMessage(routeMessage)
+      setName("")
+      setEmail("")
+      setPhone("")
+    } catch {
+      setError("Network issue. Please try again.")
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -94,10 +124,12 @@ export default function InviteForm() {
         <button
           type="button"
           onClick={submit}
-          className="rounded-2xl bg-white px-5 py-3 text-sm font-medium text-zinc-950 transition hover:bg-[#f3ece3]"
+          disabled={submitting}
+          className="rounded-2xl bg-white px-5 py-3 text-sm font-medium text-zinc-950 transition hover:bg-[#f3ece3] disabled:cursor-not-allowed disabled:opacity-60"
         >
-          Create invite
+          {submitting ? "Creating invite..." : "Create invite"}
         </button>
+        {error ? <p className="text-sm text-rose-300">{error}</p> : null}
         {message ? <p className="text-sm text-white/65">{message}</p> : null}
       </div>
     </PremiumPanel>

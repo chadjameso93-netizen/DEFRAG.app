@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation"
+import Link from "next/link"
 import IntakeForm from "@/components/intake/IntakeForm"
 import { getInvite } from "@/lib/data/mockDb"
 
@@ -7,7 +7,43 @@ export default async function IntakePage({ params }: { params: Promise<{ id: str
   const invite = getInvite(id)
 
   if (!invite) {
-    notFound()
+    return (
+      <main className="min-h-screen bg-[#09090b] px-3 py-6 text-white sm:px-4 lg:px-6">
+        <div className="mx-auto max-w-3xl rounded-[32px] border border-white/10 bg-white/[0.04] p-6 shadow-[0_24px_100px_rgba(0,0,0,0.28)] backdrop-blur-2xl sm:p-8">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.30em] text-white/42">Invite intake</p>
+          <h1 className="mt-4 text-3xl font-semibold tracking-tight text-white">This invite link is not available.</h1>
+          <p className="mt-4 text-sm leading-7 text-white/60">
+            The link may be invalid or no longer active. Please request a new invite from the person who shared it.
+          </p>
+          <Link
+            href="/support"
+            className="mt-6 inline-flex rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-white/72 transition hover:bg-white/10 hover:text-white"
+          >
+            Contact support
+          </Link>
+        </div>
+      </main>
+    )
+  }
+
+  if (invite.status === "completed") {
+    return (
+      <main className="min-h-screen bg-[#09090b] px-3 py-6 text-white sm:px-4 lg:px-6">
+        <div className="mx-auto max-w-3xl rounded-[32px] border border-white/10 bg-white/[0.04] p-6 shadow-[0_24px_100px_rgba(0,0,0,0.28)] backdrop-blur-2xl sm:p-8">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.30em] text-white/42">Invite intake</p>
+          <h1 className="mt-4 text-3xl font-semibold tracking-tight text-white">This intake is already complete.</h1>
+          <p className="mt-4 text-sm leading-7 text-white/60">
+            Your details are already in the relationship flow. You can close this page.
+          </p>
+          <Link
+            href={`/invite/complete?name=${encodeURIComponent(invite.name)}`}
+            className="mt-6 inline-flex rounded-full border border-white/10 bg-white px-4 py-2 text-sm font-medium text-zinc-950 transition hover:bg-[#f3ece3]"
+          >
+            Open completion page
+          </Link>
+        </div>
+      </main>
+    )
   }
 
   return (

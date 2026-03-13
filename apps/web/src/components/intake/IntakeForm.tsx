@@ -10,22 +10,48 @@ export default function IntakeForm({ inviteId, inviteName }: { inviteId: string;
   const [birthTime, setBirthTime] = useState("")
   const [birthPlace, setBirthPlace] = useState("")
   const [message, setMessage] = useState("")
+  const [error, setError] = useState("")
+  const [submitting, setSubmitting] = useState(false)
 
   async function submit() {
-    setMessage("Saving...")
-    const res = await fetch(`/api/invites/${inviteId}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ fullName, birthDate, birthTime, birthPlace }),
-    })
+    if (submitting) return
 
-    const data = await res.json()
-    if (!res.ok || !data?.ok) {
-      setMessage("Unable to submit intake.")
+    setMessage("")
+    setError("")
+
+    if (!fullName.trim() || !birthDate || !birthTime || !birthPlace.trim()) {
+      setError("Complete all fields before submitting.")
       return
     }
 
-    router.push(`/invite/complete?name=${encodeURIComponent(fullName || inviteName)}`)
+    setSubmitting(true)
+    setMessage("Saving...")
+
+    try {
+      const res = await fetch(`/api/invites/${inviteId}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ fullName, birthDate, birthTime, birthPlace }),
+      })
+
+      const data = await res.json()
+      if (!res.ok || !data?.ok) {
+        setMessage("")
+        setError(data?.error || "Unable to submit intake.")
+        return
+      }
+
+      if (data.alreadyCompleted) {
+        setMessage("This intake was already completed. Redirecting to completion page...")
+      }
+
+      router.push(`/invite/complete?name=${encodeURIComponent(fullName || inviteName)}`)
+    } catch {
+      setMessage("")
+      setError("Network issue. Please try again.")
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -63,11 +89,13 @@ export default function IntakeForm({ inviteId, inviteName }: { inviteId: string;
 
         <button
           onClick={submit}
-          className="rounded-2xl bg-white px-5 py-3 text-sm font-medium text-zinc-950 transition hover:bg-[#f3ece3]"
+          disabled={submitting}
+          className="rounded-2xl bg-white px-5 py-3 text-sm font-medium text-zinc-950 transition hover:bg-[#f3ece3] disabled:cursor-not-allowed disabled:opacity-60"
         >
-          Submit intake
+          {submitting ? "Submitting..." : "Submit intake"}
         </button>
 
+        {error ? <p className="text-sm text-rose-300">{error}</p> : null}
         {message ? <p className="text-sm text-white/65">{message}</p> : null}
       </div>
     </div>

@@ -1,17 +1,18 @@
 import Link from "next/link"
 
-export default function InviteCompletePage({
+export default async function InviteCompletePage({
   searchParams,
 }: {
-  searchParams: { name?: string }
+  searchParams: Promise<{ name?: string }>
 }) {
-  const name = searchParams.name || "your invite"
+  const { name } = await searchParams
+  const personName = name || "your invite"
 
   return (
     <main className="min-h-screen bg-[#09090b] px-3 py-6 text-white sm:px-4 lg:px-6">
       <div className="mx-auto max-w-3xl rounded-[32px] border border-white/10 bg-white/[0.04] p-6 shadow-[0_24px_100px_rgba(0,0,0,0.28)] backdrop-blur-2xl sm:p-8">
         <p className="text-[11px] font-semibold uppercase tracking-[0.30em] text-white/42">Invite complete</p>
-        <h1 className="mt-4 text-3xl font-semibold tracking-tight text-white">Thank you. Intake submitted for {name}.</h1>
+        <h1 className="mt-4 text-3xl font-semibold tracking-tight text-white">Thank you. Intake submitted for {personName}.</h1>
         <p className="mt-4 text-sm leading-7 text-white/60">
           Your details are now available in the relationship flow so the initiating dashboard can continue with better context.
         </p>
