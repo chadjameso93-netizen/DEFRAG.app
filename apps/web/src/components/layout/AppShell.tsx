@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react"
 import Link from "next/link"
-import { LayoutDashboard, Users, Clock3, Sparkles, CreditCard, Settings, ChevronRight } from "lucide-react"
+import { LayoutDashboard, Users, Clock3, Sparkles, CreditCard, Settings, ChevronRight, Send } from "lucide-react"
 import BrandMesh from "@/components/brand/BrandMesh"
 import PremiumPanel from "@/components/ui/PremiumPanel"
 import MobileTopBar from "@/components/layout/MobileTopBar"
@@ -76,6 +76,7 @@ export default function AppShell({
               <NavItem href="/timeline" label="Timeline" icon={<Clock3 size={18} />} />
               <NavItem href="/simulations" label="Simulations" icon={<Sparkles size={18} />} />
               <NavItem href="/pricing" label="Pricing" icon={<CreditCard size={18} />} />
+              <NavItem href="/invite" label="Invite" icon={<Send size={18} />} />
               <NavItem href="/settings" label="Settings" icon={<Settings size={18} />} />
             </nav>
 

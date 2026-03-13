@@ -10,6 +10,7 @@ const items = [
   { href: "/timeline", label: "Timeline" },
   { href: "/simulations", label: "Simulations" },
   { href: "/pricing", label: "Pricing" },
+  { href: "/invite", label: "Invite" },
   { href: "/settings", label: "Settings" },
 ]
 

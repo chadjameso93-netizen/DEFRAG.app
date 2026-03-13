@@ -6,22 +6,39 @@ Defrag is a relational intelligence platform that helps people understand patter
 
 1. Copy environment template
 
-   cp .env.example .env
+```bash
+cp .env.example .env
+```
 
 2. Start infrastructure
 
-   docker compose up -d
+```bash
+docker compose up -d
+```
 
-3. Start API
+3. Start API preview (`http://localhost:8000`)
 
-   cd apps/api
-   python3 -m venv .venv
-   source .venv/bin/activate
-   pip install -r requirements.txt
-   uvicorn app.main:app --reload
+```bash
+cd apps/api
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+```
 
-4. Start web
+4. Start web preview (`http://localhost:3000`)
 
-   cd apps/web
-   npm install
-   npm run dev
+```bash
+cd apps/web
+npm install
+npm run preview:dev
+```
+
+## Visual route checks
+
+Open these routes in local preview:
+
+- `/invite`
+- `/intake/[id]`
+- `/invite/complete`
+- `/pricing`
