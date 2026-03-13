@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server"
-import { addInvite, getInvites } from "@/lib/data/mockDb"
+import { createInvite, listInvites } from "@/lib/data/inviteRepository"
 
 export async function GET() {
-  return NextResponse.json({ invites: getInvites() })
+  const invites = await listInvites()
+  return NextResponse.json({ invites })
 }
 
 export async function POST(req: Request) {
@@ -30,7 +31,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Phone number is required for SMS invites." }, { status: 400 })
   }
 
-  const invite = addInvite({
+  const invite = await createInvite({
     name,
     email,
     phone,

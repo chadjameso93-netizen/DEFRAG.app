@@ -2,10 +2,10 @@ import AppShell from "@/components/layout/AppShell"
 import InviteForm from "@/components/invite/InviteForm"
 import InviteList from "@/components/invite/InviteList"
 import PremiumPanel from "@/components/ui/PremiumPanel"
-import { getInvites } from "@/lib/data/mockDb"
+import { listInvites } from "@/lib/data/inviteRepository"
 
-export default function InvitePage() {
-  const invites = getInvites()
+export default async function InvitePage() {
+  const invites = await listInvites()
 
   return (
     <AppShell

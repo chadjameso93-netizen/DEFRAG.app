@@ -1,10 +1,10 @@
 import Link from "next/link"
 import IntakeForm from "@/components/intake/IntakeForm"
-import { getInvite } from "@/lib/data/mockDb"
+import { getInviteById, markInviteOpened } from "@/lib/data/inviteRepository"
 
 export default async function IntakePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
-  const invite = getInvite(id)
+  const invite = await getInviteById(id)
 
   if (!invite) {
     return (
@@ -25,6 +25,8 @@ export default async function IntakePage({ params }: { params: Promise<{ id: str
       </main>
     )
   }
+
+  await markInviteOpened(id)
 
   if (invite.status === "completed") {
     return (
