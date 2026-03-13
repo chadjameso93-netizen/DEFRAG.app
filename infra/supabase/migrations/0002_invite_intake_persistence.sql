@@ -5,8 +5,7 @@ alter table invites
   add column if not exists phone text,
   add column if not exists status text default 'sent',
   add column if not exists opened_at timestamp with time zone,
-  add column if not exists completed_at timestamp with time zone,
-  alter column created_by_user_id drop not null;
+  add column if not exists completed_at timestamp with time zone;
 
 create table if not exists intake_submissions (
   id uuid primary key default gen_random_uuid(),
@@ -21,6 +20,7 @@ create table if not exists intake_submissions (
 create table if not exists invite_events (
   id uuid primary key default gen_random_uuid(),
   invite_id uuid not null references invites(id) on delete cascade,
+  actor_user_id uuid,
   event_type text not null,
   context_json jsonb default '{}'::jsonb,
   occurred_at timestamp with time zone default now()

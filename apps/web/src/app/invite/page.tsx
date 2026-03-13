@@ -1,11 +1,30 @@
+import { redirect } from "next/navigation"
 import AppShell from "@/components/layout/AppShell"
 import InviteForm from "@/components/invite/InviteForm"
 import InviteList from "@/components/invite/InviteList"
 import PremiumPanel from "@/components/ui/PremiumPanel"
 import { listInvites } from "@/lib/data/inviteRepository"
+import type { InviteRecord } from "@/lib/data/mockDb"
+import { getSupabaseServer } from "@/lib/auth/session"
 
 export default async function InvitePage() {
-  const invites = await listInvites()
+  const supabase = await getSupabaseServer()
+  const {
+    data: { session },
+  } = await supabase.auth.getSession()
+
+  if (!session?.user?.id) {
+    redirect("/login")
+  }
+
+  let invites: InviteRecord[] = []
+  let storageError = ""
+
+  try {
+    invites = await listInvites(session.user.id)
+  } catch {
+    storageError = "Invite storage is unavailable right now. Please try again."
+  }
 
   return (
     <AppShell
@@ -22,7 +41,7 @@ export default async function InvitePage() {
             Use this view to see whether a person was added manually, invited by email, or invited by SMS.
           </p>
           <div className="mt-6">
-            <InviteList invites={invites} />
+            {storageError ? <p className="text-sm text-rose-300">{storageError}</p> : <InviteList invites={invites} />}
           </div>
         </PremiumPanel>
       </div>

@@ -1,10 +1,33 @@
 import Link from "next/link"
 import IntakeForm from "@/components/intake/IntakeForm"
 import { getInviteById, markInviteOpened } from "@/lib/data/inviteRepository"
+import { getOptionalAuthenticatedUserId } from "@/lib/auth/routeUser"
 
 export default async function IntakePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
-  const invite = await getInviteById(id)
+
+  let invite
+  try {
+    invite = await getInviteById(id)
+  } catch {
+    return (
+      <main className="min-h-screen bg-[#09090b] px-3 py-6 text-white sm:px-4 lg:px-6">
+        <div className="mx-auto max-w-3xl rounded-[32px] border border-white/10 bg-white/[0.04] p-6 shadow-[0_24px_100px_rgba(0,0,0,0.28)] backdrop-blur-2xl sm:p-8">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.30em] text-white/42">Invite intake</p>
+          <h1 className="mt-4 text-3xl font-semibold tracking-tight text-white">Invite storage is unavailable.</h1>
+          <p className="mt-4 text-sm leading-7 text-white/60">
+            Please try again shortly. If the issue persists, contact support.
+          </p>
+          <Link
+            href="/support"
+            className="mt-6 inline-flex rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-white/72 transition hover:bg-white/10 hover:text-white"
+          >
+            Contact support
+          </Link>
+        </div>
+      </main>
+    )
+  }
 
   if (!invite) {
     return (
@@ -26,7 +49,8 @@ export default async function IntakePage({ params }: { params: Promise<{ id: str
     )
   }
 
-  await markInviteOpened(id)
+  const actorUserId = await getOptionalAuthenticatedUserId()
+  await markInviteOpened(id, actorUserId)
 
   if (invite.status === "completed") {
     return (

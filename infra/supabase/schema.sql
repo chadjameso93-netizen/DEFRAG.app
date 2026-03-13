@@ -74,6 +74,7 @@ create table if not exists intake_submissions (
 create table if not exists invite_events (
   id uuid primary key default gen_random_uuid(),
   invite_id uuid not null references invites(id) on delete cascade,
+  actor_user_id uuid,
   event_type text not null,
   context_json jsonb default '{}'::jsonb,
   occurred_at timestamp with time zone default now()

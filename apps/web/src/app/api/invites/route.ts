@@ -1,12 +1,27 @@
 import { NextResponse } from "next/server"
 import { createInvite, listInvites } from "@/lib/data/inviteRepository"
+import { requireAuthenticatedUserId } from "@/lib/auth/routeUser"
 
 export async function GET() {
-  const invites = await listInvites()
-  return NextResponse.json({ invites })
+  const userId = await requireAuthenticatedUserId()
+  if (!userId) {
+    return NextResponse.json({ error: "Authentication required." }, { status: 401 })
+  }
+
+  try {
+    const invites = await listInvites(userId)
+    return NextResponse.json({ invites })
+  } catch {
+    return NextResponse.json({ error: "Invite storage is unavailable." }, { status: 503 })
+  }
 }
 
 export async function POST(req: Request) {
+  const userId = await requireAuthenticatedUserId()
+  if (!userId) {
+    return NextResponse.json({ error: "Authentication required." }, { status: 401 })
+  }
+
   const body = await req.json()
 
   const name = String(body.name || "").trim()
@@ -31,13 +46,18 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Phone number is required for SMS invites." }, { status: 400 })
   }
 
-  const invite = await createInvite({
-    name,
-    email,
-    phone,
-    relationship,
-    deliveryMethod,
-  })
+  try {
+    const invite = await createInvite({
+      name,
+      email,
+      phone,
+      relationship,
+      deliveryMethod,
+      createdByUserId: userId,
+    })
 
-  return NextResponse.json({ ok: true, invite })
+    return NextResponse.json({ ok: true, invite })
+  } catch {
+    return NextResponse.json({ error: "Invite storage is unavailable." }, { status: 503 })
+  }
 }
