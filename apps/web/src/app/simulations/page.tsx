@@ -11,7 +11,7 @@ export default function SimulationsPage() {
     >
       <div className="grid gap-4 lg:grid-cols-3 lg:gap-6">
         <InfoCard eyebrow="Purpose" title="Prepare before acting" body="Simulations help you compare options when you are deciding how to respond inside a live relationship pattern." />
-        <InfoCard eyebrow="Use" title="Test different approaches" body="Compare direct confrontation, calm boundaries, or waiting, then use the result to sharpen your judgment." />
+        <InfoCard eyebrow="Use" title="Test different approaches" body="Compare slowing down, clarifying, setting a boundary, or revisiting later, then use the result to sharpen your judgment." />
         <InfoCard eyebrow="Outcome" title="Make the next move with more clarity" body="The goal is not certainty. The goal is a more informed, less reactive decision." />
       </div>
 
