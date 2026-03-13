@@ -33,6 +33,19 @@ describe("/api/invites/[id]", () => {
     expect(markInviteOpened).toHaveBeenCalledWith("token-1", "user-1")
   })
 
+  it("opens invite without auth context", async () => {
+    getInviteByToken.mockResolvedValue({ id: "inv_1", invite_token: "token-1" })
+    getRouteUserId.mockResolvedValue(null)
+    const { GET } = await import("./route")
+
+    const res = await GET(new Request("http://localhost/api/invites/token-1"), {
+      params: Promise.resolve({ id: "token-1" }),
+    })
+
+    expect(res.status).toBe(200)
+    expect(markInviteOpened).toHaveBeenCalledWith("token-1", null)
+  })
+
 
   it("returns completed invite on refresh", async () => {
     getInviteByToken.mockResolvedValue({ id: "inv_1", invite_token: "token-1", status: "completed" })

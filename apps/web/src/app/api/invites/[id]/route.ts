@@ -29,7 +29,13 @@ export async function GET(_req: Request, context: { params: Promise<{ id: string
       return NextResponse.json({ error: "Invite not found" }, { status: 404 })
     }
 
-    const actorUserId = await getRouteUserId()
+    // Invite open should remain public-safe; auth context is optional metadata.
+    let actorUserId: string | null = null
+    try {
+      actorUserId = await getRouteUserId()
+    } catch {
+      actorUserId = null
+    }
     await markInviteOpened(id, actorUserId)
 
     return NextResponse.json({ invite })
