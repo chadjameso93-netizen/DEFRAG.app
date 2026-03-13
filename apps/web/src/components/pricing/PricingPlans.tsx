@@ -2,7 +2,7 @@
 
 import GlowCard from "@/components/ui/GlowCard"
 
-async function checkout() {
+async function checkoutCore() {
   try {
     const res = await fetch("/api/billing/create-checkout", { method: "POST" })
     const data = await res.json()
@@ -10,7 +10,9 @@ async function checkout() {
       window.location.href = data.url
       return
     }
-  } catch {}
+  } catch {
+    // Fall back to signup if checkout cannot be created.
+  }
   window.location.href = "/signup"
 }
 
@@ -18,14 +20,18 @@ function Plan({
   name,
   price,
   description,
+  cta,
   featured = false,
   points,
+  onClick,
 }: {
   name: string
   price: string
   description: string
+  cta: string
   featured?: boolean
   points: string[]
+  onClick: () => void
 }) {
   return (
     <GlowCard className={`p-6 ${featured ? "border-white/20 bg-white/[0.07]" : ""}`}>
@@ -42,12 +48,12 @@ function Plan({
       </div>
 
       <button
-        onClick={checkout}
+        onClick={onClick}
         className={`mt-8 w-full rounded-2xl px-5 py-3 text-sm font-medium transition ${
           featured ? "bg-white text-zinc-950 hover:bg-zinc-100" : "bg-white/10 text-white hover:bg-white/15"
         }`}
       >
-        Choose plan
+        {cta}
       </button>
     </GlowCard>
   )
@@ -57,23 +63,33 @@ export default function PricingPlans() {
   return (
     <section className="grid gap-4 lg:grid-cols-3 lg:gap-6">
       <Plan
-        name="Starter"
+        name="Free"
         price="Free"
-        description="Explore the platform structure and core surfaces."
-        points={["Core onboarding", "Basic dashboard", "Relationship overview"]}
+        description="Start with a limited workspace and preview the core product surfaces."
+        cta="Start free"
+        points={["Guided onboarding", "Dashboard preview", "Relationship overview"]}
+        onClick={() => {
+          window.location.href = "/signup"
+        }}
       />
       <Plan
         name="Core"
         price="$24/mo"
-        description="Use the full product for ongoing relationship analysis."
+        description="Use the full platform for ongoing relationship clarity, timeline tracking, and AI support."
         featured
-        points={["Dashboard access", "Simulations", "AI guidance", "Timeline tracking"]}
+        cta="Choose Core"
+        points={["Daily read", "Relationship display", "AI guidance", "Timeline and invite flow"]}
+        onClick={checkoutCore}
       />
       <Plan
-        name="Practitioner"
-        price="$99/mo"
-        description="For deeper use cases and expanded workflow support."
-        points={["Multiple profiles", "Expanded reporting", "Advanced workflow support"]}
+        name="Developer / API"
+        price="Contact"
+        description="For API access, developer workflows, and integration planning."
+        cta="Contact"
+        points={["API access roadmap", "Developer onboarding", "Priority updates"]}
+        onClick={() => {
+          window.location.href = "/support"
+        }}
       />
     </section>
   )
