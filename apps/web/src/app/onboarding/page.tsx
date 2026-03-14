@@ -1,37 +1,53 @@
-import AppShell from "@/components/layout/AppShell"
-import ProfileSetupForm from "@/components/onboarding/ProfileSetupForm"
-import PremiumPanel from "@/components/ui/PremiumPanel"
+"use client"
+
+import { useOnboarding, stepIndex, TOTAL_STEPS } from "@/lib/store/onboarding"
+import BrandMesh from "@/components/brand/BrandMesh"
+import StepWelcome from "@/components/onboarding/StepWelcome"
+import StepFocus from "@/components/onboarding/StepFocus"
+import StepAccount from "@/components/onboarding/StepAccount"
+import StepNatal from "@/components/onboarding/StepNatal"
+import StepPrivacy from "@/components/onboarding/StepPrivacy"
+import StepFirstRelationship from "@/components/onboarding/StepFirstRelationship"
+import StepFirstEvent from "@/components/onboarding/StepFirstEvent"
+import StepFirstInsight from "@/components/onboarding/StepFirstInsight"
+import StepGuidedTour from "@/components/onboarding/StepGuidedTour"
+
+const STEP_COMPONENTS = {
+  welcome: StepWelcome,
+  focus: StepFocus,
+  account: StepAccount,
+  natal: StepNatal,
+  privacy: StepPrivacy,
+  "first-relationship": StepFirstRelationship,
+  "first-event": StepFirstEvent,
+  "first-insight": StepFirstInsight,
+  "guided-tour": StepGuidedTour,
+}
 
 export default function OnboardingPage() {
+  const step = useOnboarding((s) => s.step)
+  const StepComponent = STEP_COMPONENTS[step]
+  const current = stepIndex(step) + 1
+
   return (
-    <AppShell
-      title="Profile setup"
-      subtitle="Add the details Defrag uses to personalize your dashboard, timeline interpretation, and platform guidance."
-    >
-      <div className="grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
-        <PremiumPanel className="p-6 sm:p-8">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-white/45">Onboarding</p>
-          <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white">Build your starting profile</h2>
-          <p className="mt-4 text-sm leading-7 text-white/60">
-            Defrag uses your profile details to create a more accurate starting view of timing, relationship patterns, and personalized guidance.
-          </p>
-
-          <div className="mt-8 grid gap-3">
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.20em] text-white/40">Why we ask</p>
-              <p className="mt-2 text-sm leading-6 text-white/65">This helps Defrag create a stronger baseline for timing layers, insight, and pattern recognition.</p>
+    <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-[#09090b] px-4 py-12 text-white">
+      <BrandMesh />
+      <div className="relative w-full max-w-lg space-y-8">
+        {step !== "welcome" && (
+          <div className="flex items-center gap-3">
+            <div className="h-1 flex-1 overflow-hidden rounded-full bg-white/10">
+              <div
+                className="h-full rounded-full bg-white/60 transition-all duration-500"
+                style={{ width: `${(current / TOTAL_STEPS) * 100}%` }}
+              />
             </div>
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.20em] text-white/40">You stay in control</p>
-              <p className="mt-2 text-sm leading-6 text-white/65">You can refine your profile later as your use of the platform expands.</p>
-            </div>
+            <span className="text-xs tabular-nums text-white/40">
+              {current}/{TOTAL_STEPS}
+            </span>
           </div>
-        </PremiumPanel>
-
-        <div className="max-w-2xl">
-          <ProfileSetupForm />
-        </div>
+        )}
+        <StepComponent />
       </div>
-    </AppShell>
+    </main>
   )
 }
