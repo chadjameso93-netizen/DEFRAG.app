@@ -3,22 +3,21 @@ import "./globals.css"
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"),
-  title: "Defrag",
+  title: "DEFRAG",
   description: "Relational intelligence platform",
   openGraph: {
-    title: "Defrag",
+    title: "DEFRAG",
     description: "Relational intelligence platform",
     url: "/",
-    siteName: "Defrag",
+    siteName: "DEFRAG",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Defrag",
+    title: "DEFRAG",
     description: "Relational intelligence platform",
   },
-  applicationName: "Defrag",
-  manifest: "/site.webmanifest"
+  applicationName: "DEFRAG",
 }
 
 export const viewport: Viewport = {
@@ -26,7 +25,7 @@ export const viewport: Viewport = {
   colorScheme: "dark",
   width: "device-width",
   initialScale: 1,
-  viewportFit: "cover"
+  viewportFit: "cover",
 }
 
 export default function RootLayout({
@@ -35,8 +34,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="bg-[#09090b] text-white">
-      <body className="min-h-screen bg-[#09090b] text-white antialiased">
+    <html lang="en" className="bg-zinc-950 text-zinc-50 antialiased">
+      <body className="min-h-screen bg-zinc-950 text-zinc-50">
         {children}
       </body>
     </html>
