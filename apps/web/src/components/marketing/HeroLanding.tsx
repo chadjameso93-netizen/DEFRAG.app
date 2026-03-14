@@ -6,6 +6,8 @@ import { motion } from "framer-motion"
 import BrandMesh from "@/components/brand/BrandMesh"
 import GlowCard from "@/components/ui/GlowCard"
 import FadeIn from "@/components/ui/FadeIn"
+import MagneticButton from "@/components/ui/MagneticButton"
+import { CurtainRevealContainer, CurtainRevealItem } from "@/components/ui/CurtainReveal"
 import PremiumFooter from "@/components/marketing/PremiumFooter"
 
 function Metric({
@@ -53,6 +55,8 @@ export default function HeroLanding() {
       <BrandMesh />
 
       <div className="relative mx-auto max-w-7xl space-y-4 lg:space-y-6">
+        <CurtainRevealContainer>
+        <CurtainRevealItem>
         <GlowCard className="p-4 sm:p-6 lg:p-8">
           <div className="rounded-[var(--radius-xl)] border border-[var(--border-subtle)] bg-[linear-gradient(180deg,var(--surface-1),var(--surface-0))] px-6 py-10 sm:px-8 lg:px-12 lg:py-16">
             <div className="grid items-center gap-10 lg:grid-cols-[1.08fr_0.92fr]">
@@ -90,15 +94,13 @@ export default function HeroLanding() {
                   transition={{ duration: 0.6, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
                   className="mt-8 flex flex-col gap-3 sm:flex-row"
                 >
-                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }} transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}>
-                    <Link
-                      href="/signup"
-                      className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[var(--text-primary)] px-6 py-3 text-sm font-medium text-[var(--surface-0)] shadow-[0_0_30px_rgba(245,245,240,0.06)] transition-shadow duration-400 hover:shadow-[0_0_40px_rgba(245,245,240,0.1)]"
-                    >
-                      Start free trial
-                      <ArrowRight size={16} />
-                    </Link>
-                  </motion.div>
+                  <MagneticButton
+                    href="/signup"
+                    className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[var(--text-primary)] px-6 py-3 text-sm font-medium text-[var(--surface-0)] shadow-[0_0_30px_rgba(245,245,240,0.06)] transition-shadow duration-400 hover:shadow-[0_0_40px_rgba(245,245,240,0.1)]"
+                  >
+                    Start free trial
+                    <ArrowRight size={16} />
+                  </MagneticButton>
                   <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }} transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}>
                     <Link
                       href="/dashboard"
@@ -146,14 +148,18 @@ export default function HeroLanding() {
             </div>
           </div>
         </GlowCard>
+        </CurtainRevealItem>
 
+        <CurtainRevealItem>
         <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4 md:gap-6">
           <Feature delay={0} icon={<Network size={20} />} title="Relationship mapping" body="Organize the people in your system and see how the connections influence each other." />
           <Feature delay={0.1} icon={<Clock3 size={20} />} title="Timeline awareness" body="Review conflict, repair, and stress over time so the larger pattern becomes visible." />
           <Feature delay={0.2} icon={<BrainCircuit size={20} />} title="Decision support" body="Use structured guidance to move with more clarity and less reactivity." />
           <Feature delay={0.3} icon={<ShieldCheck size={20} />} title="Healthier outcomes" body="Built to support better conversations, better timing, and more grounded choices." />
         </section>
+        </CurtainRevealItem>
 
+        <CurtainRevealItem>
         <FadeIn>
           <GlowCard className="p-6 sm:p-8 lg:p-10">
             <div className="grid gap-4 lg:grid-cols-3">
@@ -175,6 +181,8 @@ export default function HeroLanding() {
             </div>
           </GlowCard>
         </FadeIn>
+        </CurtainRevealItem>
+        </CurtainRevealContainer>
 
         <PremiumFooter />
       </div>

@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import GlowCard from "@/components/ui/GlowCard"
+import MagneticButton from "@/components/ui/MagneticButton"
 
 function Plan({
   name,
@@ -36,15 +37,25 @@ function Plan({
         ))}
       </div>
 
-      <button
-        onClick={onClick}
-        disabled={disabled}
-        className={`mt-8 w-full rounded-2xl px-5 py-3 text-sm font-medium transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-60 ${
-          featured ? "bg-[var(--text-primary)] text-[var(--surface-0)] hover:bg-[var(--surface-2)]" : "bg-[var(--surface-2)] text-[var(--text-primary)] hover:bg-[var(--surface-1)]"
-        }`}
-      >
-        {cta}
-      </button>
+      {featured ? (
+        <div className="mt-8">
+          <MagneticButton
+            onClick={onClick}
+            disabled={disabled}
+            className="w-full rounded-2xl px-5 py-3 text-sm font-medium transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-60 bg-[var(--text-primary)] text-[var(--surface-0)] hover:bg-[var(--surface-2)]"
+          >
+            {cta}
+          </MagneticButton>
+        </div>
+      ) : (
+        <button
+          onClick={onClick}
+          disabled={disabled}
+          className="mt-8 w-full rounded-2xl px-5 py-3 text-sm font-medium transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-60 bg-[var(--surface-2)] text-[var(--text-primary)] hover:bg-[var(--surface-1)]"
+        >
+          {cta}
+        </button>
+      )}
     </GlowCard>
   )
 }

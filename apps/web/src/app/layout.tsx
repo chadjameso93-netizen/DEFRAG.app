@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next"
 import "./globals.css"
+import NoiseOverlay from "@/components/ui/NoiseOverlay"
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"),
@@ -45,6 +46,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen" style={{ background: "#0A0A0A", color: "#F5F5F0" }}>
         {children}
+        <NoiseOverlay />
       </body>
     </html>
   )
