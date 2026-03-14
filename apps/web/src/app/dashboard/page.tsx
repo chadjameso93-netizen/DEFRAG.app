@@ -1,72 +1,65 @@
 import AppShell from "@/components/layout/AppShell"
-import DashboardHero from "@/components/dashboard/DashboardHero"
-import StatCard from "@/components/dashboard/StatCard"
+import Link from "next/link"
+import { ArrowRight } from "lucide-react"
+import DailyReadPanel from "@/components/dashboard/DailyReadPanel"
+import GuidanceSummary from "@/components/dashboard/GuidanceSummary"
+import TimelinePreview from "@/components/dashboard/TimelinePreview"
 import PremiumPanel from "@/components/ui/PremiumPanel"
 import RelationshipGraph from "@/components/graph/RelationshipGraph"
-import FamilyGraph from "@/components/genogram/FamilyGraph"
-import AIChat from "@/components/chat/AIChat"
-import EventTimeline from "@/components/timeline/EventTimeline"
-import RelationshipList from "@/components/relationships/RelationshipList"
-import SimulationPanel from "@/components/sim/SimulationPanel"
-import { mockEvents, mockRelationships } from "@/lib/mock/systemData"
+import { getEvents } from "@/lib/data/mockDb"
 
 export default function DashboardPage() {
+  const events = getEvents()
+
   return (
     <AppShell
       title="Dashboard"
-      subtitle="This is your main Defrag workspace. Track relationships, review timelines, explore simulations, and get AI guidance in one place."
+      subtitle="See what is happening in your relationship system, where pressure is rising, and what next step may help most."
     >
-      <DashboardHero />
+      <DailyReadPanel />
 
-      <section className="grid gap-4 sm:gap-6 md:grid-cols-3">
-        <StatCard label="Relationships" value="3" note="Active connections currently mapped in your system." />
-        <StatCard label="Recent events" value="2" note="Key moments currently shaping the active pattern." />
-        <StatCard label="Next step" value="Review" note="Use the timeline and simulation tools before acting." />
-      </section>
-
-      <section className="grid gap-4 lg:gap-6 2xl:grid-cols-[1.15fr_0.85fr]">
+      <section className="grid gap-4 lg:gap-6 2xl:grid-cols-[1.3fr_0.7fr]">
         <PremiumPanel className="p-5 sm:p-6">
-          <h2 className="text-lg font-medium text-white">Relationship map</h2>
-          <p className="mt-2 text-sm text-white/60">Visualize the current people, structure, and pressure points in your system.</p>
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/40">Primary surface</p>
+              <h2 className="mt-3 text-lg font-medium text-white">Live relationship display</h2>
+              <p className="mt-2 text-sm text-white/60">
+                See people in the system, relationship distance, pressure, repair, and shifting dynamics in one view.
+              </p>
+            </div>
+            <Link href="/relationships" className="hidden items-center gap-2 text-sm text-white/68 transition hover:text-white sm:inline-flex">
+              Open people
+              <ArrowRight size={16} />
+            </Link>
+          </div>
           <div className="mt-6">
             <RelationshipGraph />
           </div>
         </PremiumPanel>
 
-        <PremiumPanel className="p-5 sm:p-6">
-          <AIChat />
-        </PremiumPanel>
+        <div className="space-y-4">
+          <GuidanceSummary />
+          <PremiumPanel className="p-5 sm:p-6">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/40">Defrag AI</p>
+            <h3 className="mt-3 text-lg font-medium text-white">Open the strategic workspace</h3>
+            <p className="mt-2 text-sm leading-7 text-white/62">
+              Use AI after reviewing the relationship display and timeline so guidance can stay grounded in context.
+            </p>
+            <Link
+              href="/ai"
+              className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white px-4 py-2 text-sm font-medium text-zinc-950 transition hover:bg-[#f3ece3]"
+            >
+              Open Defrag AI
+              <ArrowRight size={16} />
+            </Link>
+          </PremiumPanel>
+        </div>
       </section>
 
-      <section className="grid gap-4 lg:grid-cols-2 lg:gap-6">
+      <section>
         <PremiumPanel className="p-5 sm:p-6">
-          <h2 className="text-lg font-medium text-white">Family system</h2>
-          <p className="mt-2 text-sm text-white/60">See the wider family structure and how roles may influence the present dynamic.</p>
-          <div className="mt-6">
-            <FamilyGraph />
-          </div>
-        </PremiumPanel>
-
-        <PremiumPanel className="p-5 sm:p-6">
-          <SimulationPanel />
-        </PremiumPanel>
-      </section>
-
-      <section className="grid gap-4 lg:grid-cols-2 lg:gap-6">
-        <PremiumPanel className="p-5 sm:p-6">
-          <h2 className="text-lg font-medium text-white">Relationship list</h2>
-          <p className="mt-2 text-sm text-white/60">Review trust, tension, and connection type across your mapped relationships.</p>
-          <div className="mt-6">
-            <RelationshipList relationships={mockRelationships} />
-          </div>
-        </PremiumPanel>
-
-        <PremiumPanel className="p-5 sm:p-6">
-          <h2 className="text-lg font-medium text-white">Timeline</h2>
-          <p className="mt-2 text-sm text-white/60">Understand how conflict, repair, and other events are shaping the pattern over time.</p>
-          <div className="mt-6">
-            <EventTimeline events={mockEvents} />
-          </div>
+          <TimelinePreview events={events} />
         </PremiumPanel>
       </section>
     </AppShell>

@@ -1,31 +1,26 @@
 "use client"
 
+import { useState } from "react"
 import GlowCard from "@/components/ui/GlowCard"
-
-async function checkout() {
-  try {
-    const res = await fetch("/api/billing/create-checkout", { method: "POST" })
-    const data = await res.json()
-    if (data?.url) {
-      window.location.href = data.url
-      return
-    }
-  } catch {}
-  window.location.href = "/signup"
-}
 
 function Plan({
   name,
   price,
   description,
+  cta,
   featured = false,
   points,
+  onClick,
+  disabled,
 }: {
   name: string
   price: string
   description: string
+  cta: string
   featured?: boolean
   points: string[]
+  onClick: () => void
+  disabled?: boolean
 }) {
   return (
     <GlowCard className={`p-6 ${featured ? "border-white/20 bg-white/[0.07]" : ""}`}>
@@ -42,38 +37,77 @@ function Plan({
       </div>
 
       <button
-        onClick={checkout}
-        className={`mt-8 w-full rounded-2xl px-5 py-3 text-sm font-medium transition ${
+        onClick={onClick}
+        disabled={disabled}
+        className={`mt-8 w-full rounded-2xl px-5 py-3 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-60 ${
           featured ? "bg-white text-zinc-950 hover:bg-zinc-100" : "bg-white/10 text-white hover:bg-white/15"
         }`}
       >
-        Choose plan
+        {cta}
       </button>
     </GlowCard>
   )
 }
 
 export default function PricingPlans() {
+  const [checkoutLoading, setCheckoutLoading] = useState(false)
+  const [checkoutError, setCheckoutError] = useState("")
+
+  async function checkoutCore() {
+    if (checkoutLoading) return
+
+    setCheckoutLoading(true)
+    setCheckoutError("")
+
+    try {
+      const res = await fetch("/api/billing/create-checkout", { method: "POST" })
+      const data = await res.json()
+      if (res.ok && data?.url) {
+        window.location.href = data.url
+        return
+      }
+      setCheckoutError(data?.error || "Checkout could not be started. Please try again.")
+    } catch {
+      setCheckoutError("Network issue while starting checkout. Please try again.")
+    } finally {
+      setCheckoutLoading(false)
+    }
+  }
+
   return (
     <section className="grid gap-4 lg:grid-cols-3 lg:gap-6">
       <Plan
-        name="Starter"
+        name="Free"
         price="Free"
-        description="Explore the platform structure and core surfaces."
-        points={["Core onboarding", "Basic dashboard", "Relationship overview"]}
+        description="Start with a limited workspace and preview the core product surfaces."
+        cta="Start free"
+        points={["Guided onboarding", "Dashboard preview", "Relationship overview"]}
+        onClick={() => {
+          window.location.href = "/signup"
+        }}
       />
+      <div>
+        <Plan
+          name="Core"
+          price="$24/month"
+          description="Use the full platform for ongoing relationship clarity, timeline tracking, and AI support."
+          featured
+          cta={checkoutLoading ? "Starting checkout..." : "Choose Core"}
+          points={["Daily read", "Relationship display", "AI guidance", "Timeline and invite flow"]}
+          onClick={checkoutCore}
+          disabled={checkoutLoading}
+        />
+        {checkoutError ? <p className="mt-2 text-sm text-rose-300">{checkoutError}</p> : null}
+      </div>
       <Plan
-        name="Core"
-        price="$24/mo"
-        description="Use the full product for ongoing relationship analysis."
-        featured
-        points={["Dashboard access", "Simulations", "AI guidance", "Timeline tracking"]}
-      />
-      <Plan
-        name="Practitioner"
-        price="$99/mo"
-        description="For deeper use cases and expanded workflow support."
-        points={["Multiple profiles", "Expanded reporting", "Advanced workflow support"]}
+        name="Developer / API"
+        price="Contact"
+        description="For API access, developer workflows, and integration planning."
+        cta="Contact"
+        points={["API access roadmap", "Developer onboarding", "Priority updates"]}
+        onClick={() => {
+          window.location.href = "/support"
+        }}
       />
     </section>
   )

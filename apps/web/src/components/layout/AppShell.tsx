@@ -2,30 +2,37 @@
 
 import type { ReactNode } from "react"
 import Link from "next/link"
-import { LayoutDashboard, Users, Clock3, Sparkles, CreditCard, Settings, ChevronRight } from "lucide-react"
+import { usePathname } from "next/navigation"
+import { Bot, ChevronRight, Clock3, CreditCard, LayoutDashboard, Settings, Sparkles, UserPlus, Users } from "lucide-react"
 import BrandMesh from "@/components/brand/BrandMesh"
 import PremiumPanel from "@/components/ui/PremiumPanel"
-import MobileTopBar from "@/components/layout/MobileTopBar"
+import MobileBottomNav from "@/components/layout/MobileBottomNav"
+import { cn } from "@/lib/cn"
 
 function NavItem({
   href,
   label,
   icon,
+  active,
 }: {
   href: string
   label: string
   icon: ReactNode
+  active?: boolean
 }) {
   return (
     <Link
       href={href}
-      className="group flex items-center justify-between rounded-2xl px-4 py-3 text-sm font-medium text-white/65 transition duration-300 hover:bg-white/10 hover:text-white"
+      className={cn(
+        "group flex items-center justify-between rounded-2xl px-4 py-3 text-sm font-medium transition duration-300",
+        active ? "bg-white text-zinc-950" : "text-white/65 hover:bg-white/10 hover:text-white"
+      )}
     >
       <span className="flex items-center gap-3">
         {icon}
         <span>{label}</span>
       </span>
-      <ChevronRight size={16} className="opacity-0 transition group-hover:opacity-100" />
+      <ChevronRight size={16} className={cn("transition", active ? "opacity-100" : "opacity-0 group-hover:opacity-100")} />
     </Link>
   )
 }
@@ -39,13 +46,13 @@ export default function AppShell({
   title?: string
   subtitle?: string
 }) {
+  const pathname = usePathname()
+
   return (
     <main className="relative min-h-screen overflow-hidden bg-black text-white">
       <BrandMesh />
 
-      <div className="relative mx-auto max-w-[1600px] px-3 py-3 sm:px-4 sm:py-4 lg:px-6 lg:py-6">
-        <MobileTopBar />
-
+      <div className="relative mx-auto max-w-[1600px] px-3 py-3 pb-28 sm:px-4 sm:py-4 sm:pb-28 lg:px-6 lg:py-6 lg:pb-6">
         <div className="mt-3 grid gap-4 lg:mt-0 lg:grid-cols-[320px_1fr] lg:gap-6">
           <PremiumPanel className="hidden h-fit p-5 lg:sticky lg:top-6 lg:block lg:p-7">
             <div className="flex items-center justify-between">
@@ -71,12 +78,14 @@ export default function AppShell({
             </div>
 
             <nav className="mt-7 grid gap-2">
-              <NavItem href="/dashboard" label="Dashboard" icon={<LayoutDashboard size={18} />} />
-              <NavItem href="/relationships" label="Relationships" icon={<Users size={18} />} />
-              <NavItem href="/timeline" label="Timeline" icon={<Clock3 size={18} />} />
-              <NavItem href="/simulations" label="Simulations" icon={<Sparkles size={18} />} />
-              <NavItem href="/pricing" label="Pricing" icon={<CreditCard size={18} />} />
-              <NavItem href="/settings" label="Settings" icon={<Settings size={18} />} />
+              <NavItem href="/dashboard" label="Dashboard" icon={<LayoutDashboard size={18} />} active={pathname === "/dashboard"} />
+              <NavItem href="/relationships" label="Relationships" icon={<Users size={18} />} active={pathname === "/relationships"} />
+              <NavItem href="/timeline" label="Timeline" icon={<Clock3 size={18} />} active={pathname === "/timeline"} />
+              <NavItem href="/ai" label="Defrag AI" icon={<Bot size={18} />} active={pathname === "/ai"} />
+              <NavItem href="/invite" label="Invite people" icon={<UserPlus size={18} />} active={pathname === "/invite"} />
+              <NavItem href="/simulations" label="Simulations" icon={<Sparkles size={18} />} active={pathname === "/simulations"} />
+              <NavItem href="/pricing" label="Pricing" icon={<CreditCard size={18} />} active={pathname === "/pricing"} />
+              <NavItem href="/settings" label="Settings" icon={<Settings size={18} />} active={pathname === "/settings"} />
             </nav>
 
             <div className="mt-8 rounded-[28px] border border-white/10 bg-white/5 p-5">
@@ -117,6 +126,8 @@ export default function AppShell({
           </div>
         </div>
       </div>
+
+      <MobileBottomNav />
     </main>
   )
 }
