@@ -15,13 +15,17 @@ export default function AIChat() {
     setLoading(true)
 
     try {
-      const res = await fetch("/api/insight", {
+      const res = await fetch("/api/insights", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: msg }),
       })
       const data = await res.json()
-      setReply(data.insight || "No insight returned.")
+      if (data.error) {
+        setReply(data.error)
+      } else {
+        setReply(data.output_text || "No insight returned.")
+      }
     } finally {
       setLoading(false)
     }

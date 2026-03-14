@@ -15,11 +15,8 @@ export default function AddRelationshipForm() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        source_name: "You",
         target_name: target,
         relationship_type: type,
-        tension_score: 0.35,
-        trust_score: 0.5,
       }),
     })
 
@@ -48,9 +45,13 @@ export default function AddRelationshipForm() {
           value={type}
           onChange={(e) => setType(e.target.value)}
         >
-          <option value="personal">Personal</option>
-          <option value="family">Family</option>
-          <option value="team">Team</option>
+          <option value="partner">Partner</option>
+          <option value="parent">Parent</option>
+          <option value="sibling">Sibling</option>
+          <option value="friend">Friend</option>
+          <option value="colleague">Colleague</option>
+          <option value="child">Child</option>
+          <option value="other">Other</option>
         </select>
         <button
           onClick={submit}

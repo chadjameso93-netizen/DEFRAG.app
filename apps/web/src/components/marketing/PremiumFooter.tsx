@@ -13,13 +13,14 @@ export default function PremiumFooter() {
         </div>
 
         <div className="grid grid-cols-2 gap-x-6 gap-y-3 text-sm text-white/60 sm:grid-cols-3">
+          <Link href="/why" className="transition hover:text-white">Why Defrag</Link>
+          <Link href="/about" className="transition hover:text-white">About</Link>
+          <Link href="/principles" className="transition hover:text-white">Principles</Link>
           <Link href="/pricing" className="transition hover:text-white">Pricing</Link>
           <Link href="/login" className="transition hover:text-white">Login</Link>
           <Link href="/signup" className="transition hover:text-white">Start trial</Link>
-          <Link href="/dashboard" className="transition hover:text-white">Dashboard</Link>
           <Link href="/privacy" className="transition hover:text-white">Privacy</Link>
           <Link href="/terms" className="transition hover:text-white">Terms</Link>
-          <Link href="/support" className="transition hover:text-white">Support</Link>
         </div>
       </div>
     </GlowCard>
