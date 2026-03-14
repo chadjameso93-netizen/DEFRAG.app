@@ -26,7 +26,7 @@ function EventDot({ type }: { type: string }) {
   const color =
     type === "conflict" ? "bg-red-400" :
     type === "repair" ? "bg-emerald-400" :
-    type === "stress" ? "bg-amber-400" : "bg-zinc-500"
+    type === "stress" ? "bg-amber-400" : "bg-[var(--text-muted)]"
   return <div className={`mt-1.5 h-2 w-2 shrink-0 rounded-full ${color}`} />
 }
 
@@ -78,19 +78,19 @@ function AddEventPanel({
   return (
     <div className="p-5">
       <div className="flex items-center justify-between">
-        <h2 className="text-sm font-semibold text-zinc-50">Log event</h2>
-        <button onClick={onClose} className="rounded-md p-1 text-zinc-500 hover:bg-zinc-800 hover:text-zinc-300">
+        <h2 className="text-sm font-semibold text-[var(--text-primary)]">Log event</h2>
+        <button onClick={onClose} className="rounded-md p-1 text-[var(--text-muted)] transition-colors duration-300 hover:bg-[var(--surface-2)] hover:text-[var(--text-secondary)]">
           <X size={16} />
         </button>
       </div>
 
       <form onSubmit={handleSubmit} className="mt-4 space-y-3">
         <div>
-          <label className="mb-1 block text-[12px] text-zinc-500">Type</label>
+          <label className="mb-1 block text-[12px] text-[var(--text-muted)]">Type</label>
           <select
             value={form.event_type}
             onChange={(e) => setForm({ ...form, event_type: e.target.value })}
-            className="w-full rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-zinc-100 outline-none focus:border-zinc-600"
+            className="w-full rounded-md border border-[var(--border)] bg-[var(--surface-2)] px-3 py-2 text-sm text-[var(--text-primary)] outline-none transition-colors duration-300 focus:border-[var(--border)]"
           >
             <option value="observation">Observation</option>
             <option value="conflict">Conflict</option>
@@ -101,11 +101,11 @@ function AddEventPanel({
         </div>
 
         <div>
-          <label className="mb-1 block text-[12px] text-zinc-500">Relationship</label>
+          <label className="mb-1 block text-[12px] text-[var(--text-muted)]">Relationship</label>
           <select
             value={form.relationship_id}
             onChange={(e) => setForm({ ...form, relationship_id: e.target.value })}
-            className="w-full rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-zinc-100 outline-none focus:border-zinc-600"
+            className="w-full rounded-md border border-[var(--border)] bg-[var(--surface-2)] px-3 py-2 text-sm text-[var(--text-primary)] outline-none transition-colors duration-300 focus:border-[var(--border)]"
           >
             <option value="">General</option>
             {relationships.map((r) => (
@@ -115,7 +115,7 @@ function AddEventPanel({
         </div>
 
         <div>
-          <label className="mb-1 block text-[12px] text-zinc-500">Severity</label>
+          <label className="mb-1 block text-[12px] text-[var(--text-muted)]">Severity</label>
           <input
             type="range"
             min="0"
@@ -125,7 +125,7 @@ function AddEventPanel({
             onChange={(e) => setForm({ ...form, severity: parseFloat(e.target.value) })}
             className="w-full accent-zinc-400"
           />
-          <div className="flex justify-between text-[11px] text-zinc-500">
+          <div className="flex justify-between text-[11px] text-[var(--text-muted)]">
             <span>Low</span>
             <span>{Math.round(form.severity * 100)}%</span>
             <span>High</span>
@@ -133,13 +133,13 @@ function AddEventPanel({
         </div>
 
         <div>
-          <label className="mb-1 block text-[12px] text-zinc-500">What happened?</label>
+          <label className="mb-1 block text-[12px] text-[var(--text-muted)]">What happened?</label>
           <textarea
             value={form.notes}
             onChange={(e) => setForm({ ...form, notes: e.target.value })}
             placeholder="Describe the event..."
             rows={3}
-            className="w-full rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2 text-sm text-zinc-100 outline-none focus:border-zinc-600"
+            className="w-full rounded-md border border-[var(--border)] bg-[var(--surface-2)] px-3 py-2 text-sm text-[var(--text-primary)] outline-none transition-colors duration-300 focus:border-[var(--border)]"
           />
         </div>
 
@@ -147,14 +147,14 @@ function AddEventPanel({
           <button
             type="submit"
             disabled={submitting || !form.notes.trim()}
-            className="rounded-md bg-zinc-50 px-4 py-1.5 text-[13px] font-medium text-zinc-900 transition-colors hover:bg-zinc-200 disabled:opacity-50"
+            className="rounded-md bg-[var(--text-primary)] px-4 py-1.5 text-[13px] font-medium text-[var(--surface-0)] transition-colors duration-300 hover:bg-[var(--surface-2)] disabled:opacity-50"
           >
             {submitting ? "Saving..." : "Log event"}
           </button>
           <button
             type="button"
             onClick={onClose}
-            className="rounded-md px-4 py-1.5 text-[13px] text-zinc-400 transition-colors hover:text-zinc-200"
+            className="rounded-md px-4 py-1.5 text-[13px] text-[var(--text-secondary)] transition-colors duration-300 hover:text-[var(--text-primary)]"
           >
             Cancel
           </button>
@@ -226,19 +226,19 @@ export default function TimelinePage() {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-xl font-semibold text-zinc-50">Timeline</h1>
-            <p className="mt-1 text-sm text-zinc-400">Track what happened, when, and how it shaped the current pattern.</p>
+            <h1 className="text-xl font-semibold text-[var(--text-primary)]">Timeline</h1>
+            <p className="mt-1 text-sm text-[var(--text-secondary)]">Track what happened, when, and how it shaped the current pattern.</p>
           </div>
           <div className="flex gap-2">
             <Link
               href="/ai"
-              className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-700 px-3 py-1.5 text-[13px] font-medium text-zinc-300 transition-colors hover:bg-zinc-800"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--border)] px-3 py-1.5 text-[13px] font-medium text-[var(--text-secondary)] transition-colors duration-300 hover:bg-[var(--surface-2)]"
             >
               <MessageSquare size={14} /> Plan a conversation
             </Link>
             <button
               onClick={() => setShowAddPanel(true)}
-              className="inline-flex items-center gap-1.5 rounded-lg bg-zinc-50 px-3 py-1.5 text-[13px] font-medium text-zinc-900 transition-colors hover:bg-zinc-200"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-[var(--text-primary)] px-3 py-1.5 text-[13px] font-medium text-[var(--surface-0)] transition-colors duration-300 hover:bg-[var(--surface-2)]"
             >
               <Plus size={14} /> Log event
             </button>
@@ -250,13 +250,13 @@ export default function TimelinePage() {
             {[1, 2, 3].map((i) => <div key={i} className="skeleton h-20 rounded-lg" />)}
           </div>
         ) : events.length === 0 ? (
-          <div className="rounded-lg border border-dashed border-zinc-800 py-16 text-center">
-            <Calendar size={28} className="mx-auto text-zinc-600" />
-            <p className="mt-3 text-sm text-zinc-400">No events logged yet</p>
-            <p className="mt-1 text-[13px] text-zinc-500">Log your first event to start tracking relational patterns.</p>
+          <div className="rounded-lg border border-dashed border-[var(--border-subtle)] py-16 text-center">
+            <Calendar size={28} className="mx-auto text-[var(--text-muted)]" />
+            <p className="mt-3 text-sm text-[var(--text-secondary)]">No events logged yet</p>
+            <p className="mt-1 text-[13px] text-[var(--text-muted)]">Log your first event to start tracking relational patterns.</p>
             <button
               onClick={() => setShowAddPanel(true)}
-              className="mt-4 inline-flex items-center gap-1.5 rounded-lg bg-zinc-50 px-4 py-2 text-[13px] font-medium text-zinc-900 transition-colors hover:bg-zinc-200"
+              className="mt-4 inline-flex items-center gap-1.5 rounded-lg bg-[var(--text-primary)] px-4 py-2 text-[13px] font-medium text-[var(--surface-0)] transition-colors duration-300 hover:bg-[var(--surface-2)]"
             >
               <Plus size={14} /> Log event
             </button>
@@ -274,13 +274,13 @@ export default function TimelinePage() {
                   {/* Date header with activation band */}
                   <div className="flex items-center gap-3">
                     <div className="flex items-center gap-2">
-                      <p className="text-sm font-medium text-zinc-200">
+                      <p className="text-sm font-medium text-[var(--text-primary)]">
                         {isToday ? "Today" : dateObj.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })}
                       </p>
                       <ActivationBand level={band} />
                     </div>
-                    <div className="h-px flex-1 bg-zinc-800" />
-                    <p className="text-[11px] text-zinc-500">{dayEvents.length} event{dayEvents.length !== 1 ? "s" : ""}</p>
+                    <div className="h-px flex-1 bg-[var(--border-subtle)]" />
+                    <p className="text-[11px] text-[var(--text-muted)]">{dayEvents.length} event{dayEvents.length !== 1 ? "s" : ""}</p>
                   </div>
 
                   {/* Event list */}
@@ -288,20 +288,20 @@ export default function TimelinePage() {
                     {dayEvents.map((evt) => (
                       <div
                         key={evt.id}
-                        className="flex items-start gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-zinc-900"
+                        className="flex items-start gap-3 rounded-lg px-3 py-2.5 transition-colors duration-300 hover:bg-[var(--surface-1)]"
                       >
                         <EventDot type={evt.event_type} />
                         <div className="min-w-0 flex-1">
                           <div className="flex items-center gap-2">
-                            <span className="text-[13px] font-medium text-zinc-200">{evt.event_type}</span>
-                            <span className="text-[11px] text-zinc-500">{evt.actor} → {evt.target}</span>
+                            <span className="text-[13px] font-medium text-[var(--text-primary)]">{evt.event_type}</span>
+                            <span className="text-[11px] text-[var(--text-muted)]">{evt.actor} → {evt.target}</span>
                             {evt.created_at && (
-                              <span className="ml-auto text-[11px] text-zinc-600">
+                              <span className="ml-auto text-[11px] text-[var(--text-muted)]">
                                 {new Date(evt.created_at).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}
                               </span>
                             )}
                           </div>
-                          <p className="mt-0.5 text-[12px] leading-relaxed text-zinc-400">{evt.notes}</p>
+                          <p className="mt-0.5 text-[12px] leading-relaxed text-[var(--text-secondary)]">{evt.notes}</p>
                         </div>
                       </div>
                     ))}

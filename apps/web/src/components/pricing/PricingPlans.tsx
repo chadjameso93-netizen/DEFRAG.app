@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import GlowCard from "@/components/ui/GlowCard"
+import MagneticButton from "@/components/ui/MagneticButton"
 
 function Plan({
   name,
@@ -23,28 +24,38 @@ function Plan({
   disabled?: boolean
 }) {
   return (
-    <GlowCard className={`p-6 ${featured ? "border-white/20 bg-white/[0.07]" : ""}`}>
-      <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-white/45">{name}</p>
-      <p className="mt-4 text-4xl font-semibold tracking-tight text-white">{price}</p>
-      <p className="mt-3 text-sm leading-7 text-white/60">{description}</p>
+    <GlowCard className={`p-6 ${featured ? "border-[var(--border)] bg-[var(--surface-2)]" : ""}`}>
+      <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[var(--text-muted)]">{name}</p>
+      <p className="mt-4 text-4xl font-semibold tracking-tight text-[var(--text-primary)]">{price}</p>
+      <p className="mt-3 text-sm leading-7 text-[var(--text-secondary)]">{description}</p>
 
       <div className="mt-6 space-y-3">
         {points.map((point) => (
-          <div key={point} className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/70">
+          <div key={point} className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-1)] px-4 py-3 text-sm text-[var(--text-secondary)]">
             {point}
           </div>
         ))}
       </div>
 
-      <button
-        onClick={onClick}
-        disabled={disabled}
-        className={`mt-8 w-full rounded-2xl px-5 py-3 text-sm font-medium transition disabled:cursor-not-allowed disabled:opacity-60 ${
-          featured ? "bg-white text-zinc-950 hover:bg-zinc-100" : "bg-white/10 text-white hover:bg-white/15"
-        }`}
-      >
-        {cta}
-      </button>
+      {featured ? (
+        <div className="mt-8">
+          <MagneticButton
+            onClick={onClick}
+            disabled={disabled}
+            className="w-full rounded-2xl px-5 py-3 text-sm font-medium transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-60 bg-[var(--text-primary)] text-[var(--surface-0)] hover:bg-[var(--surface-2)]"
+          >
+            {cta}
+          </MagneticButton>
+        </div>
+      ) : (
+        <button
+          onClick={onClick}
+          disabled={disabled}
+          className="mt-8 w-full rounded-2xl px-5 py-3 text-sm font-medium transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-60 bg-[var(--surface-2)] text-[var(--text-primary)] hover:bg-[var(--surface-1)]"
+        >
+          {cta}
+        </button>
+      )}
     </GlowCard>
   )
 }

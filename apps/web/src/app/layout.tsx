@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next"
 import "./globals.css"
+import NoiseOverlay from "@/components/ui/NoiseOverlay"
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"),
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#09090b",
+  themeColor: "#0A0A0A",
   colorScheme: "dark",
   width: "device-width",
   initialScale: 1,
@@ -34,9 +35,18 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="bg-zinc-950 text-zinc-50 antialiased">
-      <body className="min-h-screen bg-zinc-950 text-zinc-50">
+    <html lang="en" className="antialiased" style={{ background: "#0A0A0A", color: "#F5F5F0" }}>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body className="min-h-screen" style={{ background: "#0A0A0A", color: "#F5F5F0" }}>
         {children}
+        <NoiseOverlay />
       </body>
     </html>
   )

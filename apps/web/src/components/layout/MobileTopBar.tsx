@@ -18,13 +18,13 @@ export default function MobileTopBar() {
 
   return (
     <div className="lg:hidden">
-      <div className="flex items-center justify-between rounded-[24px] border border-white/10 bg-white/5 px-4 py-4 shadow-[0_16px_50px_rgba(0,0,0,0.25)] backdrop-blur-2xl">
-        <Link href="/" className="text-[11px] font-semibold uppercase tracking-[0.34em] text-white/60">
+      <div className="flex items-center justify-between rounded-[var(--radius-lg)] border border-[var(--border-subtle)] bg-[var(--surface-1)] px-4 py-4 backdrop-blur-2xl">
+        <Link href="/" className="text-[11px] font-semibold uppercase tracking-[0.34em] text-[var(--text-muted)]">
           Defrag
         </Link>
         <button
           onClick={() => setOpen((v) => !v)}
-          className="rounded-xl border border-white/10 bg-white/5 p-2 text-white/80 transition hover:bg-white/10"
+          className="rounded-xl border border-[var(--border-subtle)] bg-[var(--surface-1)] p-2 text-[var(--text-secondary)] transition-colors duration-300 hover:bg-[var(--surface-2)]"
           aria-label="Toggle navigation"
         >
           {open ? <X size={18} /> : <Menu size={18} />}
@@ -32,14 +32,14 @@ export default function MobileTopBar() {
       </div>
 
       {open ? (
-        <div className="mt-3 rounded-[24px] border border-white/10 bg-black/40 p-3 shadow-[0_16px_50px_rgba(0,0,0,0.25)] backdrop-blur-2xl">
+        <div className="mt-3 rounded-[var(--radius-lg)] border border-[var(--border-subtle)] bg-[var(--surface-0)]/90 p-3 backdrop-blur-2xl">
           <nav className="grid gap-1">
             {items.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="rounded-2xl px-4 py-3 text-sm font-medium text-white/80 transition hover:bg-white/10 hover:text-white"
+                className="rounded-2xl px-4 py-3 text-sm font-medium text-[var(--text-secondary)] transition-colors duration-300 hover:bg-[var(--surface-2)] hover:text-[var(--text-primary)]"
               >
                 {item.label}
               </Link>
