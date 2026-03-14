@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import PremiumPanel from "@/components/ui/PremiumPanel"
 
 export default function AddEventForm() {
   const [eventType, setEventType] = useState("observation")
@@ -29,16 +28,16 @@ export default function AddEventForm() {
   }
 
   return (
-    <PremiumPanel className="p-5 sm:p-6">
-      <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/40">Add timeline event</p>
-      <h3 className="mt-4 text-lg font-medium text-white">Capture the moment that changed the pattern</h3>
-      <p className="mt-3 text-sm leading-7 text-white/60">
+    <div className="glass-surface p-5 sm:p-6">
+      <p className="typo-label text-[10px]">Add timeline event</p>
+      <h3 className="mt-4 text-lg font-medium text-[var(--text-primary)]">Capture the moment that changed the pattern</h3>
+      <p className="mt-3 text-sm leading-7 text-[var(--text-secondary)]">
         Log conflict, repair, stress, or observations so the larger sequence becomes easier to read.
       </p>
 
       <div className="mt-6 grid gap-3">
         <select
-          className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition focus:border-white/20"
+          className="glass-input px-4 py-3 text-sm text-[var(--text-primary)]"
           value={eventType}
           onChange={(e) => setEventType(e.target.value)}
         >
@@ -48,25 +47,25 @@ export default function AddEventForm() {
           <option value="stress">Stress</option>
         </select>
         <input
-          className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition focus:border-white/20"
+          className="glass-input px-4 py-3 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)]"
           placeholder="Target"
           value={target}
           onChange={(e) => setTarget(e.target.value)}
         />
         <textarea
-          className="min-h-[120px] rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition focus:border-white/20"
+          className="glass-input min-h-[120px] px-4 py-3 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-tertiary)]"
           placeholder="Describe what happened"
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
         />
         <button
           onClick={submit}
-          className="rounded-2xl bg-white px-5 py-3 text-sm font-medium text-zinc-950 transition hover:bg-zinc-100"
+          className="rounded-2xl bg-[var(--text-primary)] px-5 py-3 text-sm font-medium text-[var(--surface-0)] shadow-[0_10px_40px_rgba(0,0,0,0.7)] transition-all duration-300 hover:shadow-[0_14px_50px_rgba(0,0,0,0.8)]"
         >
           Save event
         </button>
-        {message ? <p className="text-sm text-white/60">{message}</p> : null}
+        {message ? <p className="text-sm text-[var(--text-secondary)]">{message}</p> : null}
       </div>
-    </PremiumPanel>
+    </div>
   )
 }

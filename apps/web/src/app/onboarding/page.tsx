@@ -30,18 +30,18 @@ export default function OnboardingPage() {
   const current = stepIndex(step) + 1
 
   return (
-    <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-[#09090b] px-4 py-12 text-white">
+    <main className="canvas-base relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4 py-12 text-[var(--text-primary)]">
       <BrandMesh />
       <div className="relative w-full max-w-lg space-y-8">
         {step !== "welcome" && (
           <div className="flex items-center gap-3">
-            <div className="h-1 flex-1 overflow-hidden rounded-full bg-white/10">
+            <div className="h-1 flex-1 overflow-hidden rounded-full bg-white/[0.06]">
               <div
-                className="h-full rounded-full bg-white/60 transition-all duration-500"
+                className="h-full rounded-full bg-white/50 transition-all duration-500"
                 style={{ width: `${(current / TOTAL_STEPS) * 100}%` }}
               />
             </div>
-            <span className="text-xs tabular-nums text-white/40">
+            <span className="text-xs tabular-nums text-[var(--text-muted)]">
               {current}/{TOTAL_STEPS}
             </span>
           </div>

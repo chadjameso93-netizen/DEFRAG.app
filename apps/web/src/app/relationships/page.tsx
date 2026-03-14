@@ -32,28 +32,28 @@ function RelationshipDetail({
           <h2 className="text-lg font-semibold text-[var(--text-primary)]">{relationship.target_name}</h2>
           <p className="mt-0.5 text-sm text-[var(--text-secondary)]">{relationship.relationship_type}</p>
         </div>
-        <button onClick={onClose} className="rounded-md p-1 text-[var(--text-muted)] transition-colors duration-300 hover:bg-[var(--surface-2)] hover:text-[var(--text-secondary)]">
+        <button onClick={onClose} className="rounded-md p-1 text-[var(--text-muted)] transition-colors duration-300 hover:bg-white/[0.03] hover:text-[var(--text-secondary)]">
           <X size={16} />
         </button>
       </div>
 
       <div className="mt-5 grid grid-cols-2 gap-3">
-        <div className="rounded-lg border border-[var(--border-subtle)] bg-[var(--surface-1)] p-3">
+        <div className="glass-surface-light p-3">
           <p className="text-[10px] font-medium uppercase tracking-wider text-[var(--text-muted)]">Tension</p>
           <div className="mt-1 flex items-center gap-2">
             <TensionDot level={tensionLevel} />
             <span className="text-sm font-medium text-[var(--text-primary)]">{Math.round((relationship.tension_score ?? 0) * 100)}%</span>
           </div>
         </div>
-        <div className="rounded-lg border border-[var(--border-subtle)] bg-[var(--surface-1)] p-3">
+        <div className="glass-surface-light p-3">
           <p className="text-[10px] font-medium uppercase tracking-wider text-[var(--text-muted)]">Trust</p>
           <span className="mt-1 block text-sm font-medium text-[var(--text-primary)]">{Math.round((relationship.trust_score ?? 0) * 100)}%</span>
         </div>
-        <div className="rounded-lg border border-[var(--border-subtle)] bg-[var(--surface-1)] p-3">
+        <div className="glass-surface-light p-3">
           <p className="text-[10px] font-medium uppercase tracking-wider text-[var(--text-muted)]">Closeness</p>
           <span className="mt-1 block text-sm font-medium text-[var(--text-primary)]">{Math.round((relationship.closeness_score ?? 0) * 100)}%</span>
         </div>
-        <div className="rounded-lg border border-[var(--border-subtle)] bg-[var(--surface-1)] p-3">
+        <div className="glass-surface-light p-3">
           <p className="text-[10px] font-medium uppercase tracking-wider text-[var(--text-muted)]">Volatility</p>
           <span className="mt-1 block text-sm font-medium text-[var(--text-primary)]">{Math.round((relationship.volatility_score ?? 0) * 100)}%</span>
         </div>
@@ -84,19 +84,19 @@ function RelationshipDetail({
       <div className="mt-5 flex flex-wrap gap-2">
         <Link
           href="/ai"
-          className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--border)] px-3 py-1.5 text-[13px] font-medium text-[var(--text-secondary)] transition-colors duration-300 hover:bg-[var(--surface-2)]"
+          className="inline-flex items-center gap-1.5 rounded-xl border border-white/[0.06] bg-white/[0.03] px-3 py-1.5 text-[13px] font-medium text-[var(--text-secondary)] transition-colors duration-300 hover:bg-white/[0.06]"
         >
           <MessageSquare size={14} /> Ask
         </Link>
         <Link
           href="/timeline"
-          className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--border)] px-3 py-1.5 text-[13px] font-medium text-[var(--text-secondary)] transition-colors duration-300 hover:bg-[var(--surface-2)]"
+          className="inline-flex items-center gap-1.5 rounded-xl border border-white/[0.06] bg-white/[0.03] px-3 py-1.5 text-[13px] font-medium text-[var(--text-secondary)] transition-colors duration-300 hover:bg-white/[0.06]"
         >
           <Calendar size={14} /> Log Event
         </Link>
         <Link
           href="/ai"
-          className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--border)] px-3 py-1.5 text-[13px] font-medium text-[var(--text-secondary)] transition-colors duration-300 hover:bg-[var(--surface-2)]"
+          className="inline-flex items-center gap-1.5 rounded-xl border border-white/[0.06] bg-white/[0.03] px-3 py-1.5 text-[13px] font-medium text-[var(--text-secondary)] transition-colors duration-300 hover:bg-white/[0.06]"
         >
           <Zap size={14} /> Simulate
         </Link>
@@ -161,7 +161,7 @@ export default function RelationshipsPage() {
 
   return (
     <AppShell rightPanel={rightPanel}>
-      <div className="space-y-6">
+      <div className="animate-[page-enter_0.5s_ease_both] space-y-6">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-xl font-semibold text-[var(--text-primary)]">Relationships</h1>
@@ -169,7 +169,7 @@ export default function RelationshipsPage() {
           </div>
           <button
             onClick={() => setShowForm(!showForm)}
-            className="inline-flex items-center gap-1.5 rounded-lg bg-[var(--text-primary)] px-3 py-1.5 text-[13px] font-medium text-[var(--surface-0)] transition-colors duration-300 hover:bg-[var(--surface-2)]"
+            className="inline-flex items-center gap-1.5 rounded-2xl bg-[var(--text-primary)] px-3 py-1.5 text-[13px] font-medium text-[var(--surface-0)] shadow-[0_0_20px_rgba(245,245,240,0.04)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,245,240,0.08)]"
           >
             <Plus size={14} />
             Add
@@ -177,7 +177,7 @@ export default function RelationshipsPage() {
         </div>
 
         {showForm && (
-          <form onSubmit={handleAdd} className="rounded-lg border border-[var(--border-subtle)] bg-[var(--surface-1)] p-4">
+          <form onSubmit={handleAdd} className="glass-surface-light p-4">
             <p className="text-[13px] font-medium text-[var(--text-primary)]">Add a relationship</p>
             <div className="mt-3 grid gap-3 sm:grid-cols-2">
               <div>
@@ -186,7 +186,7 @@ export default function RelationshipsPage() {
                   value={formData.target_name}
                   onChange={(e) => setFormData({ ...formData, target_name: e.target.value })}
                   placeholder="Their name"
-                  className="w-full rounded-md border border-[var(--border)] bg-[var(--surface-2)] px-3 py-2 text-sm text-[var(--text-primary)] outline-none transition-colors duration-300 focus:border-[var(--border)]"
+                  className="glass-input w-full"
                 />
               </div>
               <div>
@@ -194,7 +194,7 @@ export default function RelationshipsPage() {
                 <select
                   value={formData.relationship_type}
                   onChange={(e) => setFormData({ ...formData, relationship_type: e.target.value })}
-                  className="w-full rounded-md border border-[var(--border)] bg-[var(--surface-2)] px-3 py-2 text-sm text-[var(--text-primary)] outline-none transition-colors duration-300 focus:border-[var(--border)]"
+                  className="glass-input w-full"
                 >
                   <option value="personal">Personal</option>
                   <option value="family">Family</option>
@@ -207,7 +207,7 @@ export default function RelationshipsPage() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="rounded-md bg-[var(--text-primary)] px-4 py-1.5 text-[13px] font-medium text-[var(--surface-0)] transition-colors duration-300 hover:bg-[var(--surface-2)] disabled:opacity-50"
+                className="rounded-2xl bg-[var(--text-primary)] px-4 py-1.5 text-[13px] font-medium text-[var(--surface-0)] shadow-[0_0_20px_rgba(245,245,240,0.04)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,245,240,0.08)] disabled:opacity-50"
               >
                 {submitting ? "Adding..." : "Add relationship"}
               </button>
@@ -227,19 +227,19 @@ export default function RelationshipsPage() {
             {[1, 2, 3].map((i) => <div key={i} className="skeleton h-16 rounded-lg" />)}
           </div>
         ) : relationships.length === 0 ? (
-          <div className="rounded-lg border border-dashed border-[var(--border-subtle)] py-16 text-center">
+          <div className="rounded-2xl border border-dashed border-[var(--border-subtle)] py-16 text-center">
             <Users size={28} className="mx-auto text-[var(--text-muted)]" />
             <p className="mt-3 text-sm text-[var(--text-secondary)]">No relationships yet</p>
             <p className="mt-1 text-[13px] text-[var(--text-muted)]">Add someone to start building your relational map.</p>
             <button
               onClick={() => setShowForm(true)}
-              className="mt-4 inline-flex items-center gap-1.5 rounded-lg bg-[var(--text-primary)] px-4 py-2 text-[13px] font-medium text-[var(--surface-0)] transition-colors duration-300 hover:bg-[var(--surface-2)]"
+              className="mt-4 inline-flex items-center gap-1.5 rounded-2xl bg-[var(--text-primary)] px-4 py-2 text-[13px] font-medium text-[var(--surface-0)] shadow-[0_0_20px_rgba(245,245,240,0.04)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,245,240,0.08)]"
             >
               <Plus size={14} /> Add relationship
             </button>
           </div>
         ) : (
-          <div className="divide-y divide-[var(--border-subtle)] rounded-lg border border-[var(--border-subtle)]">
+          <div className="divide-y divide-white/[0.04] overflow-hidden rounded-2xl border border-white/[0.06] bg-white/[0.02]">
             {relationships.map((rel) => {
               const tensionLevel: "low" | "moderate" | "high" =
                 (rel.tension_score ?? 0) > 0.65 ? "high" : (rel.tension_score ?? 0) > 0.45 ? "moderate" : "low"
@@ -248,8 +248,8 @@ export default function RelationshipsPage() {
                 <button
                   key={rel.id}
                   onClick={() => setSelected(isSelected ? null : rel)}
-                  className={`flex w-full items-center gap-4 px-4 py-3 text-left transition-colors duration-300 hover:bg-[var(--surface-1)] ${
-                    isSelected ? "bg-[var(--surface-1)]" : ""
+                  className={`flex w-full items-center gap-4 px-4 py-3 text-left transition-colors duration-300 hover:bg-white/[0.03] ${
+                    isSelected ? "bg-white/[0.04]" : ""
                   }`}
                 >
                   <TensionDot level={tensionLevel} />

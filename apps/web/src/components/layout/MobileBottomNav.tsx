@@ -22,8 +22,8 @@ export default function MobileBottomNav() {
   const pathname = usePathname()
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 border-t border-[var(--border-subtle)] bg-[var(--surface-0)]/90 px-3 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] pt-3 backdrop-blur-2xl lg:hidden">
-      <nav className="mx-auto grid max-w-xl grid-cols-6 gap-2">
+    <div className="glass-floating fixed inset-x-4 bottom-3 z-50 rounded-2xl px-2 pb-[calc(env(safe-area-inset-bottom)+0.25rem)] pt-2 lg:hidden">
+      <nav className="mx-auto grid max-w-xl grid-cols-6 gap-1">
         {items.map((item) => {
           const active = isActive(pathname, item.href)
           const Icon = item.icon
@@ -32,10 +32,10 @@ export default function MobileBottomNav() {
               key={item.href}
               href={item.href}
               className={cn(
-                "flex flex-col items-center justify-center gap-1 rounded-2xl px-2 py-3 text-[10px] font-medium transition-all duration-300",
+                "flex flex-col items-center justify-center gap-1 rounded-xl px-1 py-2.5 text-[10px] font-medium transition-all duration-300",
                 active
-                  ? "bg-[var(--text-primary)] text-[var(--surface-0)]"
-                  : "bg-[var(--surface-1)] text-[var(--text-muted)] hover:bg-[var(--surface-2)] hover:text-[var(--text-secondary)]"
+                  ? "bg-white/[0.08] text-[var(--text-primary)]"
+                  : "text-[var(--text-muted)] hover:text-[var(--text-secondary)]"
               )}
             >
               <Icon size={16} />

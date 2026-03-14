@@ -11,7 +11,7 @@ export default function GlassPanel({
   return (
     <div
       className={cn(
-        "rounded-[var(--radius-xl)] border border-[var(--border-subtle)] bg-[var(--surface-1)] backdrop-blur-xl transition-all duration-500 hover:border-[var(--border)] hover:bg-[var(--surface-2)]",
+        "glass-surface transition-all duration-300 hover:border-white/[0.08]",
         className
       )}
     >

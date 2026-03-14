@@ -47,9 +47,9 @@ export default function SignupPage() {
     >
       <div className="space-y-4">
         <div>
-          <label className="mb-1 block text-[12px] text-zinc-500">Email</label>
+          <label className="mb-1 block text-[12px] text-[var(--text-muted)]">Email</label>
           <input
-            className="w-full rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2.5 text-sm text-zinc-100 outline-none transition focus:border-zinc-600"
+            className="glass-input w-full"
             placeholder="you@example.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -57,10 +57,10 @@ export default function SignupPage() {
         </div>
 
         <div>
-          <label className="mb-1 block text-[12px] text-zinc-500">Password</label>
+          <label className="mb-1 block text-[12px] text-[var(--text-muted)]">Password</label>
           <input
             type="password"
-            className="w-full rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2.5 text-sm text-zinc-100 outline-none transition focus:border-zinc-600"
+            className="glass-input w-full"
             placeholder="Create password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -70,12 +70,12 @@ export default function SignupPage() {
         <button
           onClick={handleSignup}
           disabled={loading}
-          className="w-full rounded-md bg-zinc-50 px-4 py-2.5 text-sm font-medium text-zinc-900 transition hover:bg-zinc-200 disabled:opacity-50"
+          className="w-full rounded-2xl bg-[var(--text-primary)] px-4 py-2.5 text-sm font-medium text-[var(--surface-0)] shadow-[0_0_20px_rgba(245,245,240,0.04)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,245,240,0.08)] disabled:opacity-50"
         >
           {loading ? "Creating account..." : "Create account"}
         </button>
 
-        {message ? <p className="text-[13px] text-zinc-400">{message}</p> : null}
+        {message ? <p className="text-[13px] text-[var(--text-secondary)]">{message}</p> : null}
       </div>
     </AuthShell>
   )

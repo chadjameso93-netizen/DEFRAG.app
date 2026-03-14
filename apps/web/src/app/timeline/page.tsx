@@ -79,7 +79,7 @@ function AddEventPanel({
     <div className="p-5">
       <div className="flex items-center justify-between">
         <h2 className="text-sm font-semibold text-[var(--text-primary)]">Log event</h2>
-        <button onClick={onClose} className="rounded-md p-1 text-[var(--text-muted)] transition-colors duration-300 hover:bg-[var(--surface-2)] hover:text-[var(--text-secondary)]">
+        <button onClick={onClose} className="rounded-md p-1 text-[var(--text-muted)] transition-colors duration-300 hover:bg-white/[0.03] hover:text-[var(--text-secondary)]">
           <X size={16} />
         </button>
       </div>
@@ -90,7 +90,7 @@ function AddEventPanel({
           <select
             value={form.event_type}
             onChange={(e) => setForm({ ...form, event_type: e.target.value })}
-            className="w-full rounded-md border border-[var(--border)] bg-[var(--surface-2)] px-3 py-2 text-sm text-[var(--text-primary)] outline-none transition-colors duration-300 focus:border-[var(--border)]"
+            className="glass-input w-full"
           >
             <option value="observation">Observation</option>
             <option value="conflict">Conflict</option>
@@ -105,7 +105,7 @@ function AddEventPanel({
           <select
             value={form.relationship_id}
             onChange={(e) => setForm({ ...form, relationship_id: e.target.value })}
-            className="w-full rounded-md border border-[var(--border)] bg-[var(--surface-2)] px-3 py-2 text-sm text-[var(--text-primary)] outline-none transition-colors duration-300 focus:border-[var(--border)]"
+            className="glass-input w-full"
           >
             <option value="">General</option>
             {relationships.map((r) => (
@@ -123,7 +123,7 @@ function AddEventPanel({
             step="0.1"
             value={form.severity}
             onChange={(e) => setForm({ ...form, severity: parseFloat(e.target.value) })}
-            className="w-full accent-zinc-400"
+            className="w-full accent-[var(--text-muted)]"
           />
           <div className="flex justify-between text-[11px] text-[var(--text-muted)]">
             <span>Low</span>
@@ -139,7 +139,7 @@ function AddEventPanel({
             onChange={(e) => setForm({ ...form, notes: e.target.value })}
             placeholder="Describe the event..."
             rows={3}
-            className="w-full rounded-md border border-[var(--border)] bg-[var(--surface-2)] px-3 py-2 text-sm text-[var(--text-primary)] outline-none transition-colors duration-300 focus:border-[var(--border)]"
+            className="glass-input w-full"
           />
         </div>
 
@@ -147,7 +147,7 @@ function AddEventPanel({
           <button
             type="submit"
             disabled={submitting || !form.notes.trim()}
-            className="rounded-md bg-[var(--text-primary)] px-4 py-1.5 text-[13px] font-medium text-[var(--surface-0)] transition-colors duration-300 hover:bg-[var(--surface-2)] disabled:opacity-50"
+            className="rounded-2xl bg-[var(--text-primary)] px-4 py-1.5 text-[13px] font-medium text-[var(--surface-0)] shadow-[0_0_20px_rgba(245,245,240,0.04)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,245,240,0.08)] disabled:opacity-50"
           >
             {submitting ? "Saving..." : "Log event"}
           </button>
@@ -223,7 +223,7 @@ export default function TimelinePage() {
 
   return (
     <AppShell rightPanel={rightPanel}>
-      <div className="space-y-6">
+      <div className="animate-[page-enter_0.5s_ease_both] space-y-6">
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-xl font-semibold text-[var(--text-primary)]">Timeline</h1>
@@ -232,13 +232,13 @@ export default function TimelinePage() {
           <div className="flex gap-2">
             <Link
               href="/ai"
-              className="inline-flex items-center gap-1.5 rounded-lg border border-[var(--border)] px-3 py-1.5 text-[13px] font-medium text-[var(--text-secondary)] transition-colors duration-300 hover:bg-[var(--surface-2)]"
+              className="inline-flex items-center gap-1.5 rounded-xl border border-white/[0.06] bg-white/[0.03] px-3 py-1.5 text-[13px] font-medium text-[var(--text-secondary)] transition-colors duration-300 hover:bg-white/[0.06]"
             >
               <MessageSquare size={14} /> Plan a conversation
             </Link>
             <button
               onClick={() => setShowAddPanel(true)}
-              className="inline-flex items-center gap-1.5 rounded-lg bg-[var(--text-primary)] px-3 py-1.5 text-[13px] font-medium text-[var(--surface-0)] transition-colors duration-300 hover:bg-[var(--surface-2)]"
+              className="inline-flex items-center gap-1.5 rounded-2xl bg-[var(--text-primary)] px-3 py-1.5 text-[13px] font-medium text-[var(--surface-0)] shadow-[0_0_20px_rgba(245,245,240,0.04)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,245,240,0.08)]"
             >
               <Plus size={14} /> Log event
             </button>
@@ -250,13 +250,13 @@ export default function TimelinePage() {
             {[1, 2, 3].map((i) => <div key={i} className="skeleton h-20 rounded-lg" />)}
           </div>
         ) : events.length === 0 ? (
-          <div className="rounded-lg border border-dashed border-[var(--border-subtle)] py-16 text-center">
+          <div className="rounded-2xl border border-dashed border-[var(--border-subtle)] py-16 text-center">
             <Calendar size={28} className="mx-auto text-[var(--text-muted)]" />
             <p className="mt-3 text-sm text-[var(--text-secondary)]">No events logged yet</p>
             <p className="mt-1 text-[13px] text-[var(--text-muted)]">Log your first event to start tracking relational patterns.</p>
             <button
               onClick={() => setShowAddPanel(true)}
-              className="mt-4 inline-flex items-center gap-1.5 rounded-lg bg-[var(--text-primary)] px-4 py-2 text-[13px] font-medium text-[var(--surface-0)] transition-colors duration-300 hover:bg-[var(--surface-2)]"
+              className="mt-4 inline-flex items-center gap-1.5 rounded-2xl bg-[var(--text-primary)] px-4 py-2 text-[13px] font-medium text-[var(--surface-0)] shadow-[0_0_20px_rgba(245,245,240,0.04)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,245,240,0.08)]"
             >
               <Plus size={14} /> Log event
             </button>
@@ -279,7 +279,7 @@ export default function TimelinePage() {
                       </p>
                       <ActivationBand level={band} />
                     </div>
-                    <div className="h-px flex-1 bg-[var(--border-subtle)]" />
+                    <div className="h-px flex-1 bg-white/[0.04]" />
                     <p className="text-[11px] text-[var(--text-muted)]">{dayEvents.length} event{dayEvents.length !== 1 ? "s" : ""}</p>
                   </div>
 
@@ -288,7 +288,7 @@ export default function TimelinePage() {
                     {dayEvents.map((evt) => (
                       <div
                         key={evt.id}
-                        className="flex items-start gap-3 rounded-lg px-3 py-2.5 transition-colors duration-300 hover:bg-[var(--surface-1)]"
+                        className="flex items-start gap-3 rounded-lg px-3 py-2.5 transition-colors duration-300 hover:bg-white/[0.03]"
                       >
                         <EventDot type={evt.event_type} />
                         <div className="min-w-0 flex-1">

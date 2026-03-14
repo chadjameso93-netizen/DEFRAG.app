@@ -28,7 +28,7 @@ export default function StepFirstEvent() {
           }}
           rows={4}
           placeholder="What happened? How did it feel?"
-          className="w-full resize-none rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm leading-6 text-white outline-none placeholder:text-white/30 focus:border-white/25"
+          className="w-full resize-none glass-input"
         />
         <p className="mt-2 text-right text-xs text-white/30">{firstEventDescription.length}/280</p>
       </div>
@@ -36,7 +36,7 @@ export default function StepFirstEvent() {
       <button
         onClick={() => setStep("first-insight")}
         disabled={!canContinue}
-        className="mt-4 w-full rounded-2xl bg-white px-6 py-3 text-sm font-medium text-zinc-950 transition hover:bg-zinc-100 disabled:opacity-30"
+        className="mt-4 w-full rounded-2xl bg-[var(--text-primary)] px-6 py-3 text-sm font-medium text-[var(--surface-0)] shadow-[0_0_20px_rgba(245,245,240,0.04)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,245,240,0.08)] disabled:opacity-30"
       >
         Get your first insight
       </button>

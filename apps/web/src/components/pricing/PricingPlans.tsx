@@ -31,7 +31,7 @@ function Plan({
 
       <div className="mt-6 space-y-3">
         {points.map((point) => (
-          <div key={point} className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-1)] px-4 py-3 text-sm text-[var(--text-secondary)]">
+          <div key={point} className="glass-surface-light px-4 py-3 text-sm text-[var(--text-secondary)]">
             {point}
           </div>
         ))}
@@ -42,7 +42,7 @@ function Plan({
           <MagneticButton
             onClick={onClick}
             disabled={disabled}
-            className="w-full rounded-2xl px-5 py-3 text-sm font-medium transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-60 bg-[var(--text-primary)] text-[var(--surface-0)] hover:bg-[var(--surface-2)]"
+            className="w-full rounded-2xl px-5 py-3 text-sm font-medium transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-60 bg-[var(--text-primary)] text-[var(--surface-0)] shadow-[0_0_20px_rgba(245,245,240,0.04)] hover:shadow-[0_0_30px_rgba(245,245,240,0.08)]"
           >
             {cta}
           </MagneticButton>
@@ -51,7 +51,7 @@ function Plan({
         <button
           onClick={onClick}
           disabled={disabled}
-          className="mt-8 w-full rounded-2xl px-5 py-3 text-sm font-medium transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-60 bg-[var(--surface-2)] text-[var(--text-primary)] hover:bg-[var(--surface-1)]"
+          className="mt-8 w-full rounded-2xl border border-white/[0.06] bg-white/[0.03] px-5 py-3 text-sm font-medium text-[var(--text-primary)] transition-colors duration-300 hover:bg-white/[0.06] disabled:cursor-not-allowed disabled:opacity-60"
         >
           {cta}
         </button>

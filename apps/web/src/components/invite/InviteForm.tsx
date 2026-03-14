@@ -82,13 +82,13 @@ export default function InviteForm() {
 
       <div className="mt-6 grid gap-3">
         <input
-          className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition focus:border-white/20"
+          className="glass-input"
           placeholder="Person name"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
         <select
-          className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition focus:border-white/20"
+          className="glass-input"
           value={relationship}
           onChange={(e) => setRelationship(e.target.value)}
         >
@@ -97,7 +97,7 @@ export default function InviteForm() {
           <option value="team">Team</option>
         </select>
         <select
-          className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition focus:border-white/20"
+          className="glass-input"
           value={deliveryMethod}
           onChange={(e) => setDeliveryMethod(e.target.value as "email" | "sms" | "manual")}
         >
@@ -107,7 +107,7 @@ export default function InviteForm() {
         </select>
         {deliveryMethod === "email" ? (
           <input
-            className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition focus:border-white/20"
+            className="glass-input"
             placeholder="Email address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -115,7 +115,7 @@ export default function InviteForm() {
         ) : null}
         {deliveryMethod === "sms" ? (
           <input
-            className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition focus:border-white/20"
+            className="glass-input"
             placeholder="Phone number"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
@@ -125,7 +125,7 @@ export default function InviteForm() {
           type="button"
           onClick={submit}
           disabled={submitting}
-          className="rounded-2xl bg-white px-5 py-3 text-sm font-medium text-zinc-950 transition hover:bg-[#f3ece3] disabled:cursor-not-allowed disabled:opacity-60"
+          className="rounded-2xl bg-[var(--text-primary)] px-5 py-3 text-sm font-medium text-[var(--surface-0)] shadow-[0_0_20px_rgba(245,245,240,0.04)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,245,240,0.08)] disabled:cursor-not-allowed disabled:opacity-60"
         >
           {submitting ? "Creating invite..." : "Create invite"}
         </button>

@@ -1,0 +1,10 @@
+/* ── Global Grain Overlay ── subtle noise texture ── */
+
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.02;
+  mix-blend-mode: overlay;
+}

@@ -1,8 +1,9 @@
 import { ReactNode } from "react"
+import { cn } from "@/lib/cn"
 
-export default function Card({ children }: { children: ReactNode }) {
+export default function Card({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <div className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm transition hover:shadow-md">
+    <div className={cn("glass-surface-light p-5 transition-all duration-300 hover:border-white/[0.06]", className)}>
       {children}
     </div>
   )

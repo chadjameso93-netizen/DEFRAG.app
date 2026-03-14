@@ -27,11 +27,11 @@ export default function TimelinePreview({ events }: { events: EventItem[] }) {
         </Link>
       </div>
 
-      <div className="mt-5 rounded-[24px] border border-white/10 bg-black/20 p-4 text-sm leading-7 text-white/70">{guidance}</div>
+      <div className="mt-5 rounded-[24px] border border-white/[0.06] bg-white/[0.03] p-4 text-sm leading-7 text-white/70">{guidance}</div>
 
       <div className="mt-6 space-y-3">
         {preview.map((event) => (
-          <div key={event.id} className="rounded-[24px] border border-white/10 bg-white/[0.04] p-4">
+          <div key={event.id} className="glass-surface-light p-4">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
               <p className="text-[10px] font-semibold uppercase tracking-[0.20em] text-white/42">{event.event_type}</p>
               <p className="text-xs text-white/45">{new Date(event.created_at).toLocaleString()}</p>

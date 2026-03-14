@@ -4,7 +4,7 @@
 export default function DailyInsightPlayer(){
 
   return (
-    <div className="border border-white/10 bg-white/5 rounded-xl p-6 backdrop-blur">
+    <div className="glass-surface-light p-6">
 
       <h2 className="text-xl font-semibold mb-4">
         Daily Strategic Read

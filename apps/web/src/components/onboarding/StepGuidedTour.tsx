@@ -35,7 +35,7 @@ export default function StepGuidedTour() {
     <GlowCard className="p-8 text-center sm:p-10">
       <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-white/45">Quick tour</p>
 
-      <div className="mx-auto mt-6 inline-flex rounded-2xl border border-white/10 bg-white/5 p-4">
+      <div className="mx-auto mt-6 inline-flex glass-surface-light p-4">
         <Icon size={32} className="text-white" />
       </div>
 
@@ -59,7 +59,7 @@ export default function StepGuidedTour() {
             setTourIndex(tourIndex + 1)
           }
         }}
-        className="mt-6 w-full rounded-2xl bg-white px-6 py-3 text-sm font-medium text-zinc-950 transition hover:bg-zinc-100"
+        className="mt-6 w-full rounded-2xl bg-[var(--text-primary)] px-6 py-3 text-sm font-medium text-[var(--surface-0)] shadow-[0_0_20px_rgba(245,245,240,0.04)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,245,240,0.08)]"
       >
         {isLast ? "Go to your dashboard" : "Next"}
       </button>

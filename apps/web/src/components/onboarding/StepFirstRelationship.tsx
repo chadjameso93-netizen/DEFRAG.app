@@ -26,7 +26,7 @@ export default function StepFirstRelationship() {
             value={firstRelationshipName}
             onChange={(e) => setField("firstRelationshipName", e.target.value)}
             placeholder="First name or nickname"
-            className="mt-2 w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none placeholder:text-white/30 focus:border-white/25"
+            className="mt-2 w-full glass-input"
           />
         </div>
         <div>
@@ -38,8 +38,8 @@ export default function StepFirstRelationship() {
                 onClick={() => setField("firstRelationshipType", t)}
                 className={`rounded-xl border px-3 py-2 text-xs capitalize transition ${
                   firstRelationshipType === t
-                    ? "border-white/30 bg-white/10 text-white"
-                    : "border-white/10 bg-white/5 text-white/50 hover:border-white/20"
+                    ? "border-white/[0.12] bg-white/[0.06] text-white"
+                    : "border-white/[0.06] bg-white/[0.03] text-white/50 hover:border-white/[0.08]"
                 }`}
               >
                 {t}
@@ -53,7 +53,7 @@ export default function StepFirstRelationship() {
             type="date"
             value={firstRelationshipBirthDate}
             onChange={(e) => setField("firstRelationshipBirthDate", e.target.value)}
-            className="mt-2 w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none focus:border-white/25"
+            className="mt-2 w-full glass-input"
           />
         </div>
       </div>
@@ -61,7 +61,7 @@ export default function StepFirstRelationship() {
       <button
         onClick={() => setStep("first-event")}
         disabled={!canContinue}
-        className="mt-6 w-full rounded-2xl bg-white px-6 py-3 text-sm font-medium text-zinc-950 transition hover:bg-zinc-100 disabled:opacity-30"
+        className="mt-6 w-full rounded-2xl bg-[var(--text-primary)] px-6 py-3 text-sm font-medium text-[var(--surface-0)] shadow-[0_0_20px_rgba(245,245,240,0.04)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,245,240,0.08)] disabled:opacity-30"
       >
         Continue
       </button>

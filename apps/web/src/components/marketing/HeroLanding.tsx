@@ -18,7 +18,7 @@ function Metric({
   value: string
 }) {
   return (
-    <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-0)]/40 px-4 py-4">
+    <div className="rounded-2xl border border-white/[0.06] bg-white/[0.03] px-4 py-4">
       <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--text-muted)]">{label}</p>
       <p className="mt-2 text-lg font-semibold tracking-tight text-[var(--text-primary)]">{value}</p>
     </div>
@@ -39,7 +39,7 @@ function Feature({
   return (
     <FadeIn delay={delay}>
       <GlowCard className="p-6">
-        <div className="inline-flex rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-1)] p-3 text-[var(--text-primary)]">
+        <div className="inline-flex rounded-2xl border border-white/[0.06] bg-white/[0.03] p-3 text-[var(--text-primary)]">
           {icon}
         </div>
         <h3 className="mt-5 text-lg font-medium text-[var(--text-primary)]">{title}</h3>
@@ -58,14 +58,14 @@ export default function HeroLanding() {
         <CurtainRevealContainer>
         <CurtainRevealItem>
         <GlowCard className="p-4 sm:p-6 lg:p-8">
-          <div className="rounded-[var(--radius-xl)] border border-[var(--border-subtle)] bg-[linear-gradient(180deg,var(--surface-1),var(--surface-0))] px-6 py-10 sm:px-8 lg:px-12 lg:py-16">
+          <div className="rounded-[var(--radius-xl)] border border-white/[0.04] bg-[linear-gradient(180deg,rgba(255,255,255,0.03),transparent)] px-6 py-10 sm:px-8 lg:px-12 lg:py-16">
             <div className="grid items-center gap-10 lg:grid-cols-[1.08fr_0.92fr]">
               <div>
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-                  className="inline-flex items-center rounded-full border border-[var(--border-subtle)] bg-[var(--surface-1)] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-[var(--text-muted)]"
+                  className="inline-flex items-center rounded-full border border-white/[0.06] bg-white/[0.03] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-[var(--text-muted)]"
                 >
                   Defrag Platform
                 </motion.div>
@@ -104,7 +104,7 @@ export default function HeroLanding() {
                   <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }} transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}>
                     <Link
                       href="/dashboard"
-                      className="inline-flex items-center justify-center rounded-2xl border border-[var(--border)] bg-[var(--surface-1)] px-6 py-3 text-sm font-medium text-[var(--text-primary)] transition-all duration-300 hover:bg-[var(--surface-2)]"
+                      className="inline-flex items-center justify-center rounded-2xl border border-white/[0.06] bg-white/[0.03] px-6 py-3 text-sm font-medium text-[var(--text-primary)] transition-all duration-300 hover:bg-white/[0.06]"
                     >
                       View dashboard
                     </Link>
@@ -126,19 +126,19 @@ export default function HeroLanding() {
               <FadeIn delay={0.3}>
                 <GlowCard className="p-5 sm:p-6">
                   <div className="grid gap-3">
-                    <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-1)] p-4">
+                    <div className="rounded-2xl border border-white/[0.06] bg-white/[0.03] p-4">
                       <p className="text-[10px] font-semibold uppercase tracking-[0.20em] text-[var(--text-muted)]">Relationship map</p>
                       <p className="mt-2 text-sm leading-7 text-[var(--text-secondary)]">See who is involved and where the strongest pressure points sit.</p>
                     </div>
-                    <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-1)] p-4">
+                    <div className="rounded-2xl border border-white/[0.06] bg-white/[0.03] p-4">
                       <p className="text-[10px] font-semibold uppercase tracking-[0.20em] text-[var(--text-muted)]">Timeline</p>
                       <p className="mt-2 text-sm leading-7 text-[var(--text-secondary)]">Track the events shaping the active dynamic instead of reacting to a single moment.</p>
                     </div>
-                    <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-1)] p-4">
+                    <div className="rounded-2xl border border-white/[0.06] bg-white/[0.03] p-4">
                       <p className="text-[10px] font-semibold uppercase tracking-[0.20em] text-[var(--text-muted)]">AI guidance</p>
                       <p className="mt-2 font-serif-accent text-sm leading-7 text-[var(--text-secondary)]">Turn situations into structured insight and clearer next steps.</p>
                     </div>
-                    <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-1)] p-4">
+                    <div className="rounded-2xl border border-white/[0.06] bg-white/[0.03] p-4">
                       <p className="text-[10px] font-semibold uppercase tracking-[0.20em] text-[var(--text-muted)]">Simulation</p>
                       <p className="mt-2 text-sm leading-7 text-[var(--text-secondary)]">Compare possible responses before the conversation happens.</p>
                     </div>
@@ -163,17 +163,17 @@ export default function HeroLanding() {
         <FadeIn>
           <GlowCard className="p-6 sm:p-8 lg:p-10">
             <div className="grid gap-4 lg:grid-cols-3">
-              <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-1)] p-5">
+              <div className="rounded-2xl border border-white/[0.06] bg-white/[0.03] p-5">
                 <Sparkles size={18} className="text-[var(--text-primary)]" />
                 <h3 className="mt-4 text-base font-medium text-[var(--text-primary)]">Premium interface</h3>
                 <p className="mt-3 text-sm leading-7 text-[var(--text-secondary)]">Dark glass surfaces, stronger hierarchy, and cleaner spacing across every core screen.</p>
               </div>
-              <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-1)] p-5">
+              <div className="rounded-2xl border border-white/[0.06] bg-white/[0.03] p-5">
                 <Network size={18} className="text-[var(--text-primary)]" />
                 <h3 className="mt-4 text-base font-medium text-[var(--text-primary)]">Organized system view</h3>
                 <p className="mt-3 text-sm leading-7 text-[var(--text-secondary)]">The dashboard, relationships, and timeline pages all point back to the same platform purpose.</p>
               </div>
-              <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-1)] p-5">
+              <div className="rounded-2xl border border-white/[0.06] bg-white/[0.03] p-5">
                 <BrainCircuit size={18} className="text-[var(--text-primary)]" />
                 <h3 className="mt-4 text-base font-medium text-[var(--text-primary)]">Action-oriented guidance</h3>
                 <p className="mt-3 text-sm leading-7 text-[var(--text-secondary)]">Simulations and AI guidance are framed around real next-step preparation.</p>

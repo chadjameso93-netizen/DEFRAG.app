@@ -27,7 +27,7 @@ function ProofPanel({ proof, onClose }: { proof: ProofJson; onClose: () => void 
     <div className="p-5">
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-semibold text-[var(--text-primary)]">What is this based on?</h3>
-        <button onClick={onClose} className="rounded-md p-1 text-[var(--text-muted)] transition-colors duration-300 hover:bg-[var(--surface-2)] hover:text-[var(--text-secondary)]">
+        <button onClick={onClose} className="rounded-md p-1 text-[var(--text-muted)] transition-colors duration-300 hover:bg-white/[0.03] hover:text-[var(--text-secondary)]">
           <X size={16} />
         </button>
       </div>
@@ -62,13 +62,13 @@ function ProofPanel({ proof, onClose }: { proof: ProofJson; onClose: () => void 
             <p className="text-[10px] font-medium uppercase tracking-wider text-[var(--text-muted)]">Patterns detected</p>
             <div className="mt-1 space-y-2">
               {proof.patterns_detected.map((p, i) => (
-                <div key={i} className="rounded-md border border-[var(--border-subtle)] bg-[var(--surface-1)] p-2.5">
+                <div key={i} className="glass-surface-light p-2.5">
                   <div className="flex items-center gap-2">
                     <p className="text-[12px] font-medium text-[var(--text-primary)]">{p.name}</p>
                     <span className={`rounded-full px-1.5 py-0.5 text-[10px] font-medium ${
                       p.confidence === "high" ? "bg-emerald-500/10 text-emerald-400" :
                       p.confidence === "medium" ? "bg-amber-500/10 text-amber-400" :
-                      "bg-zinc-500/10 text-[var(--text-secondary)]"
+                      "bg-white/[0.04] text-[var(--text-secondary)]"
                     }`}>
                       {p.confidence}
                     </span>
@@ -87,7 +87,7 @@ function ProofPanel({ proof, onClose }: { proof: ProofJson; onClose: () => void 
         {/* Timing */}
         <div>
           <p className="text-[10px] font-medium uppercase tracking-wider text-[var(--text-muted)]">Timing assessment</p>
-          <div className="mt-1 rounded-md border border-[var(--border-subtle)] bg-[var(--surface-1)] p-2.5 text-[12px]">
+          <div className="mt-1 glass-surface-light p-2.5 text-[12px]">
             <div className="flex items-center gap-3">
               <span className="text-[var(--text-muted)]">Pressure:</span>
               <span className={
@@ -131,7 +131,7 @@ function MessageBubble({
   if (message.role === "user") {
     return (
       <div className="flex justify-end">
-        <div className="max-w-[80%] rounded-lg bg-[var(--surface-2)] px-4 py-2.5">
+        <div className="surface-matte max-w-[80%] rounded-2xl px-4 py-2.5">
           <p className="text-[13px] leading-relaxed text-[var(--text-primary)]">{message.content}</p>
         </div>
       </div>
@@ -140,7 +140,7 @@ function MessageBubble({
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="max-w-[85%] rounded-lg border border-[var(--border-subtle)] bg-[var(--surface-1)] px-4 py-3">
+      <div className="glass-surface-light max-w-[85%] px-4 py-3">
         <div className="flex items-center gap-2 pb-2">
           <Sparkles size={12} className="text-[var(--text-muted)]" />
           <span className="text-[11px] text-[var(--text-muted)]">DEFRAG AI</span>
@@ -151,7 +151,7 @@ function MessageBubble({
         {message.proof_json && onShowProof && (
           <button
             onClick={() => onShowProof(message.proof_json!)}
-            className="inline-flex items-center gap-1.5 rounded-md border border-[var(--border-subtle)] px-2.5 py-1 text-[11px] text-[var(--text-muted)] transition-colors duration-300 hover:bg-[var(--surface-1)] hover:text-[var(--text-secondary)]"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-white/[0.06] px-2.5 py-1 text-[11px] text-[var(--text-muted)] transition-colors duration-300 hover:bg-white/[0.03] hover:text-[var(--text-secondary)]"
           >
             <FileText size={12} /> What is this based on?
           </button>
@@ -159,7 +159,7 @@ function MessageBubble({
         {onRegenerate && (
           <button
             onClick={onRegenerate}
-            className="inline-flex items-center gap-1.5 rounded-md border border-[var(--border-subtle)] px-2.5 py-1 text-[11px] text-[var(--text-muted)] transition-colors duration-300 hover:bg-[var(--surface-1)] hover:text-[var(--text-secondary)]"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-white/[0.06] px-2.5 py-1 text-[11px] text-[var(--text-muted)] transition-colors duration-300 hover:bg-white/[0.03] hover:text-[var(--text-secondary)]"
           >
             <RefreshCw size={12} /> Say it another way
           </button>
@@ -295,7 +295,7 @@ export default function AIPage() {
                   <button
                     key={prompt}
                     onClick={() => { setInput(prompt); sendMessage(prompt) }}
-                    className="rounded-lg border border-[var(--border-subtle)] px-3 py-2.5 text-left text-[12px] leading-relaxed text-[var(--text-secondary)] transition-colors duration-300 hover:border-[var(--border)] hover:bg-[var(--surface-1)] hover:text-[var(--text-secondary)]"
+                    className="glass-surface-light px-3 py-2.5 text-left text-[12px] leading-relaxed text-[var(--text-secondary)] transition-colors duration-300 hover:bg-white/[0.06]"
                   >
                     {prompt}
                   </button>
@@ -329,7 +329,7 @@ export default function AIPage() {
         </div>
 
         {/* Prompt Composer */}
-        <div className="shrink-0 border-t border-[var(--border-subtle)] bg-[var(--surface-0)] p-4">
+        <div className="shrink-0 border-t border-white/[0.04] bg-[var(--surface-0)] p-4">
           {/* Composer controls */}
           <div className="mx-auto max-w-2xl">
             <div className="mb-2 flex items-center gap-2">
@@ -337,7 +337,7 @@ export default function AIPage() {
                 <select
                   value={selectedRelId}
                   onChange={(e) => setSelectedRelId(e.target.value)}
-                  className="appearance-none rounded-md border border-[var(--border-subtle)] bg-[var(--surface-1)] py-1 pl-2.5 pr-7 text-[11px] text-[var(--text-secondary)] outline-none transition-colors duration-300 focus:border-[var(--border)]"
+                  className="appearance-none rounded-lg border border-white/[0.06] bg-white/[0.03] py-1 pl-2.5 pr-7 text-[11px] text-[var(--text-secondary)] outline-none transition-colors duration-300 focus:border-white/[0.1]"
                 >
                   <option value="">No relationship</option>
                   {relationships.map((r) => (
@@ -350,7 +350,7 @@ export default function AIPage() {
                 <select
                   value={selectedIntent}
                   onChange={(e) => setSelectedIntent(e.target.value)}
-                  className="appearance-none rounded-md border border-[var(--border-subtle)] bg-[var(--surface-1)] py-1 pl-2.5 pr-7 text-[11px] text-[var(--text-secondary)] outline-none transition-colors duration-300 focus:border-[var(--border)]"
+                  className="appearance-none rounded-lg border border-white/[0.06] bg-white/[0.03] py-1 pl-2.5 pr-7 text-[11px] text-[var(--text-secondary)] outline-none transition-colors duration-300 focus:border-white/[0.1]"
                 >
                   {INTENTS.map((i) => (
                     <option key={i.value} value={i.value}>{i.label}</option>
@@ -360,7 +360,7 @@ export default function AIPage() {
               </div>
             </div>
 
-            <div className="flex items-end gap-2 rounded-lg border border-[var(--border-subtle)] bg-[var(--surface-1)] p-2">
+            <div className="flex items-end gap-2 rounded-2xl border border-white/[0.06] bg-white/[0.03] p-2">
               <textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
@@ -372,7 +372,7 @@ export default function AIPage() {
               <button
                 onClick={() => sendMessage()}
                 disabled={!input.trim() || loading}
-                className="shrink-0 rounded-md bg-[var(--text-primary)] p-2 text-[var(--surface-0)] transition-colors duration-300 hover:bg-[var(--surface-2)] disabled:opacity-30"
+                className="shrink-0 rounded-xl bg-[var(--text-primary)] p-2 text-[var(--surface-0)] shadow-[0_0_20px_rgba(245,245,240,0.04)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,245,240,0.08)] disabled:opacity-30"
               >
                 <Send size={14} />
               </button>

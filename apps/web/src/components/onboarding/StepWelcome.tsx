@@ -19,7 +19,7 @@ export default function StepWelcome() {
       </p>
       <button
         onClick={() => setStep("focus")}
-        className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-white px-8 py-3 text-sm font-medium text-zinc-950 transition hover:bg-zinc-100"
+        className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-[var(--text-primary)] px-8 py-3 text-sm font-medium text-[var(--surface-0)] shadow-[0_0_20px_rgba(245,245,240,0.04)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,245,240,0.08)]"
       >
         Begin
       </button>

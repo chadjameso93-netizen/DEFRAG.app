@@ -14,17 +14,17 @@ export default function GlowButton({
 }) {
   return (
     <motion.div
-      whileHover={{ scale: 1.02 }}
+      whileHover={{ scale: 1.02, y: -2 }}
       whileTap={{ scale: 0.97 }}
-      transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+      transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
     >
       <Link
         href={href}
         className={[
-          "inline-flex items-center justify-center rounded-2xl px-6 py-3 text-sm font-medium transition-all duration-400",
+          "inline-flex items-center justify-center rounded-2xl px-6 py-3 text-sm font-medium transition-all duration-300",
           inverted
-            ? "border border-[var(--border)] bg-[var(--surface-1)] text-[var(--text-primary)] hover:bg-[var(--surface-2)] hover:shadow-[0_0_20px_rgba(245,245,240,0.04)]"
-            : "bg-[var(--text-primary)] text-[var(--surface-0)] shadow-[0_0_30px_rgba(245,245,240,0.06)] hover:shadow-[0_0_40px_rgba(245,245,240,0.1)]",
+            ? "border border-white/[0.06] bg-white/[0.03] text-[var(--text-primary)] backdrop-blur-xl hover:bg-white/[0.06]"
+            : "bg-[var(--text-primary)] text-[var(--surface-0)] shadow-[0_10px_40px_rgba(0,0,0,0.7)] hover:shadow-[0_14px_50px_rgba(0,0,0,0.8)]",
         ].join(" ")}
       >
         {label}

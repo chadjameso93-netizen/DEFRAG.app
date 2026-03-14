@@ -14,7 +14,7 @@ export default function InviteList({ invites }: { invites: InviteItem[] }) {
   return (
     <div className="space-y-3">
       {invites.map((invite) => (
-        <div key={invite.id} className="rounded-[24px] border border-white/10 bg-white/[0.04] p-4">
+        <div key={invite.id} className="glass-surface-light p-4">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-sm font-medium text-white">{invite.name}</p>
@@ -22,7 +22,7 @@ export default function InviteList({ invites }: { invites: InviteItem[] }) {
                 {invite.relationship} via {invite.deliveryMethod}
               </p>
             </div>
-            <div className="rounded-full border border-white/10 bg-white/6 px-3 py-1 text-xs font-medium text-white/70">
+            <div className="rounded-full border border-white/[0.06] bg-white/[0.03] px-3 py-1 text-xs font-medium text-white/70">
               {invite.status}
             </div>
           </div>

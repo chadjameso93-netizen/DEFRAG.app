@@ -18,13 +18,13 @@ export default function MobileTopBar() {
 
   return (
     <div className="lg:hidden">
-      <div className="flex items-center justify-between rounded-[var(--radius-lg)] border border-[var(--border-subtle)] bg-[var(--surface-1)] px-4 py-4 backdrop-blur-2xl">
+      <div className="glass-floating flex items-center justify-between rounded-[var(--radius-lg)] px-4 py-4">
         <Link href="/" className="text-[11px] font-semibold uppercase tracking-[0.34em] text-[var(--text-muted)]">
           Defrag
         </Link>
         <button
           onClick={() => setOpen((v) => !v)}
-          className="rounded-xl border border-[var(--border-subtle)] bg-[var(--surface-1)] p-2 text-[var(--text-secondary)] transition-colors duration-300 hover:bg-[var(--surface-2)]"
+          className="rounded-xl border border-white/[0.06] bg-white/[0.03] p-2 text-[var(--text-secondary)] transition-colors duration-300 hover:bg-white/[0.06]"
           aria-label="Toggle navigation"
         >
           {open ? <X size={18} /> : <Menu size={18} />}
@@ -32,7 +32,7 @@ export default function MobileTopBar() {
       </div>
 
       {open ? (
-        <div className="mt-3 rounded-[var(--radius-lg)] border border-[var(--border-subtle)] bg-[var(--surface-0)]/90 p-3 backdrop-blur-2xl">
+        <div className="glass-surface mt-3 rounded-[var(--radius-lg)] p-3">
           <nav className="grid gap-1">
             {items.map((item) => (
               <Link

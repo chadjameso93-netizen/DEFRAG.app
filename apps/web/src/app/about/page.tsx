@@ -49,17 +49,17 @@ export default function AboutPage() {
         <GlowCard className="p-8 sm:p-10">
           <h2 className="text-2xl font-semibold tracking-tight text-[var(--text-primary)]">How it works</h2>
           <div className="mt-6 grid gap-4 md:grid-cols-3">
-            <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-1)] p-5">
+            <div className="glass-surface-light p-5">
               <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--text-muted)]">Step 1</p>
               <p className="mt-3 text-sm font-medium text-[var(--text-primary)]">Map your relationships</p>
               <p className="mt-2 text-sm text-[var(--text-secondary)]">Add the people who matter. Track trust, tension, and connection type.</p>
             </div>
-            <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-1)] p-5">
+            <div className="glass-surface-light p-5">
               <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--text-muted)]">Step 2</p>
               <p className="mt-3 text-sm font-medium text-[var(--text-primary)]">Log events over time</p>
               <p className="mt-2 text-sm text-[var(--text-secondary)]">Capture moments of conflict, repair, stress, or observation. The timeline reveals the pattern.</p>
             </div>
-            <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-1)] p-5">
+            <div className="glass-surface-light p-5">
               <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--text-muted)]">Step 3</p>
               <p className="mt-3 text-sm font-medium text-[var(--text-primary)]">Get grounded guidance</p>
               <p className="mt-2 text-sm text-[var(--text-secondary)]">Describe a situation. Defrag reads context and returns specific, actionable next steps.</p>
@@ -74,7 +74,7 @@ export default function AboutPage() {
           </p>
           <Link
             href="/onboarding"
-            className="mt-6 inline-flex items-center gap-2 rounded-2xl bg-[var(--text-primary)] px-6 py-3 text-sm font-medium text-[var(--surface-0)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,245,240,0.08)]"
+            className="mt-6 inline-flex items-center gap-2 rounded-2xl bg-[var(--text-primary)] px-6 py-3 text-sm font-medium text-[var(--surface-0)] shadow-[0_0_20px_rgba(245,245,240,0.04)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,245,240,0.08)]"
           >
             Get started
             <ArrowRight size={16} />

@@ -1,4 +1,5 @@
 import type { ReactNode } from "react"
+import { cn } from "@/lib/cn"
 
 export default function Surface({
   children,
@@ -9,10 +10,10 @@ export default function Surface({
 }) {
   return (
     <div
-      className={[
-        "rounded-[var(--radius-lg)] border border-[var(--border-subtle)] bg-[var(--surface-1)] backdrop-blur-xl transition-all duration-500 hover:border-[var(--border)]",
-        className,
-      ].join(" ")}
+      className={cn(
+        "glass-surface-light transition-all duration-300 hover:border-white/[0.06]",
+        className
+      )}
     >
       {children}
     </div>

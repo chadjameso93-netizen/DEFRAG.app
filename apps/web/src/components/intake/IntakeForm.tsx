@@ -55,7 +55,7 @@ export default function IntakeForm({ inviteId, inviteName }: { inviteId: string;
   }
 
   return (
-    <div className="rounded-[28px] border border-white/10 bg-white/[0.05] p-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)] backdrop-blur-2xl sm:p-8">
+    <div className="glass-surface p-6 sm:p-8">
       <h2 className="text-xl font-medium text-white">Complete your intake</h2>
       <p className="mt-2 text-sm leading-7 text-white/60">
         Add the details needed to return your information securely to the initiating dashboard.
@@ -63,25 +63,25 @@ export default function IntakeForm({ inviteId, inviteName }: { inviteId: string;
 
       <div className="mt-6 grid gap-4">
         <input
-          className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition focus:border-white/20"
+          className="glass-input"
           placeholder="Full name"
           value={fullName}
           onChange={(e) => setFullName(e.target.value)}
         />
         <input
-          className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition focus:border-white/20"
+          className="glass-input"
           type="date"
           value={birthDate}
           onChange={(e) => setBirthDate(e.target.value)}
         />
         <input
-          className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition focus:border-white/20"
+          className="glass-input"
           type="time"
           value={birthTime}
           onChange={(e) => setBirthTime(e.target.value)}
         />
         <input
-          className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition focus:border-white/20"
+          className="glass-input"
           placeholder="Birth location"
           value={birthPlace}
           onChange={(e) => setBirthPlace(e.target.value)}
@@ -90,7 +90,7 @@ export default function IntakeForm({ inviteId, inviteName }: { inviteId: string;
         <button
           onClick={submit}
           disabled={submitting}
-          className="rounded-2xl bg-white px-5 py-3 text-sm font-medium text-zinc-950 transition hover:bg-[#f3ece3] disabled:cursor-not-allowed disabled:opacity-60"
+          className="rounded-2xl bg-[var(--text-primary)] px-5 py-3 text-sm font-medium text-[var(--surface-0)] shadow-[0_0_20px_rgba(245,245,240,0.04)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,245,240,0.08)] disabled:cursor-not-allowed disabled:opacity-60"
         >
           {submitting ? "Submitting..." : "Submit intake"}
         </button>

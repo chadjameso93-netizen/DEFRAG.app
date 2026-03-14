@@ -46,15 +46,15 @@ export default function DailyReadPanel() {
         </div>
 
         <div className="grid min-w-[220px] gap-3 sm:grid-cols-3 lg:grid-cols-1">
-          <div className="rounded-[24px] border border-white/10 bg-white/5 px-4 py-4">
+          <div className="rounded-[24px] border border-white/[0.06] bg-white/[0.03] px-4 py-4">
             <p className="text-[10px] font-semibold uppercase tracking-[0.20em] text-white/40">Length</p>
             <p className="mt-2 text-sm font-medium text-white">5 to 10 min</p>
           </div>
-          <div className="rounded-[24px] border border-white/10 bg-white/5 px-4 py-4">
+          <div className="rounded-[24px] border border-white/[0.06] bg-white/[0.03] px-4 py-4">
             <p className="text-[10px] font-semibold uppercase tracking-[0.20em] text-white/40">Focus</p>
             <p className="mt-2 text-sm font-medium text-white">Timing and pattern</p>
           </div>
-          <div className="rounded-[24px] border border-white/10 bg-white/5 px-4 py-4">
+          <div className="rounded-[24px] border border-white/[0.06] bg-white/[0.03] px-4 py-4">
             <p className="text-[10px] font-semibold uppercase tracking-[0.20em] text-white/40">Tone</p>
             <p className="mt-2 text-sm font-medium text-white">Clear and non-reactive</p>
           </div>
@@ -62,10 +62,10 @@ export default function DailyReadPanel() {
       </div>
 
       <div className="mt-8 grid gap-4 xl:grid-cols-[0.9fr_1.1fr]">
-        <div className="rounded-[28px] border border-white/10 bg-black/30 p-5">
+        <div className="rounded-[28px] border border-white/[0.06] bg-black/20 p-5">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/6">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/[0.06] bg-white/[0.04]">
                 <Volume2 size={18} className="text-white/80" />
               </div>
               <div>
@@ -76,7 +76,7 @@ export default function DailyReadPanel() {
             <button
               type="button"
               onClick={() => setPlaying((value) => !value)}
-              className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/7 px-4 py-2 text-sm font-medium text-white transition hover:bg-white/12"
+              className="inline-flex items-center gap-2 rounded-full border border-white/[0.06] bg-white/[0.04] px-4 py-2 text-sm font-medium text-white transition hover:bg-white/12"
             >
               {playing ? <Pause size={16} /> : <Play size={16} />}
               {playing ? "Pause" : "Play"}
@@ -90,7 +90,7 @@ export default function DailyReadPanel() {
           <p className="mt-5 text-sm leading-7 text-white/68">{insight}</p>
         </div>
 
-        <div className="rounded-[28px] border border-white/10 bg-white/5 p-5">
+        <div className="rounded-[28px] border border-white/[0.06] bg-white/[0.03] p-5">
           <button
             type="button"
             onClick={() => setExpanded((value) => !value)}
@@ -100,7 +100,7 @@ export default function DailyReadPanel() {
               <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/40">Transcript</p>
               <p className="mt-2 text-sm text-white/72">Expand the full read for a skimmable version.</p>
             </div>
-            <span className="rounded-full border border-white/10 bg-white/6 px-3 py-1 text-xs font-medium text-white/72">
+            <span className="rounded-full border border-white/[0.06] bg-white/[0.04] px-3 py-1 text-xs font-medium text-white/72">
               {expanded ? "Hide" : "Show"}
             </span>
           </button>

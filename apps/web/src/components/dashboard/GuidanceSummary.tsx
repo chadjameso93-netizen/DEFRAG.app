@@ -17,11 +17,11 @@ export default function GuidanceSummary() {
       </div>
 
       <div className="mt-6 grid gap-3">
-        <div className="rounded-[24px] border border-white/10 bg-white/5 px-4 py-4">
+        <div className="rounded-[24px] border border-white/[0.06] bg-white/[0.03] px-4 py-4">
           <p className="text-[10px] font-semibold uppercase tracking-[0.20em] text-white/40">Best next step</p>
           <p className="mt-2 text-sm text-white/78">Use a short check-in instead of a full processing conversation.</p>
         </div>
-        <div className="rounded-[24px] border border-white/10 bg-white/5 px-4 py-4">
+        <div className="rounded-[24px] border border-white/[0.06] bg-white/[0.03] px-4 py-4">
           <p className="text-[10px] font-semibold uppercase tracking-[0.20em] text-white/40">Support surface</p>
           <p className="mt-2 text-sm text-white/78">Open AI for wording support after you review the map and timeline.</p>
         </div>
@@ -29,7 +29,7 @@ export default function GuidanceSummary() {
 
       <Link
         href="/ai"
-        className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white px-4 py-2 text-sm font-medium text-zinc-950 transition hover:bg-[#f3ece3]"
+        className="mt-6 inline-flex items-center gap-2 rounded-2xl bg-[var(--text-primary)] px-4 py-2 text-sm font-medium text-[var(--surface-0)] shadow-[0_0_20px_rgba(245,245,240,0.04)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,245,240,0.08)]"
       >
         Open Defrag AI
         <ArrowRight size={16} />

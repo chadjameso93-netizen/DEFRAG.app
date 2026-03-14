@@ -35,13 +35,13 @@ export default function AddRelationshipForm() {
 
       <div className="mt-6 grid gap-3">
         <input
-          className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition focus:border-white/20"
+          className="glass-input"
           placeholder="Person name"
           value={target}
           onChange={(e) => setTarget(e.target.value)}
         />
         <select
-          className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition focus:border-white/20"
+          className="glass-input"
           value={type}
           onChange={(e) => setType(e.target.value)}
         >
@@ -55,7 +55,7 @@ export default function AddRelationshipForm() {
         </select>
         <button
           onClick={submit}
-          className="rounded-2xl bg-white px-5 py-3 text-sm font-medium text-zinc-950 transition hover:bg-zinc-100"
+          className="rounded-2xl bg-[var(--text-primary)] px-5 py-3 text-sm font-medium text-[var(--surface-0)] shadow-[0_0_20px_rgba(245,245,240,0.04)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,245,240,0.08)]"
         >
           Save relationship
         </button>

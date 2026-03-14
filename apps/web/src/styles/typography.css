@@ -1,0 +1,49 @@
+/* ── Typography System ── Inter / Geist hierarchy ── */
+
+/* Hero heading — landing pages */
+.typo-hero {
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 0.9;
+  color: var(--text-primary);
+}
+
+/* Section heading */
+.typo-section {
+  font-size: 1.875rem; /* text-3xl */
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  color: var(--text-primary);
+}
+
+/* Body text */
+.typo-body {
+  font-size: 1.125rem; /* text-lg */
+  line-height: 1.75;
+  color: var(--text-secondary);
+}
+
+/* Label — uppercase micro text */
+.typo-label {
+  font-size: 0.6875rem; /* ~11px */
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--text-muted);
+}
+
+/* Caption / small meta */
+.typo-caption {
+  font-size: 0.75rem; /* 12px */
+  color: var(--text-tertiary);
+  line-height: 1.5;
+}
+
+/* Mono/code */
+.typo-mono {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+}

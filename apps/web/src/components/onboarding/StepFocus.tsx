@@ -27,8 +27,8 @@ export default function StepFocus() {
             onClick={() => setField("focus", opt.value)}
             className={`w-full rounded-2xl border p-4 text-left transition ${
               focus === opt.value
-                ? "border-white/30 bg-white/10"
-                : "border-white/10 bg-white/5 hover:border-white/20"
+                ? "border-white/[0.12] bg-white/[0.06]"
+                : "border-white/[0.06] bg-white/[0.03] hover:border-white/[0.08]"
             }`}
           >
             <p className="text-sm font-medium text-white">{opt.label}</p>
@@ -40,7 +40,7 @@ export default function StepFocus() {
       <button
         onClick={() => setStep("account")}
         disabled={!focus}
-        className="mt-6 w-full rounded-2xl bg-white px-6 py-3 text-sm font-medium text-zinc-950 transition hover:bg-zinc-100 disabled:opacity-30"
+        className="mt-6 w-full rounded-2xl bg-[var(--text-primary)] px-6 py-3 text-sm font-medium text-[var(--surface-0)] shadow-[0_0_20px_rgba(245,245,240,0.04)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,245,240,0.08)] disabled:opacity-30"
       >
         Continue
       </button>

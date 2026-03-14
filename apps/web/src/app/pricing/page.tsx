@@ -4,13 +4,13 @@ import PricingPlans from "@/components/pricing/PricingPlans"
 export default function PricingPage() {
   return (
     <AppShell>
-      <div className="space-y-6">
+      <div className="animate-[page-enter_0.5s_ease_both] space-y-6">
         <div>
           <h1 className="text-xl font-semibold text-[var(--text-primary)]">Pricing</h1>
           <p className="mt-1 text-sm text-[var(--text-secondary)]">Simple access levels for the current Defrag product.</p>
         </div>
 
-        <div className="rounded-lg border border-[var(--border-subtle)] bg-[var(--surface-1)] p-6 sm:p-8">
+        <div className="glass-surface-light p-6 sm:p-8">
           <div className="max-w-3xl">
             <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[var(--text-muted)]">Plans</p>
             <h3 className="mt-4 text-3xl font-semibold tracking-tight text-[var(--text-primary)]">

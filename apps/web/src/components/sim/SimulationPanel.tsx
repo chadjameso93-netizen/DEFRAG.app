@@ -38,18 +38,18 @@ export default function SimulationPanel() {
       </p>
 
       <div className="mt-6 flex flex-wrap gap-3">
-        <button onClick={() => run("direct_confrontation")} className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-1)] px-4 py-2 text-sm font-medium text-[var(--text-primary)] transition-colors duration-300 hover:bg-[var(--surface-2)]">
+        <button onClick={() => run("direct_confrontation")} className="rounded-2xl border border-white/[0.06] bg-white/[0.03] px-4 py-2 text-sm font-medium text-[var(--text-primary)] transition-colors duration-300 hover:bg-white/[0.06]">
           Direct
         </button>
-        <button onClick={() => run("calm_boundary")} className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-1)] px-4 py-2 text-sm font-medium text-[var(--text-primary)] transition-colors duration-300 hover:bg-[var(--surface-2)]">
+        <button onClick={() => run("calm_boundary")} className="rounded-2xl border border-white/[0.06] bg-white/[0.03] px-4 py-2 text-sm font-medium text-[var(--text-primary)] transition-colors duration-300 hover:bg-white/[0.06]">
           Boundary
         </button>
-        <button onClick={() => run("delay")} className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-1)] px-4 py-2 text-sm font-medium text-[var(--text-primary)] transition-colors duration-300 hover:bg-[var(--surface-2)]">
+        <button onClick={() => run("delay")} className="rounded-2xl border border-white/[0.06] bg-white/[0.03] px-4 py-2 text-sm font-medium text-[var(--text-primary)] transition-colors duration-300 hover:bg-white/[0.06]">
           Wait
         </button>
       </div>
 
-      <div className="mt-6 rounded-[24px] border border-[var(--border-subtle)] bg-[var(--surface-1)] p-5">
+      <div className="mt-6 glass-surface-light p-5">
         {loading ? (
           <p className="text-sm text-[var(--text-secondary)]">Running simulation...</p>
         ) : result ? (

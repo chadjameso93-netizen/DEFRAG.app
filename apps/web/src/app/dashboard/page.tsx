@@ -27,7 +27,7 @@ function Skeleton({ className }: { className?: string }) {
 
 function StatCard({ label, value, icon: Icon }: { label: string; value: string; icon: React.ComponentType<{ size?: number; className?: string }> }) {
   return (
-    <div className="rounded-lg border border-[var(--border-subtle)] bg-[var(--surface-1)] p-4">
+    <div className="glass-surface-light p-4">
       <div className="flex items-center gap-2">
         <Icon size={14} className="text-[var(--text-muted)]" />
         <p className="text-[11px] font-medium uppercase tracking-wider text-[var(--text-muted)]">{label}</p>
@@ -94,7 +94,7 @@ export default function DashboardPage() {
 
   return (
     <AppShell>
-      <div className="space-y-6">
+      <div className="animate-[page-enter_0.5s_ease_both] space-y-6">
         <div>
           <h1 className="text-xl font-semibold text-[var(--text-primary)]">Today</h1>
           <p className="mt-1 text-sm text-[var(--text-secondary)]">Your relational field at a glance.</p>
@@ -102,7 +102,7 @@ export default function DashboardPage() {
 
         {/* Stats row */}
         <div className="grid gap-3 sm:grid-cols-3">
-          <div className="rounded-lg border border-[var(--border-subtle)] bg-[var(--surface-1)] p-4">
+          <div className="glass-surface-light p-4">
             <div className="flex items-center gap-2">
               <Zap size={14} className="text-[var(--text-muted)]" />
               <p className="text-[11px] font-medium uppercase tracking-wider text-[var(--text-muted)]">Field pressure</p>
@@ -117,7 +117,7 @@ export default function DashboardPage() {
 
         {/* Priority Relationship */}
         {priorityRel && (
-          <div className="rounded-lg border border-[var(--border-subtle)] bg-[var(--surface-1)] p-5">
+          <div className="glass-surface-light p-5">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-[11px] font-medium uppercase tracking-wider text-[var(--text-muted)]">Priority relationship</p>
@@ -139,7 +139,7 @@ export default function DashboardPage() {
         )}
 
         {/* Suggested Action */}
-        <div className="rounded-lg border border-[var(--border-subtle)] bg-[var(--surface-1)] p-5">
+        <div className="glass-surface-light p-5">
           <p className="text-[11px] font-medium uppercase tracking-wider text-[var(--text-muted)]">Suggested action</p>
           <p className="mt-2 text-sm leading-relaxed text-[var(--text-secondary)]">
             {pressureLevel === "high"
@@ -151,7 +151,7 @@ export default function DashboardPage() {
           <div className="mt-4">
             <Link
               href="/ai"
-              className="inline-flex items-center gap-2 rounded-lg bg-[var(--text-primary)] px-4 py-2 text-[13px] font-medium text-[var(--surface-0)] transition-colors duration-300 hover:bg-[var(--surface-2)]"
+              className="inline-flex items-center gap-2 rounded-2xl bg-[var(--text-primary)] px-4 py-2 text-[13px] font-medium text-[var(--surface-0)] shadow-[0_0_20px_rgba(245,245,240,0.04)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,245,240,0.08)]"
             >
               <MessageSquare size={14} />
               Ask about a situation
@@ -160,7 +160,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Recent Events */}
-        <div className="rounded-lg border border-[var(--border-subtle)] bg-[var(--surface-1)] p-5">
+        <div className="glass-surface-light p-5">
           <div className="flex items-center justify-between">
             <p className="text-[11px] font-medium uppercase tracking-wider text-[var(--text-muted)]">Recent events</p>
             <Link href="/timeline" className="text-[12px] text-[var(--text-muted)] transition-colors duration-300 hover:text-[var(--text-secondary)]">
@@ -168,7 +168,7 @@ export default function DashboardPage() {
             </Link>
           </div>
           {recentEvents.length === 0 ? (
-            <div className="mt-4 rounded-lg border border-dashed border-[var(--border-subtle)] py-8 text-center">
+            <div className="mt-4 rounded-2xl border border-dashed border-[var(--border-subtle)] py-8 text-center">
               <p className="text-sm text-[var(--text-muted)]">No events yet</p>
               <Link href="/timeline" className="mt-2 inline-block text-[13px] font-medium text-[var(--text-secondary)] transition-colors duration-300 hover:text-[var(--text-primary)]">
                 Log your first event &rarr;
@@ -177,7 +177,7 @@ export default function DashboardPage() {
           ) : (
             <div className="mt-3 space-y-2">
               {recentEvents.map((evt) => (
-                <div key={evt.id} className="flex items-start gap-3 rounded-md px-3 py-2 transition-colors duration-300 hover:bg-[var(--surface-2)]/50">
+                <div key={evt.id} className="flex items-start gap-3 rounded-md px-3 py-2 transition-colors duration-300 hover:bg-white/[0.03]">
                   <div className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full ${
                     evt.event_type === "conflict" ? "bg-red-400" :
                     evt.event_type === "repair" ? "bg-emerald-400" : "bg-amber-400"
@@ -197,7 +197,7 @@ export default function DashboardPage() {
 
         {/* Empty state for no relationships */}
         {relationships.length === 0 && (
-          <div className="rounded-lg border border-dashed border-[var(--border-subtle)] py-12 text-center">
+          <div className="rounded-2xl border border-dashed border-[var(--border-subtle)] py-12 text-center">
             <Users size={24} className="mx-auto text-[var(--text-muted)]" />
             <p className="mt-3 text-sm text-[var(--text-secondary)]">No relationships mapped yet</p>
             <Link

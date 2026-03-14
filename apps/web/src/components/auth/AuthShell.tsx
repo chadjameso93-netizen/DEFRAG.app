@@ -19,26 +19,26 @@ export default function AuthShell({
   footerLinkHref: string
 }) {
   return (
-    <main className="flex min-h-screen bg-zinc-950">
+    <main className="flex min-h-screen bg-[var(--surface-0)]">
       {/* Left info panel */}
-      <div className="hidden flex-1 flex-col justify-center border-r border-zinc-800 px-12 lg:flex xl:px-20">
-        <Link href="/" className="text-[11px] font-semibold uppercase tracking-[0.3em] text-zinc-500">
+      <div className="hidden flex-1 flex-col justify-center border-r border-[var(--border-subtle)] px-12 lg:flex xl:px-20">
+        <Link href="/" className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[var(--text-muted)]">
           Defrag
         </Link>
 
-        <h1 className="mt-6 max-w-lg text-3xl font-semibold tracking-tight text-zinc-50">
+        <h1 className="mt-6 max-w-lg text-3xl font-semibold tracking-tight text-[var(--text-primary)]">
           {title}
         </h1>
-        <p className="mt-4 max-w-md text-sm leading-relaxed text-zinc-400">{body}</p>
+        <p className="mt-4 max-w-md text-sm leading-relaxed text-[var(--text-secondary)]">{body}</p>
 
         <div className="mt-8 grid max-w-md gap-3 sm:grid-cols-2">
-          <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-4">
-            <p className="text-[10px] font-medium uppercase tracking-wider text-zinc-500">Clear insight</p>
-            <p className="mt-2 text-[13px] leading-relaxed text-zinc-400">Understand patterns before they become larger problems.</p>
+          <div className="glass-surface-light p-4">
+            <p className="text-[10px] font-medium uppercase tracking-wider text-[var(--text-muted)]">Clear insight</p>
+            <p className="mt-2 text-[13px] leading-relaxed text-[var(--text-secondary)]">Understand patterns before they become larger problems.</p>
           </div>
-          <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-4">
-            <p className="text-[10px] font-medium uppercase tracking-wider text-zinc-500">Healthy outcomes</p>
-            <p className="mt-2 text-[13px] leading-relaxed text-zinc-400">Guidance designed to reduce stigma and improve communication.</p>
+          <div className="glass-surface-light p-4">
+            <p className="text-[10px] font-medium uppercase tracking-wider text-[var(--text-muted)]">Healthy outcomes</p>
+            <p className="mt-2 text-[13px] leading-relaxed text-[var(--text-secondary)]">Guidance designed to reduce stigma and improve communication.</p>
           </div>
         </div>
       </div>
@@ -46,14 +46,14 @@ export default function AuthShell({
       {/* Right form panel */}
       <div className="flex w-full flex-col items-center justify-center px-6 py-12 lg:w-[480px] lg:shrink-0">
         <div className="w-full max-w-sm">
-          <Link href="/" className="text-[11px] font-semibold uppercase tracking-[0.3em] text-zinc-500 lg:hidden">
+          <Link href="/" className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[var(--text-muted)] lg:hidden">
             Defrag
           </Link>
-          <p className="mt-4 text-[11px] font-medium uppercase tracking-wider text-zinc-500 lg:mt-0">{eyebrow}</p>
+          <p className="mt-4 text-[11px] font-medium uppercase tracking-wider text-[var(--text-muted)] lg:mt-0">{eyebrow}</p>
           <div className="mt-5">{children}</div>
-          <p className="mt-6 text-[13px] text-zinc-500">
+          <p className="mt-6 text-[13px] text-[var(--text-muted)]">
             {footerText}{" "}
-            <Link href={footerLinkHref} className="font-medium text-zinc-300 transition-colors hover:text-zinc-50">
+            <Link href={footerLinkHref} className="font-medium text-[var(--text-secondary)] transition-colors hover:text-[var(--text-primary)]">
               {footerLinkLabel}
             </Link>
           </p>

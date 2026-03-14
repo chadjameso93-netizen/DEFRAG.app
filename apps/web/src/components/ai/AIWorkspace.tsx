@@ -37,7 +37,7 @@ export default function AIWorkspace({
           <h3 className="mt-4 text-lg font-medium text-white">What is active right now</h3>
           <div className="mt-5 space-y-3">
             {relationships.slice(0, 3).map((relationship) => (
-              <div key={relationship.id} className="rounded-[24px] border border-white/10 bg-white/5 p-4">
+              <div key={relationship.id} className="rounded-[24px] border border-white/[0.06] bg-white/[0.03] p-4">
                 <p className="text-sm font-medium text-white">
                   {relationship.source_name} and {relationship.target_name}
                 </p>
@@ -54,7 +54,7 @@ export default function AIWorkspace({
           <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/40">Timeline context</p>
           <div className="mt-4 space-y-3">
             {events.slice(0, 3).map((event) => (
-              <div key={event.id} className="rounded-[24px] border border-white/10 bg-white/5 p-4">
+              <div key={event.id} className="rounded-[24px] border border-white/[0.06] bg-white/[0.03] p-4">
                 <p className="text-sm font-medium text-white">{event.event_type}</p>
                 <p className="mt-2 text-sm text-white/65">{event.notes}</p>
               </div>

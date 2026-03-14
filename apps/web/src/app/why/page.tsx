@@ -43,19 +43,19 @@ export default function WhyPage() {
         <GlowCard className="p-8 sm:p-10">
           <h2 className="text-2xl font-semibold tracking-tight text-[var(--text-primary)]">What Defrag does differently</h2>
           <div className="mt-6 space-y-4">
-            <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-1)] p-5">
+            <div className="glass-surface-light p-5">
               <p className="text-sm font-medium text-[var(--text-primary)]">Maps the people and connections in your system</p>
               <p className="mt-2 text-sm text-[var(--text-secondary)]">Not a contact list. A live map of trust, tension, and closeness.</p>
             </div>
-            <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-1)] p-5">
+            <div className="glass-surface-light p-5">
               <p className="text-sm font-medium text-[var(--text-primary)]">Tracks events over time</p>
               <p className="mt-2 text-sm text-[var(--text-secondary)]">Conflict, repair, stress, observation — sequenced so the build-up is visible.</p>
             </div>
-            <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-1)] p-5">
+            <div className="glass-surface-light p-5">
               <p className="text-sm font-medium text-[var(--text-primary)]">Generates grounded guidance</p>
               <p className="mt-2 font-serif-accent text-sm text-[var(--text-secondary)]">AI that reads your actual context and produces specific next steps, not fortune-cookie encouragement.</p>
             </div>
-            <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--surface-1)] p-5">
+            <div className="glass-surface-light p-5">
               <p className="text-sm font-medium text-[var(--text-primary)]">Shows its reasoning</p>
               <p className="mt-2 text-sm text-[var(--text-secondary)]">Every insight comes with a proof layer — what patterns were detected, what timing factors apply, and what the relational hypothesis looks like.</p>
             </div>
@@ -69,7 +69,7 @@ export default function WhyPage() {
           </p>
           <Link
             href="/onboarding"
-            className="mt-6 inline-flex items-center gap-2 rounded-2xl bg-[var(--text-primary)] px-6 py-3 text-sm font-medium text-[var(--surface-0)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,245,240,0.08)]"
+            className="mt-6 inline-flex items-center gap-2 rounded-2xl bg-[var(--text-primary)] px-6 py-3 text-sm font-medium text-[var(--surface-0)] shadow-[0_0_20px_rgba(245,245,240,0.04)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,245,240,0.08)]"
           >
             Get started
             <ArrowRight size={16} />

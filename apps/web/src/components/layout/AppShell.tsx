@@ -42,17 +42,17 @@ function SideNavItem({
     <Link
       href={href}
       className={cn(
-        "group relative flex items-center gap-3 rounded-lg px-3 py-2 text-[13px] font-medium transition-all duration-300",
+        "group relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-[13px] font-medium transition-all duration-300",
         active
-          ? "bg-[var(--surface-2)] text-[var(--text-primary)]"
-          : "text-[var(--text-muted)] hover:bg-[var(--surface-1)] hover:text-[var(--text-secondary)]",
+          ? "bg-white/[0.06] text-[var(--text-primary)]"
+          : "text-[var(--text-muted)] hover:bg-white/[0.03] hover:text-[var(--text-secondary)]",
         collapsed && "justify-center px-2"
       )}
     >
       {active && (
-        <div className="absolute left-0 top-1/2 h-4 w-[2px] -translate-y-1/2 rounded-r bg-[var(--text-primary)]" />
+        <div className="absolute left-0 top-1/2 h-5 w-[2px] -translate-y-1/2 rounded-r bg-[var(--text-primary)] opacity-80" />
       )}
-      <Icon size={18} className={cn(active ? "text-[var(--text-primary)]" : "text-[var(--text-muted)] group-hover:text-[var(--text-secondary)]")} />
+      <Icon size={18} className={cn("shrink-0", active ? "text-[var(--text-primary)]" : "text-[var(--text-muted)] group-hover:text-[var(--text-secondary)]")} />
       {!collapsed && <span>{label}</span>}
     </Link>
   )
@@ -82,10 +82,10 @@ export default function AppShell({
 
   return (
     <div className="flex h-screen flex-col bg-[var(--surface-0)]">
-      {/* Top Navigation Bar */}
-      <header className="flex h-12 shrink-0 items-center border-b border-[var(--border-subtle)] bg-[var(--surface-0)]/80 px-4 backdrop-blur-xl">
+      {/* Top Navigation Bar — glass floating */}
+      <header className="glass-floating flex h-13 shrink-0 items-center border-b border-white/[0.05] px-5">
         <Link href="/dashboard" className="flex items-center gap-2">
-          <span className="text-[13px] font-semibold tracking-wide text-[var(--text-primary)]">DEFRAG</span>
+          <span className="text-[13px] font-semibold tracking-[0.08em] uppercase text-[var(--text-primary)]">DEFRAG</span>
         </Link>
 
         <nav className="ml-8 hidden items-center gap-1 md:flex">
@@ -96,10 +96,10 @@ export default function AppShell({
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "rounded-md px-3 py-1.5 text-[13px] font-medium transition-all duration-300",
+                  "rounded-lg px-3 py-1.5 text-[13px] font-medium transition-all duration-300",
                   isActive
-                    ? "bg-[var(--surface-2)] text-[var(--text-primary)]"
-                    : "text-[var(--text-muted)] hover:bg-[var(--surface-1)] hover:text-[var(--text-secondary)]"
+                    ? "bg-white/[0.06] text-[var(--text-primary)]"
+                    : "text-[var(--text-muted)] hover:bg-white/[0.03] hover:text-[var(--text-secondary)]"
                 )}
               >
                 {item.label}
@@ -111,7 +111,7 @@ export default function AppShell({
         <div className="ml-auto flex items-center gap-2">
           <button
             onClick={handleSignOut}
-            className="flex items-center gap-2 rounded-md px-3 py-1.5 text-[13px] text-[var(--text-muted)] transition-colors duration-300 hover:bg-[var(--surface-1)] hover:text-[var(--text-secondary)]"
+            className="flex items-center gap-2 rounded-lg px-3 py-1.5 text-[13px] text-[var(--text-muted)] transition-all duration-300 hover:bg-white/[0.03] hover:text-[var(--text-secondary)]"
           >
             <LogOut size={14} />
             <span className="hidden sm:inline">Sign out</span>
@@ -120,23 +120,23 @@ export default function AppShell({
       </header>
 
       <div className="flex flex-1 overflow-hidden">
-        {/* Left Sidebar */}
+        {/* Left Sidebar — glass surface */}
         <aside
           className={cn(
-            "hidden shrink-0 flex-col border-r border-[var(--border-subtle)] bg-[var(--surface-0)] transition-[width] duration-300 lg:flex",
+            "hidden shrink-0 flex-col border-r border-white/[0.04] bg-[var(--surface-0)]/80 backdrop-blur-xl transition-[width] duration-300 lg:flex",
             sidebarCollapsed ? "w-14" : "w-56"
           )}
         >
           <div className="flex h-10 items-center justify-end px-2">
             <button
               onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-              className="rounded-md p-1.5 text-[var(--text-muted)] transition-colors duration-300 hover:bg-[var(--surface-1)] hover:text-[var(--text-secondary)]"
+              className="rounded-lg p-1.5 text-[var(--text-muted)] transition-all duration-300 hover:bg-white/[0.03] hover:text-[var(--text-secondary)]"
             >
               {sidebarCollapsed ? <PanelLeft size={16} /> : <PanelLeftClose size={16} />}
             </button>
           </div>
 
-          <nav className="flex-1 space-y-1 px-2">
+          <nav className="flex-1 space-y-0.5 px-2">
             {NAV_ITEMS.map((item) => {
               const isActive = pathname === item.href || pathname.startsWith(item.href + "/")
               return (
@@ -153,9 +153,9 @@ export default function AppShell({
           </nav>
 
           {!sidebarCollapsed && (
-            <div className="border-t border-[var(--border-subtle)] p-3">
-              <div className="rounded-lg bg-[var(--surface-1)] p-3">
-                <p className="text-[10px] font-medium uppercase tracking-widest text-[var(--text-muted)]">Free plan</p>
+            <div className="border-t border-white/[0.04] p-3">
+              <div className="glass-surface-light p-3">
+                <p className="typo-label text-[10px]">Free plan</p>
                 <p className="mt-1 text-[12px] text-[var(--text-secondary)]">5 insights / month</p>
                 <Link
                   href="/settings"
@@ -171,22 +171,22 @@ export default function AppShell({
         {/* Main Content */}
         <main className="flex flex-1 overflow-hidden">
           <div className="flex-1 overflow-y-auto">
-            <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-[1400px] px-4 py-6 sm:px-6 lg:px-8">
               {children}
             </div>
           </div>
 
-          {/* Right Panel (contextual) */}
+          {/* Right Panel (contextual) — glass surface */}
           {rightPanel && (
-            <aside className="hidden w-80 shrink-0 overflow-y-auto border-l border-[var(--border-subtle)] bg-[var(--surface-0)] xl:block">
+            <aside className="hidden w-80 shrink-0 overflow-y-auto border-l border-white/[0.04] bg-[var(--surface-0)]/60 backdrop-blur-xl xl:block">
               {rightPanel}
             </aside>
           )}
         </main>
       </div>
 
-      {/* Mobile Bottom Nav */}
-      <nav className="flex shrink-0 items-center justify-around border-t border-[var(--border-subtle)] bg-[var(--surface-0)]/90 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl lg:hidden">
+      {/* Mobile Bottom Nav — glass floating bar */}
+      <nav className="glass-floating flex shrink-0 items-center justify-around rounded-none border-t border-white/[0.05] pb-[env(safe-area-inset-bottom)] lg:hidden">
         {NAV_ITEMS.map((item) => {
           const Icon = item.icon
           const isActive = pathname === item.href || pathname.startsWith(item.href + "/")
@@ -195,7 +195,7 @@ export default function AppShell({
               key={item.href}
               href={item.href}
               className={cn(
-                "flex flex-col items-center gap-0.5 px-3 py-2 text-[10px] font-medium transition-all duration-300",
+                "flex flex-col items-center gap-0.5 px-3 py-2.5 text-[10px] font-medium transition-all duration-300",
                 isActive ? "text-[var(--text-primary)]" : "text-[var(--text-muted)]"
               )}
             >

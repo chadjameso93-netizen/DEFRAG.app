@@ -14,15 +14,15 @@ export default function DashboardHero() {
           </p>
 
           <div className="mt-6 grid gap-3 sm:grid-cols-3">
-            <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-4">
+            <div className="rounded-2xl border border-white/[0.06] bg-white/[0.03] px-4 py-4">
               <p className="text-[10px] font-semibold uppercase tracking-[0.20em] text-white/40">Mapped</p>
               <p className="mt-2 text-lg font-semibold tracking-tight text-white">Relationships</p>
             </div>
-            <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-4">
+            <div className="rounded-2xl border border-white/[0.06] bg-white/[0.03] px-4 py-4">
               <p className="text-[10px] font-semibold uppercase tracking-[0.20em] text-white/40">Tracked</p>
               <p className="mt-2 text-lg font-semibold tracking-tight text-white">Events</p>
             </div>
-            <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-4">
+            <div className="rounded-2xl border border-white/[0.06] bg-white/[0.03] px-4 py-4">
               <p className="text-[10px] font-semibold uppercase tracking-[0.20em] text-white/40">Prepared</p>
               <p className="mt-2 text-lg font-semibold tracking-tight text-white">Next steps</p>
             </div>
@@ -30,11 +30,11 @@ export default function DashboardHero() {
         </div>
 
         <div className="grid gap-3">
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.03] p-4">
             <p className="text-[10px] font-semibold uppercase tracking-[0.20em] text-white/40">What to do here</p>
             <p className="mt-2 text-sm leading-7 text-white/65">Start with the relationship map, then review the timeline, then test possible responses in simulations.</p>
           </div>
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+          <div className="rounded-2xl border border-white/[0.06] bg-white/[0.03] p-4">
             <p className="text-[10px] font-semibold uppercase tracking-[0.20em] text-white/40">Current use</p>
             <p className="mt-2 text-sm leading-7 text-white/65">This dashboard is the central workspace for understanding the system before acting inside it.</p>
           </div>

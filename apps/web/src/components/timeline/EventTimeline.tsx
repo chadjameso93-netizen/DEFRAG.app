@@ -10,38 +10,50 @@ type EventItem = {
 
 export default function EventTimeline({ events }: { events: EventItem[] }) {
   return (
-    <div className="space-y-4">
-      {events.map((event) => (
+    <div className="relative space-y-0">
+      {/* Thin vertical axis line */}
+      <div className="absolute left-[11px] top-3 bottom-3 w-px bg-white/[0.06]" />
+
+      {events.map((event, i) => (
         <div
           key={event.id}
-          className="rounded-[24px] border border-white/10 bg-white/[0.04] p-5 transition duration-300 hover:border-white/15 hover:bg-white/[0.06]"
+          className="group relative flex gap-5 py-4"
         >
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/40">
-              {event.event_type}
-            </p>
-            <p className="text-xs text-white/45">
-              {new Date(event.created_at).toLocaleString()}
-            </p>
+          {/* Event dot */}
+          <div className="relative z-10 mt-1.5 flex shrink-0 items-center justify-center">
+            <div className="h-[8px] w-[8px] rounded-full bg-[var(--text-secondary)] opacity-60 transition-all duration-300 group-hover:scale-[1.4] group-hover:opacity-100" />
           </div>
 
-          <p className="mt-4 text-sm text-white/75">
-            <span className="font-medium text-white">{event.actor}</span> →{" "}
-            <span className="font-medium text-white">{event.target}</span>
-          </p>
-
-          <p className="mt-3 text-sm leading-7 text-white/60">{event.notes}</p>
-
-          <div className="mt-4">
-            <div className="mb-2 flex items-center justify-between">
-              <p className="text-xs uppercase tracking-[0.18em] text-white/40">Severity</p>
-              <p className="text-xs text-white/55">{Math.round(event.severity * 100)}%</p>
+          {/* Event content */}
+          <div className="glass-surface-light flex-1 p-4 transition-all duration-300 group-hover:border-white/[0.08]">
+            <div className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:justify-between">
+              <p className="typo-label text-[10px]">
+                {event.event_type}
+              </p>
+              <p className="text-xs text-[var(--text-tertiary)]">
+                {new Date(event.created_at).toLocaleString()}
+              </p>
             </div>
-            <div className="h-2 rounded-full bg-white/10">
-              <div
-                className="h-2 rounded-full bg-fuchsia-300"
-                style={{ width: `${Math.max(8, event.severity * 100)}%` }}
-              />
+
+            <p className="mt-3 text-sm text-[var(--text-secondary)]">
+              <span className="font-medium text-[var(--text-primary)]">{event.actor}</span>
+              {" → "}
+              <span className="font-medium text-[var(--text-primary)]">{event.target}</span>
+            </p>
+
+            <p className="mt-2 text-sm leading-7 text-[var(--text-tertiary)]">{event.notes}</p>
+
+            <div className="mt-3">
+              <div className="mb-1.5 flex items-center justify-between">
+                <p className="typo-label text-[9px]">Severity</p>
+                <p className="text-xs text-[var(--text-tertiary)]">{Math.round(event.severity * 100)}%</p>
+              </div>
+              <div className="h-1 rounded-full bg-white/[0.06]">
+                <div
+                  className="h-1 rounded-full bg-[var(--text-secondary)] transition-all duration-500"
+                  style={{ width: `${Math.max(8, event.severity * 100)}%` }}
+                />
+              </div>
             </div>
           </div>
         </div>

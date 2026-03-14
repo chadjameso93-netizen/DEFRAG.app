@@ -3,69 +3,65 @@
 import ReactFlow, { Background, Controls, type Edge, type Node } from "reactflow"
 import "reactflow/dist/style.css"
 
+const nodeStyle = {
+  borderRadius: 18,
+  border: "1px solid rgba(255,255,255,0.06)",
+  background: "rgba(255,255,255,0.04)",
+  backdropFilter: "blur(12px)",
+  color: "#f5f5f0",
+  padding: "14px 22px",
+  fontSize: 13,
+  fontWeight: 500,
+  minWidth: 110,
+  textAlign: "center" as const,
+  boxShadow: "0 6px 20px rgba(0,0,0,0.6)",
+  transition: "transform 0.3s cubic-bezier(0.25,0.1,0.25,1), box-shadow 0.3s ease",
+}
+
 const nodes: Node[] = [
   {
     id: "self",
     position: { x: 320, y: 48 },
     data: { label: "You" },
     style: {
-      borderRadius: 999,
-      border: "1px solid rgba(255,255,255,0.2)",
-      background: "#111111",
-      color: "#f5f5f5",
-      padding: "16px 22px",
+      ...nodeStyle,
+      background: "rgba(255,255,255,0.06)",
+      boxShadow: "0 10px 40px rgba(0,0,0,0.7)",
+      padding: "16px 24px",
       fontSize: 14,
-      minWidth: 110,
-      textAlign: "center",
-      boxShadow: "0 20px 40px rgba(0,0,0,0.4)",
     },
   },
   {
     id: "partner",
     position: { x: 70, y: 210 },
     data: { label: "Partner" },
-    style: {
-      borderRadius: 999,
-      border: "1px solid rgba(255,255,255,0.2)",
-      background: "#1a1a1a",
-      color: "#f5f5f5",
-      padding: "14px 20px",
-      fontSize: 13,
-      minWidth: 118,
-      textAlign: "center",
-    },
+    style: nodeStyle,
   },
   {
     id: "parent",
     position: { x: 560, y: 210 },
     data: { label: "Parent" },
-    style: {
-      borderRadius: 999,
-      border: "1px solid rgba(255,255,255,0.2)",
-      background: "#1a1a1a",
-      color: "#f5f5f5",
-      padding: "14px 20px",
-      fontSize: 13,
-      minWidth: 118,
-      textAlign: "center",
-    },
+    style: nodeStyle,
   },
   {
     id: "sibling",
     position: { x: 310, y: 360 },
     data: { label: "Sibling" },
-    style: {
-      borderRadius: 999,
-      border: "1px solid rgba(233,223,207,0.6)",
-      background: "#161514",
-      color: "#f5f5f5",
-      padding: "14px 20px",
-      fontSize: 13,
-      minWidth: 118,
-      textAlign: "center",
-    },
+    style: nodeStyle,
   },
 ]
+
+const edgeStyle = {
+  stroke: "rgba(255,255,255,0.15)",
+  strokeWidth: 1,
+}
+
+const labelStyle = {
+  fill: "rgba(255,255,255,0.4)",
+  fontSize: 10,
+  fontWeight: 500,
+  letterSpacing: "0.05em",
+}
 
 const edges: Edge[] = [
   {
@@ -74,8 +70,8 @@ const edges: Edge[] = [
     target: "partner",
     animated: true,
     label: "repair",
-    style: { stroke: "#d6d3d1", strokeWidth: 1.5 },
-    labelStyle: { fill: "#d6d3d1", fontSize: 11, fontWeight: 600 },
+    style: edgeStyle,
+    labelStyle,
   },
   {
     id: "self-parent",
@@ -83,8 +79,8 @@ const edges: Edge[] = [
     target: "parent",
     animated: true,
     label: "pressure",
-    style: { stroke: "#a3a3a3", strokeWidth: 1.5 },
-    labelStyle: { fill: "#a3a3a3", fontSize: 11, fontWeight: 600 },
+    style: edgeStyle,
+    labelStyle,
   },
   {
     id: "self-sibling",
@@ -92,17 +88,17 @@ const edges: Edge[] = [
     target: "sibling",
     animated: true,
     label: "distance",
-    style: { stroke: "#e9dfcf", strokeWidth: 2 },
-    labelStyle: { fill: "#e9dfcf", fontSize: 11, fontWeight: 600 },
+    style: { ...edgeStyle, stroke: "rgba(255,255,255,0.2)" },
+    labelStyle,
   },
 ]
 
 export default function RelationshipGraph() {
   return (
-    <div className="relative h-[520px] w-full overflow-hidden rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,#12110f,#0b0a09)]">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.10),transparent_40%)]" />
-      <div className="absolute left-5 top-5 z-10 rounded-full border border-white/10 bg-black/30 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/68">
-        Live relationship display
+    <div className="glass-surface relative h-[520px] w-full overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.03),transparent_50%)]" />
+      <div className="absolute left-5 top-5 z-10 rounded-xl border border-white/[0.06] bg-white/[0.03] px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)] backdrop-blur-xl">
+        Relationship map
       </div>
       <ReactFlow
         nodes={nodes}
@@ -117,7 +113,7 @@ export default function RelationshipGraph() {
         zoomOnPinch={false}
         proOptions={{ hideAttribution: true }}
       >
-        <Background color="#2b2a28" gap={22} />
+        <Background color="rgba(255,255,255,0.03)" gap={24} />
         <Controls showInteractive={false} />
       </ReactFlow>
     </div>
