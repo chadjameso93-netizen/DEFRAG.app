@@ -1,4 +1,7 @@
+"use client"
+
 import Link from "next/link"
+import { motion } from "framer-motion"
 
 export default function GlowButton({
   href,
@@ -10,16 +13,22 @@ export default function GlowButton({
   inverted?: boolean
 }) {
   return (
-    <Link
-      href={href}
-      className={[
-        "inline-flex items-center justify-center rounded-2xl px-6 py-3 text-sm font-medium transition duration-300",
-        inverted
-          ? "border border-white/10 bg-white/5 text-white hover:bg-white/10"
-          : "bg-white text-zinc-950 shadow-[0_0_0_1px_rgba(255,255,255,0.08),0_8px_30px_rgba(255,255,255,0.08)] hover:bg-zinc-100"
-      ].join(" ")}
+    <motion.div
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.97 }}
+      transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
     >
-      {label}
-    </Link>
+      <Link
+        href={href}
+        className={[
+          "inline-flex items-center justify-center rounded-2xl px-6 py-3 text-sm font-medium transition-all duration-400",
+          inverted
+            ? "border border-[var(--border)] bg-[var(--surface-1)] text-[var(--text-primary)] hover:bg-[var(--surface-2)] hover:shadow-[0_0_20px_rgba(245,245,240,0.04)]"
+            : "bg-[var(--text-primary)] text-[var(--surface-0)] shadow-[0_0_30px_rgba(245,245,240,0.06)] hover:shadow-[0_0_40px_rgba(245,245,240,0.1)]",
+        ].join(" ")}
+      >
+        {label}
+      </Link>
+    </motion.div>
   )
 }

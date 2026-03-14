@@ -7,8 +7,8 @@ export default function SimulationsPage() {
     <AppShell>
       <div className="space-y-6">
         <div>
-          <h1 className="text-xl font-semibold text-zinc-50">Simulations</h1>
-          <p className="mt-1 text-sm text-zinc-400">Use scenario testing to compare possible approaches before the next conversation happens.</p>
+          <h1 className="text-xl font-semibold text-[var(--text-primary)]">Simulations</h1>
+          <p className="mt-1 text-sm text-[var(--text-secondary)]">Use scenario testing to compare possible approaches before the next conversation happens.</p>
         </div>
 
         <div className="grid gap-4 lg:grid-cols-3 lg:gap-6">
@@ -18,14 +18,14 @@ export default function SimulationsPage() {
         </div>
 
         <div className="grid gap-4 xl:grid-cols-[1.1fr_0.9fr] xl:gap-6">
-          <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-5 sm:p-6">
+          <div className="rounded-lg border border-[var(--border-subtle)] bg-[var(--surface-1)] p-5 sm:p-6">
             <SimulationPanel />
           </div>
 
-          <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-5 sm:p-6">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-zinc-500">How to use this</p>
-            <h3 className="mt-4 text-lg font-medium text-zinc-100">Use simulations as preparation, not prediction.</h3>
-            <p className="mt-4 text-sm leading-7 text-zinc-400">
+          <div className="rounded-lg border border-[var(--border-subtle)] bg-[var(--surface-1)] p-5 sm:p-6">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[var(--text-muted)]">How to use this</p>
+            <h3 className="mt-4 text-lg font-medium text-[var(--text-primary)]">Use simulations as preparation, not prediction.</h3>
+            <p className="mt-4 font-serif-accent text-sm leading-7 text-[var(--text-secondary)]">
               This page helps you think through likely outcomes so your next step is more intentional, measured, and aligned with what the platform is showing.
             </p>
           </div>

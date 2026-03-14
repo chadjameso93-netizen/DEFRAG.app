@@ -6,17 +6,17 @@ export default function PricingPage() {
     <AppShell>
       <div className="space-y-6">
         <div>
-          <h1 className="text-xl font-semibold text-zinc-50">Pricing</h1>
-          <p className="mt-1 text-sm text-zinc-400">Simple access levels for the current Defrag product.</p>
+          <h1 className="text-xl font-semibold text-[var(--text-primary)]">Pricing</h1>
+          <p className="mt-1 text-sm text-[var(--text-secondary)]">Simple access levels for the current Defrag product.</p>
         </div>
 
-        <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-6 sm:p-8">
+        <div className="rounded-lg border border-[var(--border-subtle)] bg-[var(--surface-1)] p-6 sm:p-8">
           <div className="max-w-3xl">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-zinc-500">Plans</p>
-            <h3 className="mt-4 text-3xl font-semibold tracking-tight text-zinc-50">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[var(--text-muted)]">Plans</p>
+            <h3 className="mt-4 text-3xl font-semibold tracking-tight text-[var(--text-primary)]">
               Free to start, Core for full use, Developer / API by contact.
             </h3>
-            <p className="mt-4 text-sm leading-7 text-zinc-400">
+            <p className="mt-4 text-sm leading-7 text-[var(--text-secondary)]">
               Core is $24 per month and uses Stripe checkout. Free is limited. Developer / API is currently contact-led.
             </p>
           </div>

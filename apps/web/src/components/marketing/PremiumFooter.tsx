@@ -6,21 +6,21 @@ export default function PremiumFooter() {
     <GlowCard className="px-6 py-6">
       <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
         <div className="max-w-xl">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.30em] text-white/45">Defrag</p>
-          <p className="mt-3 text-sm leading-7 text-white/60">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.30em] text-[var(--text-muted)]">Defrag</p>
+          <p className="mt-3 text-sm leading-7 text-[var(--text-secondary)]">
             Relational intelligence platform for relationship mapping, timeline awareness, simulations, and practical guidance.
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-x-6 gap-y-3 text-sm text-white/60 sm:grid-cols-3">
-          <Link href="/why" className="transition hover:text-white">Why Defrag</Link>
-          <Link href="/about" className="transition hover:text-white">About</Link>
-          <Link href="/principles" className="transition hover:text-white">Principles</Link>
-          <Link href="/pricing" className="transition hover:text-white">Pricing</Link>
-          <Link href="/login" className="transition hover:text-white">Login</Link>
-          <Link href="/signup" className="transition hover:text-white">Start trial</Link>
-          <Link href="/privacy" className="transition hover:text-white">Privacy</Link>
-          <Link href="/terms" className="transition hover:text-white">Terms</Link>
+        <div className="grid grid-cols-2 gap-x-6 gap-y-3 text-sm text-[var(--text-secondary)] sm:grid-cols-3">
+          <Link href="/why" className="transition-colors duration-300 hover:text-[var(--text-primary)]">Why Defrag</Link>
+          <Link href="/about" className="transition-colors duration-300 hover:text-[var(--text-primary)]">About</Link>
+          <Link href="/principles" className="transition-colors duration-300 hover:text-[var(--text-primary)]">Principles</Link>
+          <Link href="/pricing" className="transition-colors duration-300 hover:text-[var(--text-primary)]">Pricing</Link>
+          <Link href="/login" className="transition-colors duration-300 hover:text-[var(--text-primary)]">Login</Link>
+          <Link href="/signup" className="transition-colors duration-300 hover:text-[var(--text-primary)]">Start trial</Link>
+          <Link href="/privacy" className="transition-colors duration-300 hover:text-[var(--text-primary)]">Privacy</Link>
+          <Link href="/terms" className="transition-colors duration-300 hover:text-[var(--text-primary)]">Terms</Link>
         </div>
       </div>
     </GlowCard>

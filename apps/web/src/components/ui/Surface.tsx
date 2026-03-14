@@ -8,7 +8,12 @@ export default function Surface({
   className?: string
 }) {
   return (
-    <div className={["rounded-[28px] border border-white/60 bg-white/80 shadow-[0_10px_40px_rgba(0,0,0,0.06)] backdrop-blur-xl", className].join(" ")}>
+    <div
+      className={[
+        "rounded-[var(--radius-lg)] border border-[var(--border-subtle)] bg-[var(--surface-1)] backdrop-blur-xl transition-all duration-500 hover:border-[var(--border)]",
+        className,
+      ].join(" ")}
+    >
       {children}
     </div>
   )
