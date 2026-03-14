@@ -1,67 +1,214 @@
-import AppShell from "@/components/layout/AppShell"
+"use client"
+
+import { useEffect, useState } from "react"
 import Link from "next/link"
-import { ArrowRight } from "lucide-react"
-import DailyReadPanel from "@/components/dashboard/DailyReadPanel"
-import GuidanceSummary from "@/components/dashboard/GuidanceSummary"
-import TimelinePreview from "@/components/dashboard/TimelinePreview"
-import PremiumPanel from "@/components/ui/PremiumPanel"
-import RelationshipGraph from "@/components/graph/RelationshipGraph"
-import { getEvents } from "@/lib/data/mockDb"
+import AppShell from "@/components/layout/AppShell"
+import { ArrowRight, MessageSquare, TrendingUp, Users, Zap } from "lucide-react"
+import type { Relationship, SystemEvent } from "@/lib/types"
+
+function PressureIndicator({ level }: { level: "low" | "moderate" | "high" }) {
+  const config = {
+    low: { text: "text-emerald-400", label: "Low", dot: "bg-emerald-400" },
+    moderate: { text: "text-amber-400", label: "Moderate", dot: "bg-amber-400" },
+    high: { text: "text-red-400", label: "High", dot: "bg-red-400" },
+  }
+  const c = config[level]
+  return (
+    <div className="flex items-center gap-2">
+      <div className={`h-2 w-2 rounded-full ${c.dot}`} />
+      <span className={`text-sm font-medium ${c.text}`}>{c.label}</span>
+    </div>
+  )
+}
+
+function Skeleton({ className }: { className?: string }) {
+  return <div className={`skeleton ${className ?? ""}`} />
+}
+
+function StatCard({ label, value, icon: Icon }: { label: string; value: string; icon: React.ComponentType<{ size?: number; className?: string }> }) {
+  return (
+    <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-4">
+      <div className="flex items-center gap-2">
+        <Icon size={14} className="text-zinc-500" />
+        <p className="text-[11px] font-medium uppercase tracking-wider text-zinc-500">{label}</p>
+      </div>
+      <p className="mt-2 text-lg font-semibold text-zinc-50">{value}</p>
+    </div>
+  )
+}
 
 export default function DashboardPage() {
-  const events = getEvents()
+  const [relationships, setRelationships] = useState<Relationship[]>([])
+  const [events, setEvents] = useState<SystemEvent[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function load() {
+      try {
+        const [relRes, evtRes] = await Promise.all([
+          fetch("/api/relationships"),
+          fetch("/api/events"),
+        ])
+        if (relRes.ok) {
+          const relData = await relRes.json()
+          setRelationships(relData.relationships ?? relData ?? [])
+        }
+        if (evtRes.ok) {
+          const evtData = await evtRes.json()
+          setEvents(evtData.events ?? evtData ?? [])
+        }
+      } catch {
+        // Fallback to empty state
+      } finally {
+        setLoading(false)
+      }
+    }
+    load()
+  }, [])
+
+  const avgTension = relationships.length
+    ? relationships.reduce((sum, r) => sum + (r.tension_score ?? 0), 0) / relationships.length
+    : 0
+  const pressureLevel: "low" | "moderate" | "high" =
+    avgTension > 0.65 ? "high" : avgTension > 0.45 ? "moderate" : "low"
+
+  const priorityRel = [...relationships].sort((a, b) => (b.tension_score ?? 0) - (a.tension_score ?? 0))[0]
+  const recentEvents = events.slice(0, 3)
+
+  if (loading) {
+    return (
+      <AppShell>
+        <div className="space-y-6">
+          <Skeleton className="h-8 w-48" />
+          <div className="grid gap-4 sm:grid-cols-3">
+            <Skeleton className="h-24" />
+            <Skeleton className="h-24" />
+            <Skeleton className="h-24" />
+          </div>
+          <Skeleton className="h-48" />
+          <Skeleton className="h-36" />
+        </div>
+      </AppShell>
+    )
+  }
 
   return (
-    <AppShell
-      title="Dashboard"
-      subtitle="See what is happening in your relationship system, where pressure is rising, and what next step may help most."
-    >
-      <DailyReadPanel />
+    <AppShell>
+      <div className="space-y-6">
+        <div>
+          <h1 className="text-xl font-semibold text-zinc-50">Today</h1>
+          <p className="mt-1 text-sm text-zinc-400">Your relational field at a glance.</p>
+        </div>
 
-      <section className="grid gap-4 lg:gap-6 2xl:grid-cols-[1.3fr_0.7fr]">
-        <PremiumPanel className="p-5 sm:p-6">
-          <div className="flex items-center justify-between gap-4">
-            <div>
-              <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/40">Primary surface</p>
-              <h2 className="mt-3 text-lg font-medium text-white">Live relationship display</h2>
-              <p className="mt-2 text-sm text-white/60">
-                See people in the system, relationship distance, pressure, repair, and shifting dynamics in one view.
-              </p>
+        {/* Stats row */}
+        <div className="grid gap-3 sm:grid-cols-3">
+          <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-4">
+            <div className="flex items-center gap-2">
+              <Zap size={14} className="text-zinc-500" />
+              <p className="text-[11px] font-medium uppercase tracking-wider text-zinc-500">Field pressure</p>
             </div>
-            <Link href="/relationships" className="hidden items-center gap-2 text-sm text-white/68 transition hover:text-white sm:inline-flex">
-              Open people
-              <ArrowRight size={16} />
-            </Link>
+            <div className="mt-2">
+              <PressureIndicator level={pressureLevel} />
+            </div>
           </div>
-          <div className="mt-6">
-            <RelationshipGraph />
-          </div>
-        </PremiumPanel>
+          <StatCard label="Relationships" value={String(relationships.length)} icon={Users} />
+          <StatCard label="Events tracked" value={String(events.length)} icon={TrendingUp} />
+        </div>
 
-        <div className="space-y-4">
-          <GuidanceSummary />
-          <PremiumPanel className="p-5 sm:p-6">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/40">Defrag AI</p>
-            <h3 className="mt-3 text-lg font-medium text-white">Open the strategic workspace</h3>
-            <p className="mt-2 text-sm leading-7 text-white/62">
-              Use AI after reviewing the relationship display and timeline so guidance can stay grounded in context.
-            </p>
+        {/* Priority Relationship */}
+        {priorityRel && (
+          <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-5">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-[11px] font-medium uppercase tracking-wider text-zinc-500">Priority relationship</p>
+                <p className="mt-1 text-base font-medium text-zinc-50">{priorityRel.target_name}</p>
+                <p className="mt-0.5 text-sm text-zinc-400">
+                  {priorityRel.relationship_type} &middot; tension {Math.round((priorityRel.tension_score ?? 0) * 100)}%
+                </p>
+              </div>
+              <PressureIndicator
+                level={(priorityRel.tension_score ?? 0) > 0.65 ? "high" : (priorityRel.tension_score ?? 0) > 0.45 ? "moderate" : "low"}
+              />
+            </div>
+            <div className="mt-4">
+              <Link href="/relationships" className="text-[13px] font-medium text-zinc-300 transition-colors hover:text-zinc-50">
+                View details &rarr;
+              </Link>
+            </div>
+          </div>
+        )}
+
+        {/* Suggested Action */}
+        <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-5">
+          <p className="text-[11px] font-medium uppercase tracking-wider text-zinc-500">Suggested action</p>
+          <p className="mt-2 text-sm leading-relaxed text-zinc-300">
+            {pressureLevel === "high"
+              ? "Consider pausing before initiating any difficult conversations today. A calm observation approach is likely more effective right now."
+              : pressureLevel === "moderate"
+              ? "Short, clear check-ins with your closest relationships may help ease current tension before it builds."
+              : "Things are relatively calm. This is a good window for meaningful conversations or gentle reconnection."}
+          </p>
+          <div className="mt-4">
             <Link
               href="/ai"
-              className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white px-4 py-2 text-sm font-medium text-zinc-950 transition hover:bg-[#f3ece3]"
+              className="inline-flex items-center gap-2 rounded-lg bg-zinc-50 px-4 py-2 text-[13px] font-medium text-zinc-900 transition-colors hover:bg-zinc-200"
             >
-              Open Defrag AI
-              <ArrowRight size={16} />
+              <MessageSquare size={14} />
+              Ask about a situation
             </Link>
-          </PremiumPanel>
+          </div>
         </div>
-      </section>
 
-      <section>
-        <PremiumPanel className="p-5 sm:p-6">
-          <TimelinePreview events={events} />
-        </PremiumPanel>
-      </section>
+        {/* Recent Events */}
+        <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-5">
+          <div className="flex items-center justify-between">
+            <p className="text-[11px] font-medium uppercase tracking-wider text-zinc-500">Recent events</p>
+            <Link href="/timeline" className="text-[12px] text-zinc-500 transition-colors hover:text-zinc-300">
+              View all
+            </Link>
+          </div>
+          {recentEvents.length === 0 ? (
+            <div className="mt-4 rounded-lg border border-dashed border-zinc-800 py-8 text-center">
+              <p className="text-sm text-zinc-500">No events yet</p>
+              <Link href="/timeline" className="mt-2 inline-block text-[13px] font-medium text-zinc-300 hover:text-zinc-50">
+                Log your first event &rarr;
+              </Link>
+            </div>
+          ) : (
+            <div className="mt-3 space-y-2">
+              {recentEvents.map((evt) => (
+                <div key={evt.id} className="flex items-start gap-3 rounded-md px-3 py-2 transition-colors hover:bg-zinc-800/50">
+                  <div className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full ${
+                    evt.event_type === "conflict" ? "bg-red-400" :
+                    evt.event_type === "repair" ? "bg-emerald-400" : "bg-amber-400"
+                  }`} />
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-2">
+                      <p className="text-[13px] font-medium text-zinc-200">{evt.event_type}</p>
+                      <span className="text-[11px] text-zinc-600">{evt.actor} &rarr; {evt.target}</span>
+                    </div>
+                    <p className="mt-0.5 truncate text-[12px] text-zinc-500">{evt.notes}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Empty state for no relationships */}
+        {relationships.length === 0 && (
+          <div className="rounded-lg border border-dashed border-zinc-800 py-12 text-center">
+            <Users size={24} className="mx-auto text-zinc-600" />
+            <p className="mt-3 text-sm text-zinc-400">No relationships mapped yet</p>
+            <Link
+              href="/relationships"
+              className="mt-3 inline-flex items-center gap-1 text-[13px] font-medium text-zinc-300 hover:text-zinc-50"
+            >
+              Add your first relationship <ArrowRight size={14} />
+            </Link>
+          </div>
+        )}
+      </div>
     </AppShell>
   )
 }

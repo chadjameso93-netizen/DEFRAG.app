@@ -1,7 +1,5 @@
 import type { ReactNode } from "react"
 import Link from "next/link"
-import BrandMesh from "@/components/brand/BrandMesh"
-import PremiumPanel from "@/components/ui/PremiumPanel"
 
 export default function AuthShell({
   eyebrow,
@@ -21,42 +19,45 @@ export default function AuthShell({
   footerLinkHref: string
 }) {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#09090b] px-3 py-3 sm:px-4 sm:py-4 lg:px-6 lg:py-6">
-      <BrandMesh />
+    <main className="flex min-h-screen bg-zinc-950">
+      {/* Left info panel */}
+      <div className="hidden flex-1 flex-col justify-center border-r border-zinc-800 px-12 lg:flex xl:px-20">
+        <Link href="/" className="text-[11px] font-semibold uppercase tracking-[0.3em] text-zinc-500">
+          Defrag
+        </Link>
 
-      <div className="relative mx-auto grid min-h-[calc(100vh-1.5rem)] max-w-7xl items-center gap-4 lg:grid-cols-[1.05fr_0.95fr] lg:gap-6">
-        <PremiumPanel className="p-7 sm:p-10 lg:p-12">
-          <Link href="/" className="text-[11px] font-semibold uppercase tracking-[0.34em] text-white/45">
+        <h1 className="mt-6 max-w-lg text-3xl font-semibold tracking-tight text-zinc-50">
+          {title}
+        </h1>
+        <p className="mt-4 max-w-md text-sm leading-relaxed text-zinc-400">{body}</p>
+
+        <div className="mt-8 grid max-w-md gap-3 sm:grid-cols-2">
+          <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-4">
+            <p className="text-[10px] font-medium uppercase tracking-wider text-zinc-500">Clear insight</p>
+            <p className="mt-2 text-[13px] leading-relaxed text-zinc-400">Understand patterns before they become larger problems.</p>
+          </div>
+          <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-4">
+            <p className="text-[10px] font-medium uppercase tracking-wider text-zinc-500">Healthy outcomes</p>
+            <p className="mt-2 text-[13px] leading-relaxed text-zinc-400">Guidance designed to reduce stigma and improve communication.</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Right form panel */}
+      <div className="flex w-full flex-col items-center justify-center px-6 py-12 lg:w-[480px] lg:shrink-0">
+        <div className="w-full max-w-sm">
+          <Link href="/" className="text-[11px] font-semibold uppercase tracking-[0.3em] text-zinc-500 lg:hidden">
             Defrag
           </Link>
-
-          <h1 className="mt-6 max-w-2xl text-4xl font-semibold tracking-tight text-white sm:text-5xl">
-            {title}
-          </h1>
-          <p className="mt-5 max-w-xl text-sm leading-7 text-white/60">{body}</p>
-
-          <div className="mt-8 grid gap-3 sm:grid-cols-2">
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.20em] text-white/40">Clear insight</p>
-              <p className="mt-2 text-sm leading-6 text-white/65">Understand patterns before they become larger problems.</p>
-            </div>
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.20em] text-white/40">Healthy outcomes</p>
-              <p className="mt-2 text-sm leading-6 text-white/65">Guidance is designed to reduce stigma and improve communication.</p>
-            </div>
-          </div>
-        </PremiumPanel>
-
-        <PremiumPanel className="mx-auto w-full max-w-md p-6 sm:p-8">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-white/45">{eyebrow}</p>
+          <p className="mt-4 text-[11px] font-medium uppercase tracking-wider text-zinc-500 lg:mt-0">{eyebrow}</p>
           <div className="mt-5">{children}</div>
-          <p className="mt-6 text-sm text-white/55">
+          <p className="mt-6 text-[13px] text-zinc-500">
             {footerText}{" "}
-            <Link href={footerLinkHref} className="font-medium text-white underline-offset-4 hover:underline">
+            <Link href={footerLinkHref} className="font-medium text-zinc-300 transition-colors hover:text-zinc-50">
               {footerLinkLabel}
             </Link>
           </p>
-        </PremiumPanel>
+        </div>
       </div>
     </main>
   )

@@ -1,133 +1,210 @@
 "use client"
 
 import type { ReactNode } from "react"
+import { useState } from "react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { Bot, ChevronRight, Clock3, CreditCard, LayoutDashboard, Settings, Sparkles, UserPlus, Users } from "lucide-react"
-import BrandMesh from "@/components/brand/BrandMesh"
-import PremiumPanel from "@/components/ui/PremiumPanel"
-import MobileBottomNav from "@/components/layout/MobileBottomNav"
+import { usePathname, useRouter } from "next/navigation"
+import {
+  Home,
+  Users,
+  Calendar,
+  MessageSquare,
+  Settings,
+  PanelLeftClose,
+  PanelLeft,
+  LogOut,
+  ChevronRight,
+} from "lucide-react"
 import { cn } from "@/lib/cn"
 
-function NavItem({
+const NAV_ITEMS = [
+  { href: "/dashboard", label: "Today", icon: Home },
+  { href: "/relationships", label: "Relationships", icon: Users },
+  { href: "/timeline", label: "Timeline", icon: Calendar },
+  { href: "/ai", label: "AI", icon: MessageSquare },
+  { href: "/settings", label: "Settings", icon: Settings },
+]
+
+function SideNavItem({
   href,
   label,
-  icon,
+  icon: Icon,
   active,
+  collapsed,
 }: {
   href: string
   label: string
-  icon: ReactNode
-  active?: boolean
+  icon: React.ComponentType<{ size?: number; className?: string }>
+  active: boolean
+  collapsed: boolean
 }) {
   return (
     <Link
       href={href}
       className={cn(
-        "group flex items-center justify-between rounded-2xl px-4 py-3 text-sm font-medium transition duration-300",
-        active ? "bg-white text-zinc-950" : "text-white/65 hover:bg-white/10 hover:text-white"
+        "group relative flex items-center gap-3 rounded-lg px-3 py-2 text-[13px] font-medium transition-colors duration-150",
+        active
+          ? "bg-zinc-800 text-zinc-50"
+          : "text-zinc-400 hover:bg-zinc-800/50 hover:text-zinc-200",
+        collapsed && "justify-center px-2"
       )}
     >
-      <span className="flex items-center gap-3">
-        {icon}
-        <span>{label}</span>
-      </span>
-      <ChevronRight size={16} className={cn("transition", active ? "opacity-100" : "opacity-0 group-hover:opacity-100")} />
+      {active && (
+        <div className="absolute left-0 top-1/2 h-4 w-[2px] -translate-y-1/2 rounded-r bg-zinc-50" />
+      )}
+      <Icon size={18} className={cn(active ? "text-zinc-50" : "text-zinc-500 group-hover:text-zinc-300")} />
+      {!collapsed && <span>{label}</span>}
     </Link>
   )
 }
 
 export default function AppShell({
   children,
-  title,
-  subtitle,
+  rightPanel,
 }: {
   children: ReactNode
-  title?: string
-  subtitle?: string
+  rightPanel?: ReactNode
 }) {
   const pathname = usePathname()
+  const router = useRouter()
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+
+  async function handleSignOut() {
+    const { createBrowserClient } = await import("@supabase/ssr")
+    const supabase = createBrowserClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    )
+    await supabase.auth.signOut()
+    router.push("/")
+    router.refresh()
+  }
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-black text-white">
-      <BrandMesh />
+    <div className="flex h-screen flex-col bg-zinc-950">
+      {/* Top Navigation Bar */}
+      <header className="flex h-12 shrink-0 items-center border-b border-zinc-800 bg-zinc-950 px-4">
+        <Link href="/dashboard" className="flex items-center gap-2">
+          <span className="text-[13px] font-semibold tracking-wide text-zinc-50">DEFRAG</span>
+        </Link>
 
-      <div className="relative mx-auto max-w-[1600px] px-3 py-3 pb-28 sm:px-4 sm:py-4 sm:pb-28 lg:px-6 lg:py-6 lg:pb-6">
-        <div className="mt-3 grid gap-4 lg:mt-0 lg:grid-cols-[320px_1fr] lg:gap-6">
-          <PremiumPanel className="hidden h-fit p-5 lg:sticky lg:top-6 lg:block lg:p-7">
-            <div className="flex items-center justify-between">
-              <Link href="/" className="text-[11px] font-semibold uppercase tracking-[0.36em] text-white/50">
-                Defrag
+        <nav className="ml-8 hidden items-center gap-1 md:flex">
+          {NAV_ITEMS.map((item) => {
+            const isActive = pathname === item.href || pathname.startsWith(item.href + "/")
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "rounded-md px-3 py-1.5 text-[13px] font-medium transition-colors duration-150",
+                  isActive
+                    ? "bg-zinc-800 text-zinc-50"
+                    : "text-zinc-400 hover:bg-zinc-800/50 hover:text-zinc-200"
+                )}
+              >
+                {item.label}
               </Link>
-              <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-medium text-white/60">
-                Premium Beta
-              </div>
-            </div>
+            )
+          })}
+        </nav>
 
-            <h1 className="mt-4 text-[28px] font-semibold tracking-tight text-white">Relational intelligence</h1>
-            <p className="mt-3 text-sm leading-6 text-white/60">
-              Clear insight for relationships, communication, and recurring patterns.
-            </p>
-
-            <div className="mt-7 rounded-[28px] border border-white/10 bg-white/5 p-5">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-white/45">System status</p>
-              <p className="mt-3 text-2xl font-semibold tracking-tight text-white">Elevated</p>
-              <p className="mt-2 text-sm leading-6 text-white/60">
-                A pause-first approach is more likely to improve outcomes today.
-              </p>
-            </div>
-
-            <nav className="mt-7 grid gap-2">
-              <NavItem href="/dashboard" label="Dashboard" icon={<LayoutDashboard size={18} />} active={pathname === "/dashboard"} />
-              <NavItem href="/relationships" label="Relationships" icon={<Users size={18} />} active={pathname === "/relationships"} />
-              <NavItem href="/timeline" label="Timeline" icon={<Clock3 size={18} />} active={pathname === "/timeline"} />
-              <NavItem href="/ai" label="Defrag AI" icon={<Bot size={18} />} active={pathname === "/ai"} />
-              <NavItem href="/invite" label="Invite people" icon={<UserPlus size={18} />} active={pathname === "/invite"} />
-              <NavItem href="/simulations" label="Simulations" icon={<Sparkles size={18} />} active={pathname === "/simulations"} />
-              <NavItem href="/pricing" label="Pricing" icon={<CreditCard size={18} />} active={pathname === "/pricing"} />
-              <NavItem href="/settings" label="Settings" icon={<Settings size={18} />} active={pathname === "/settings"} />
-            </nav>
-
-            <div className="mt-8 rounded-[28px] border border-white/10 bg-white/5 p-5">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-white/45">Today</p>
-              <p className="mt-3 text-sm leading-6 text-white/65">
-                Short clarifications and calm boundaries are more effective than urgency.
-              </p>
-            </div>
-          </PremiumPanel>
-
-          <div className="space-y-4 lg:space-y-6">
-            <PremiumPanel className="p-5 sm:p-8">
-              <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-                <div>
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.30em] text-white/45">Defrag Workspace</p>
-                  {title ? <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-[44px]">{title}</h2> : null}
-                  {subtitle ? <p className="mt-4 max-w-3xl text-sm leading-7 text-white/60">{subtitle}</p> : null}
-                </div>
-
-                <div className="grid grid-cols-3 gap-3">
-                  <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.20em] text-white/40">State</p>
-                    <p className="mt-2 text-sm font-medium text-white">Elevated</p>
-                  </div>
-                  <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.20em] text-white/40">Repair</p>
-                    <p className="mt-2 text-sm font-medium text-white">Moderate</p>
-                  </div>
-                  <div className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3">
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.20em] text-white/40">Timing</p>
-                    <p className="mt-2 text-sm font-medium text-white">Pause first</p>
-                  </div>
-                </div>
-              </div>
-            </PremiumPanel>
-
-            {children}
-          </div>
+        <div className="ml-auto flex items-center gap-2">
+          <button
+            onClick={handleSignOut}
+            className="flex items-center gap-2 rounded-md px-3 py-1.5 text-[13px] text-zinc-500 transition-colors hover:bg-zinc-800/50 hover:text-zinc-300"
+          >
+            <LogOut size={14} />
+            <span className="hidden sm:inline">Sign out</span>
+          </button>
         </div>
+      </header>
+
+      <div className="flex flex-1 overflow-hidden">
+        {/* Left Sidebar */}
+        <aside
+          className={cn(
+            "hidden shrink-0 flex-col border-r border-zinc-800 bg-zinc-950 transition-[width] duration-200 lg:flex",
+            sidebarCollapsed ? "w-14" : "w-56"
+          )}
+        >
+          <div className="flex h-10 items-center justify-end px-2">
+            <button
+              onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+              className="rounded-md p-1.5 text-zinc-500 transition-colors hover:bg-zinc-800 hover:text-zinc-300"
+            >
+              {sidebarCollapsed ? <PanelLeft size={16} /> : <PanelLeftClose size={16} />}
+            </button>
+          </div>
+
+          <nav className="flex-1 space-y-1 px-2">
+            {NAV_ITEMS.map((item) => {
+              const isActive = pathname === item.href || pathname.startsWith(item.href + "/")
+              return (
+                <SideNavItem
+                  key={item.href}
+                  href={item.href}
+                  label={item.label}
+                  icon={item.icon}
+                  active={isActive}
+                  collapsed={sidebarCollapsed}
+                />
+              )
+            })}
+          </nav>
+
+          {!sidebarCollapsed && (
+            <div className="border-t border-zinc-800 p-3">
+              <div className="rounded-lg bg-zinc-900 p-3">
+                <p className="text-[10px] font-medium uppercase tracking-widest text-zinc-500">Free plan</p>
+                <p className="mt-1 text-[12px] text-zinc-400">5 insights / month</p>
+                <Link
+                  href="/settings"
+                  className="mt-2 flex items-center gap-1 text-[12px] font-medium text-zinc-300 transition-colors hover:text-zinc-50"
+                >
+                  Upgrade <ChevronRight size={12} />
+                </Link>
+              </div>
+            </div>
+          )}
+        </aside>
+
+        {/* Main Content */}
+        <main className="flex flex-1 overflow-hidden">
+          <div className="flex-1 overflow-y-auto">
+            <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
+              {children}
+            </div>
+          </div>
+
+          {/* Right Panel (contextual) */}
+          {rightPanel && (
+            <aside className="hidden w-80 shrink-0 overflow-y-auto border-l border-zinc-800 bg-zinc-950 xl:block">
+              {rightPanel}
+            </aside>
+          )}
+        </main>
       </div>
 
-      <MobileBottomNav />
-    </main>
+      {/* Mobile Bottom Nav */}
+      <nav className="flex shrink-0 items-center justify-around border-t border-zinc-800 bg-zinc-950 pb-[env(safe-area-inset-bottom)] lg:hidden">
+        {NAV_ITEMS.map((item) => {
+          const Icon = item.icon
+          const isActive = pathname === item.href || pathname.startsWith(item.href + "/")
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={cn(
+                "flex flex-col items-center gap-0.5 px-3 py-2 text-[10px] font-medium transition-colors",
+                isActive ? "text-zinc-50" : "text-zinc-500"
+              )}
+            >
+              <Icon size={20} />
+              <span>{item.label}</span>
+            </Link>
+          )
+        })}
+      </nav>
+    </div>
   )
 }

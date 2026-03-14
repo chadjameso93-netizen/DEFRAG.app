@@ -29,7 +29,7 @@ export default function SignupPage() {
       return
     }
 
-    setMessage("Account created. Continue to onboarding.")
+    setMessage("Account created. Redirecting to onboarding...")
     setTimeout(() => {
       router.push("/onboarding")
       router.refresh()
@@ -38,18 +38,18 @@ export default function SignupPage() {
 
   return (
     <AuthShell
-      eyebrow="Signup"
+      eyebrow="Sign up"
       title="Create your account and begin building your relationship system"
-      body="Start your Defrag workspace, complete onboarding, and unlock your dashboard, timelines, simulations, and guidance tools."
+      body="Start your Defrag workspace, complete onboarding, and unlock your dashboard, timelines, and guidance tools."
       footerText="Already have an account?"
       footerLinkLabel="Log in"
       footerLinkHref="/login"
     >
       <div className="space-y-4">
         <div>
-          <label className="mb-2 block text-sm font-medium text-white">Email</label>
+          <label className="mb-1 block text-[12px] text-zinc-500">Email</label>
           <input
-            className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition focus:border-white/20"
+            className="w-full rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2.5 text-sm text-zinc-100 outline-none transition focus:border-zinc-600"
             placeholder="you@example.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -57,10 +57,10 @@ export default function SignupPage() {
         </div>
 
         <div>
-          <label className="mb-2 block text-sm font-medium text-white">Password</label>
+          <label className="mb-1 block text-[12px] text-zinc-500">Password</label>
           <input
             type="password"
-            className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none transition focus:border-white/20"
+            className="w-full rounded-md border border-zinc-700 bg-zinc-800 px-3 py-2.5 text-sm text-zinc-100 outline-none transition focus:border-zinc-600"
             placeholder="Create password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -70,12 +70,12 @@ export default function SignupPage() {
         <button
           onClick={handleSignup}
           disabled={loading}
-          className="w-full rounded-2xl bg-white px-5 py-3 text-sm font-medium text-zinc-950 transition hover:bg-zinc-100 disabled:cursor-not-allowed disabled:opacity-60"
+          className="w-full rounded-md bg-zinc-50 px-4 py-2.5 text-sm font-medium text-zinc-900 transition hover:bg-zinc-200 disabled:opacity-50"
         >
           {loading ? "Creating account..." : "Create account"}
         </button>
 
-        {message ? <p className="text-sm text-white/60">{message}</p> : null}
+        {message ? <p className="text-[13px] text-zinc-400">{message}</p> : null}
       </div>
     </AuthShell>
   )
