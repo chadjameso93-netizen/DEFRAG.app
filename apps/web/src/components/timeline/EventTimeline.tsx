@@ -12,9 +12,9 @@ export default function EventTimeline({ events }: { events: EventItem[] }) {
   return (
     <div className="relative space-y-0">
       {/* Thin vertical axis line */}
-      <div className="absolute left-[11px] top-3 bottom-3 w-px bg-white/[0.06]" />
+      <div className="absolute left-[11px] top-3 bottom-3 w-px bg-[#1F1F1F]" />
 
-      {events.map((event, i) => (
+      {events.map((event) => (
         <div
           key={event.id}
           className="group relative flex gap-5 py-4"
@@ -25,7 +25,7 @@ export default function EventTimeline({ events }: { events: EventItem[] }) {
           </div>
 
           {/* Event content */}
-          <div className="glass-surface-light flex-1 p-4 transition-all duration-300 group-hover:border-white/[0.08]">
+          <div className="bg-[#0A0A0A] border border-[#1F1F1F] rounded-[16px] flex-1 p-4 transition-all duration-300 group-hover:border-white/[0.08]">
             <div className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:justify-between">
               <p className="typo-label text-[10px]">
                 {event.event_type}
@@ -35,10 +35,10 @@ export default function EventTimeline({ events }: { events: EventItem[] }) {
               </p>
             </div>
 
-            <p className="mt-3 text-sm text-[var(--text-secondary)]">
-              <span className="font-medium text-[var(--text-primary)]">{event.actor}</span>
+            <p className="mt-3 text-sm text-[#9A9A9A]">
+              <span className="font-medium text-[#EAEAEA]">{event.actor}</span>
               {" → "}
-              <span className="font-medium text-[var(--text-primary)]">{event.target}</span>
+              <span className="font-medium text-[#EAEAEA]">{event.target}</span>
             </p>
 
             <p className="mt-2 text-sm leading-7 text-[var(--text-tertiary)]">{event.notes}</p>
@@ -48,7 +48,7 @@ export default function EventTimeline({ events }: { events: EventItem[] }) {
                 <p className="typo-label text-[9px]">Severity</p>
                 <p className="text-xs text-[var(--text-tertiary)]">{Math.round(event.severity * 100)}%</p>
               </div>
-              <div className="h-1 rounded-full bg-white/[0.06]">
+              <div className="h-1 rounded-full bg-[#1F1F1F]">
                 <div
                   className="h-1 rounded-full bg-[var(--text-secondary)] transition-all duration-500"
                   style={{ width: `${Math.max(8, event.severity * 100)}%` }}

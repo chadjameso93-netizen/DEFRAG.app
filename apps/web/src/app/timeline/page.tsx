@@ -1,33 +1,24 @@
 "use client"
-
 import { useEffect, useState, useCallback } from "react"
 import AppShell from "@/components/layout/AppShell"
-import { Plus, X, Calendar, MessageSquare } from "lucide-react"
+import { Plus, X, Calendar, MessageSquare, Info, Activity } from "lucide-react"
 import type { Relationship, SystemEvent } from "@/lib/types"
 import Link from "next/link"
+import { Panel } from "@/components/ui/Panel"
+import { Button } from "@/components/ui/Button"
 
-type BandLevel = "supportive" | "soft" | "fragile"
-
-function ActivationBand({ level }: { level: BandLevel }) {
-  const config = {
-    supportive: { bg: "bg-emerald-500/10", border: "border-emerald-500/20", text: "text-emerald-400", label: "Supportive" },
-    soft: { bg: "bg-amber-500/10", border: "border-amber-500/20", text: "text-amber-400", label: "Soft" },
-    fragile: { bg: "bg-red-500/10", border: "border-red-500/20", text: "text-red-400", label: "Fragile" },
-  }
-  const c = config[level]
-  return (
-    <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-[11px] font-medium ${c.bg} ${c.border} ${c.text}`}>
-      {c.label}
-    </span>
-  )
+function ActivationIndicator({ level }: { level: "supportive" | "soft" | "fragile" }) {
+  const opacity = level === "fragile" ? "opacity-100" : level === "soft" ? "opacity-60" : "opacity-30"
+  return <div className={`h-1.5 w-1.5 rounded-full bg-[#EAEAEA] ${opacity}`} title={level} />
 }
 
-function EventDot({ type }: { type: string }) {
-  const color =
-    type === "conflict" ? "bg-red-400" :
-    type === "repair" ? "bg-emerald-400" :
-    type === "stress" ? "bg-amber-400" : "bg-[var(--text-muted)]"
-  return <div className={`mt-1.5 h-2 w-2 shrink-0 rounded-full ${color}`} />
+function EventIndicator({ type }: { type: string }) {
+  const opacity = type === "conflict" ? "opacity-100" : type === "repair" ? "opacity-40" : "opacity-70"
+  return <div className={`mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#EAEAEA] ${opacity}`} />
+}
+
+function Skeleton({ className }: { className?: string }) {
+  return <div className={`skeleton ${className ?? ""}`} />
 }
 
 function AddEventPanel({
@@ -76,95 +67,103 @@ function AddEventPanel({
   }
 
   return (
-    <div className="p-5">
+    <div className="p-8 flex flex-col gap-10">
       <div className="flex items-center justify-between">
-        <h2 className="text-sm font-semibold text-[var(--text-primary)]">Log event</h2>
-        <button onClick={onClose} className="rounded-md p-1 text-[var(--text-muted)] transition-colors duration-300 hover:bg-white/[0.03] hover:text-[var(--text-secondary)]">
-          <X size={16} />
+        <div className="flex items-center gap-3">
+           <Info size={14} className="text-[#4F6BFF]" />
+           <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#555555]">System Entry</span>
+        </div>
+        <button onClick={onClose} className="rounded-full p-2 text-[#555555] transition-all hover:bg-[#111] hover:text-[#EAEAEA]">
+          <X size={18} />
         </button>
       </div>
 
-      <form onSubmit={handleSubmit} className="mt-4 space-y-3">
-        <div>
-          <label className="mb-1 block text-[12px] text-[var(--text-muted)]">Type</label>
-          <select
-            value={form.event_type}
-            onChange={(e) => setForm({ ...form, event_type: e.target.value })}
-            className="glass-input w-full"
-          >
-            <option value="observation">Observation</option>
-            <option value="conflict">Conflict</option>
-            <option value="repair">Repair</option>
-            <option value="stress">Stress</option>
-            <option value="connection">Connection</option>
-          </select>
-        </div>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-8">
+        <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-3">
+            <label className="text-[11px] font-bold uppercase tracking-widest text-[#555555]">Event Type</label>
+            <select
+              value={form.event_type}
+              onChange={(e) => setForm({ ...form, event_type: e.target.value })}
+              className="bg-[#000000] border border-[#1F1F1F] rounded-[12px] p-4 focus:border-[#4F6BFF] focus:outline-none transition-all text-[#EAEAEA] text-[15px] font-light appearance-none"
+            >
+              <option value="observation">Observation</option>
+              <option value="conflict">Conflict</option>
+              <option value="repair">Repair</option>
+              <option value="stress">Stress</option>
+              <option value="connection">Connection</option>
+            </select>
+          </div>
 
-        <div>
-          <label className="mb-1 block text-[12px] text-[var(--text-muted)]">Relationship</label>
-          <select
-            value={form.relationship_id}
-            onChange={(e) => setForm({ ...form, relationship_id: e.target.value })}
-            className="glass-input w-full"
-          >
-            <option value="">General</option>
-            {relationships.map((r) => (
-              <option key={r.id} value={r.id}>{r.target_name}</option>
-            ))}
-          </select>
-        </div>
+          <div className="flex flex-col gap-3">
+            <label className="text-[11px] font-bold uppercase tracking-widest text-[#555555]">Relational Focus</label>
+            <select
+              value={form.relationship_id}
+              onChange={(e) => setForm({ ...form, relationship_id: e.target.value })}
+              className="bg-[#000000] border border-[#1F1F1F] rounded-[12px] p-4 focus:border-[#4F6BFF] focus:outline-none transition-all text-[#EAEAEA] text-[15px] font-light appearance-none"
+            >
+              <option value="">General Field</option>
+              {relationships.map((r) => (
+                <option key={r.id} value={r.id}>{r.target_name}</option>
+              ))}
+            </select>
+          </div>
 
-        <div>
-          <label className="mb-1 block text-[12px] text-[var(--text-muted)]">Severity</label>
-          <input
-            type="range"
-            min="0"
-            max="1"
-            step="0.1"
-            value={form.severity}
-            onChange={(e) => setForm({ ...form, severity: parseFloat(e.target.value) })}
-            className="w-full accent-[var(--text-muted)]"
-          />
-          <div className="flex justify-between text-[11px] text-[var(--text-muted)]">
-            <span>Low</span>
-            <span>{Math.round(form.severity * 100)}%</span>
-            <span>High</span>
+          <div className="flex flex-col gap-3">
+            <label className="text-[11px] font-bold uppercase tracking-widest text-[#555555]">Severity Matrix</label>
+            <div className="p-4 border border-[#1F1F1F] rounded-[12px] bg-[#000000] flex flex-col gap-4">
+              <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.1"
+                value={form.severity}
+                onChange={(e) => setForm({ ...form, severity: parseFloat(e.target.value) })}
+                className="w-full accent-[#EAEAEA]"
+              />
+              <div className="flex justify-between text-[11px] font-mono text-[#333] uppercase tracking-widest">
+                <span>Low</span>
+                <span>{Math.round(form.severity * 100)}%</span>
+                <span>High</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
+            <label className="text-[11px] font-bold uppercase tracking-widest text-[#555555]">Operational Notes</label>
+            <textarea
+              value={form.notes}
+              onChange={(e) => setForm({ ...form, notes: e.target.value })}
+              placeholder="What structural shift occurred?"
+              rows={4}
+              className="bg-[#000000] border border-[#1F1F1F] rounded-[12px] p-4 focus:border-[#4F6BFF] focus:outline-none transition-all text-[#EAEAEA] text-[15px] font-light resize-none leading-relaxed"
+            />
           </div>
         </div>
 
-        <div>
-          <label className="mb-1 block text-[12px] text-[var(--text-muted)]">What happened?</label>
-          <textarea
-            value={form.notes}
-            onChange={(e) => setForm({ ...form, notes: e.target.value })}
-            placeholder="Describe the event..."
-            rows={3}
-            className="glass-input w-full"
-          />
-        </div>
-
-        <div className="flex gap-2">
-          <button
+        <div className="flex flex-col gap-3">
+          <Button
             type="submit"
             disabled={submitting || !form.notes.trim()}
-            className="rounded-2xl bg-[var(--text-primary)] px-4 py-1.5 text-[13px] font-medium text-[var(--surface-0)] shadow-[0_0_20px_rgba(245,245,240,0.04)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,245,240,0.08)] disabled:opacity-50"
+            className="w-full h-12"
           >
-            {submitting ? "Saving..." : "Log event"}
-          </button>
-          <button
+            {submitting ? "Writing Log..." : "Commence Logging"}
+          </Button>
+          <Button
+            variant="ghost"
             type="button"
             onClick={onClose}
-            className="rounded-md px-4 py-1.5 text-[13px] text-[var(--text-secondary)] transition-colors duration-300 hover:text-[var(--text-primary)]"
+            className="w-full h-12"
           >
             Cancel
-          </button>
+          </Button>
         </div>
       </form>
     </div>
   )
 }
 
-function getBandForDate(events: SystemEvent[], dateStr: string): BandLevel {
+function getBandForDate(events: SystemEvent[], dateStr: string): "supportive" | "soft" | "fragile" {
   const dayEvents = events.filter((e) => e.created_at?.startsWith(dateStr))
   if (dayEvents.length === 0) return "supportive"
   const avgSeverity = dayEvents.reduce((sum, e) => sum + (e.severity ?? 0), 0) / dayEvents.length
@@ -223,46 +222,45 @@ export default function TimelinePage() {
 
   return (
     <AppShell rightPanel={rightPanel}>
-      <div className="animate-[page-enter_0.5s_ease_both] space-y-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-xl font-semibold text-[var(--text-primary)]">Timeline</h1>
-            <p className="mt-1 text-sm text-[var(--text-secondary)]">Track what happened, when, and how it shaped the current pattern.</p>
+      <div className="animate-[page-enter_0.5s_ease_both] space-y-12 max-w-[1200px] mx-auto pb-20">
+        <div className="flex items-end justify-between">
+          <div className="flex flex-col gap-2">
+            <h1 className="text-3xl font-semibold tracking-tight text-[#EAEAEA]">Timeline</h1>
+            <p className="text-[15px] text-[#9A9A9A] font-light">The historical architecture of your relational system.</p>
           </div>
-          <div className="flex gap-2">
-            <Link
-              href="/ai"
-              className="inline-flex items-center gap-1.5 rounded-xl border border-white/[0.06] bg-white/[0.03] px-3 py-1.5 text-[13px] font-medium text-[var(--text-secondary)] transition-colors duration-300 hover:bg-white/[0.06]"
-            >
-              <MessageSquare size={14} /> Plan a conversation
+          <div className="flex gap-3">
+            <Link href="/ai" className="hidden sm:block">
+              <Button variant="secondary" className="px-6 h-11">
+                <Activity size={16} /> Plan Session
+              </Button>
             </Link>
-            <button
+            <Button
               onClick={() => setShowAddPanel(true)}
-              className="inline-flex items-center gap-1.5 rounded-2xl bg-[var(--text-primary)] px-3 py-1.5 text-[13px] font-medium text-[var(--surface-0)] shadow-[0_0_20px_rgba(245,245,240,0.04)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,245,240,0.08)]"
+              className="px-6 h-11"
             >
-              <Plus size={14} /> Log event
-            </button>
+              <Plus size={18} />
+              Log Event
+            </Button>
           </div>
         </div>
 
         {loading ? (
-          <div className="space-y-3">
-            {[1, 2, 3].map((i) => <div key={i} className="skeleton h-20 rounded-lg" />)}
+          <div className="space-y-6">
+            {[1, 2, 3].map((i) => <Skeleton key={i} className="h-24" />)}
           </div>
         ) : events.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-[var(--border-subtle)] py-16 text-center">
-            <Calendar size={28} className="mx-auto text-[var(--text-muted)]" />
-            <p className="mt-3 text-sm text-[var(--text-secondary)]">No events logged yet</p>
-            <p className="mt-1 text-[13px] text-[var(--text-muted)]">Log your first event to start tracking relational patterns.</p>
-            <button
-              onClick={() => setShowAddPanel(true)}
-              className="mt-4 inline-flex items-center gap-1.5 rounded-2xl bg-[var(--text-primary)] px-4 py-2 text-[13px] font-medium text-[var(--surface-0)] shadow-[0_0_20px_rgba(245,245,240,0.04)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,245,240,0.08)]"
-            >
-              <Plus size={14} /> Log event
-            </button>
+          <div className="rounded-[24px] border border-dashed border-[#1F1F1F] py-32 text-center flex flex-col items-center gap-6">
+            <Calendar size={32} className="text-[#333]" />
+            <div className="flex flex-col gap-2">
+              <p className="text-[16px] text-[#EAEAEA] font-medium">Timeline Empty</p>
+              <p className="text-[14px] text-[#555555] max-w-[320px]">Begin tracking events to see the evolution of your relational system.</p>
+            </div>
+            <Button onClick={() => setShowAddPanel(true)} className="px-8">
+              <Plus size={18} /> Log First Event
+            </Button>
           </div>
         ) : (
-          <div className="space-y-6">
+          <div className="flex flex-col gap-16">
             {sortedDates.map((date) => {
               const dayEvents = grouped.get(date) ?? []
               const band = getBandForDate(events, date)
@@ -270,40 +268,44 @@ export default function TimelinePage() {
               const isToday = date === new Date().toISOString().split("T")[0]
 
               return (
-                <div key={date} className="relative">
-                  {/* Date header with activation band */}
-                  <div className="flex items-center gap-3">
-                    <div className="flex items-center gap-2">
-                      <p className="text-sm font-medium text-[var(--text-primary)]">
-                        {isToday ? "Today" : dateObj.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })}
-                      </p>
-                      <ActivationBand level={band} />
+                <div key={date} className="flex flex-col gap-8">
+                  {/* Date header */}
+                  <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-3 pr-4 border-r border-[#111]">
+                       <span className="text-[14px] font-semibold text-[#EAEAEA]">
+                         {isToday ? "Today" : dateObj.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })}
+                       </span>
+                       <ActivationIndicator level={band} />
                     </div>
-                    <div className="h-px flex-1 bg-white/[0.04]" />
-                    <p className="text-[11px] text-[var(--text-muted)]">{dayEvents.length} event{dayEvents.length !== 1 ? "s" : ""}</p>
+                    <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-[#333]">
+                      {dayEvents.length} Recorded Signal{dayEvents.length !== 1 ? "s" : ""}
+                    </span>
                   </div>
 
                   {/* Event list */}
-                  <div className="mt-3 space-y-1">
+                  <div className="grid gap-4">
                     {dayEvents.map((evt) => (
-                      <div
+                      <Panel
                         key={evt.id}
-                        className="flex items-start gap-3 rounded-lg px-3 py-2.5 transition-colors duration-300 hover:bg-white/[0.03]"
+                        className="p-8 flex items-start gap-8 hover:border-[#333] transition-colors duration-500 shadow-2xl overflow-hidden group"
                       >
-                        <EventDot type={evt.event_type} />
-                        <div className="min-w-0 flex-1">
-                          <div className="flex items-center gap-2">
-                            <span className="text-[13px] font-medium text-[var(--text-primary)]">{evt.event_type}</span>
-                            <span className="text-[11px] text-[var(--text-muted)]">{evt.actor} → {evt.target}</span>
+                        <EventIndicator type={evt.event_type} />
+                        <div className="flex-1 flex flex-col gap-4">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                               <span className="text-[13px] font-bold uppercase tracking-[0.2em] text-[#EAEAEA]">{evt.event_type}</span>
+                               <span className="text-[12px] text-[#EAEAEA] opacity-20 group-hover:opacity-40 transition-opacity">/</span>
+                               <span className="text-[12px] text-[#555555] font-medium">{evt.actor} &rarr; {evt.target}</span>
+                            </div>
                             {evt.created_at && (
-                              <span className="ml-auto text-[11px] text-[var(--text-muted)]">
+                              <span className="text-[11px] font-mono text-[#333] uppercase">
                                 {new Date(evt.created_at).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}
                               </span>
                             )}
                           </div>
-                          <p className="mt-0.5 text-[12px] leading-relaxed text-[var(--text-secondary)]">{evt.notes}</p>
+                          <p className="text-[15px] font-light leading-relaxed text-[#9A9A9A] max-w-3xl">{evt.notes}</p>
                         </div>
-                      </div>
+                      </Panel>
                     ))}
                   </div>
                 </div>

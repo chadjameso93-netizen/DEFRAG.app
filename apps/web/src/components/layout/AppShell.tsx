@@ -5,7 +5,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import {
-  Home,
+  LayoutGrid,
   Users,
   Calendar,
   MessageSquare,
@@ -14,15 +14,16 @@ import {
   PanelLeft,
   LogOut,
   ChevronRight,
+  Activity
 } from "lucide-react"
 import { cn } from "@/lib/cn"
 
 const NAV_ITEMS = [
-  { href: "/dashboard", label: "Today", icon: Home },
-  { href: "/relationships", label: "Relationships", icon: Users },
+  { href: "/dashboard", label: "Overview", icon: LayoutGrid },
+  { href: "/relationships", label: "Field", icon: Users },
   { href: "/timeline", label: "Timeline", icon: Calendar },
-  { href: "/ai", label: "AI", icon: MessageSquare },
-  { href: "/settings", label: "Settings", icon: Settings },
+  { href: "/ai", label: "Interface", icon: MessageSquare },
+  { href: "/settings", label: "System", icon: Settings },
 ]
 
 function SideNavItem({
@@ -42,17 +43,17 @@ function SideNavItem({
     <Link
       href={href}
       className={cn(
-        "group relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-[13px] font-medium transition-all duration-300",
+        "group relative flex items-center gap-3 rounded-[12px] px-3 py-2.5 text-[12px] font-bold uppercase tracking-widest transition-all duration-300",
         active
-          ? "bg-white/[0.06] text-[var(--text-primary)]"
-          : "text-[var(--text-muted)] hover:bg-white/[0.03] hover:text-[var(--text-secondary)]",
+          ? "bg-[#111111] text-[#EAEAEA]"
+          : "text-[#555555] hover:bg-[#050505] hover:text-[#9A9A9A]",
         collapsed && "justify-center px-2"
       )}
     >
       {active && (
-        <div className="absolute left-0 top-1/2 h-5 w-[2px] -translate-y-1/2 rounded-r bg-[var(--text-primary)] opacity-80" />
+        <div className="absolute left-0 top-1/2 h-4 w-[2px] -translate-y-1/2 rounded-r bg-[#EAEAEA] shadow-[0_0_8px_rgba(234,234,234,0.4)]" />
       )}
-      <Icon size={18} className={cn("shrink-0", active ? "text-[var(--text-primary)]" : "text-[var(--text-muted)] group-hover:text-[var(--text-secondary)]")} />
+      <Icon size={16} className={cn("shrink-0", active ? "text-[#EAEAEA]" : "text-[#555555] group-hover:text-[#9A9A9A]")} />
       {!collapsed && <span>{label}</span>}
     </Link>
   )
@@ -81,69 +82,72 @@ export default function AppShell({
   }
 
   return (
-    <div className="relative flex h-screen flex-col bg-[var(--surface-0)]">
-      {/* Atmospheric gradient background for authenticated layout */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute left-[-8%] top-[-8%] h-[40rem] w-[40rem] rounded-full bg-violet-500/[0.10] blur-3xl" />
-        <div className="absolute right-[-6%] top-[5%] h-[36rem] w-[36rem] rounded-full bg-sky-500/[0.08] blur-3xl" />
-        <div className="absolute bottom-[-8%] left-[20%] h-[30rem] w-[30rem] rounded-full bg-fuchsia-500/[0.08] blur-3xl" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(5,5,5,0.40),rgba(5,5,5,0.55))]" />
-      </div>
-      {/* Top Navigation Bar — glass floating */}
-      <header className="glass-floating flex h-13 shrink-0 items-center border-b border-white/[0.05] px-5">
-        <Link href="/dashboard" className="flex items-center gap-2">
-          <span className="text-[13px] font-semibold tracking-[0.08em] uppercase text-[var(--text-primary)]">DEFRAG</span>
-        </Link>
+    <div className="relative flex h-screen flex-col bg-[#000000] text-[#EAEAEA] font-sans selection:bg-[#EAEAEA] selection:text-[#000000]">
+      {/* Structural Top Bar */}
+      <header className="z-50 flex h-16 shrink-0 items-center justify-between border-b border-[#111111] bg-[#000000] px-8">
+        <div className="flex items-center gap-12">
+          <Link href="/dashboard" className="flex items-center gap-3">
+             <div className="w-8 h-8 rounded-lg bg-[#EAEAEA] flex items-center justify-center">
+                <Activity size={18} className="text-[#000000]" />
+             </div>
+             <span className="text-[14px] font-bold tracking-[0.3em] uppercase text-[#EAEAEA]">DEFRAG</span>
+          </Link>
 
-        <nav className="ml-8 hidden items-center gap-1 md:flex">
-          {NAV_ITEMS.map((item) => {
-            const isActive = pathname === item.href || pathname.startsWith(item.href + "/")
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  "rounded-lg px-3 py-1.5 text-[13px] font-medium transition-all duration-300",
-                  isActive
-                    ? "bg-white/[0.06] text-[var(--text-primary)]"
-                    : "text-[var(--text-muted)] hover:bg-white/[0.03] hover:text-[var(--text-secondary)]"
-                )}
-              >
-                {item.label}
-              </Link>
-            )
-          })}
-        </nav>
+          <nav className="hidden items-center gap-1 md:flex">
+            {NAV_ITEMS.map((item) => {
+              const isActive = pathname === item.href || pathname.startsWith(item.href + "/")
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={cn(
+                    "rounded-[10px] px-4 py-2 text-[11px] font-bold uppercase tracking-widest transition-all duration-300",
+                    isActive
+                      ? "bg-[#111111] text-[#EAEAEA]"
+                      : "text-[#555555] hover:bg-[#050505] hover:text-[#9A9A9A]"
+                  )}
+                >
+                  {item.label}
+                </Link>
+              )
+            })}
+          </nav>
+        </div>
 
-        <div className="ml-auto flex items-center gap-2">
+        <div className="flex items-center gap-4">
+          <div className="hidden items-center gap-3 pr-6 border-r border-[#111111] lg:flex">
+             <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.4)]" />
+             <span className="text-[10px] font-bold uppercase tracking-widest text-[#555555]">System Nominal</span>
+          </div>
           <button
             onClick={handleSignOut}
-            className="flex items-center gap-2 rounded-lg px-3 py-1.5 text-[13px] text-[var(--text-muted)] transition-all duration-300 hover:bg-white/[0.03] hover:text-[var(--text-secondary)]"
+            className="flex items-center gap-2 rounded-[10px] px-4 py-2 text-[11px] font-bold uppercase tracking-widest text-[#555555] transition-all duration-300 hover:bg-[#111111] hover:text-[#EAEAEA]"
           >
             <LogOut size={14} />
-            <span className="hidden sm:inline">Sign out</span>
+            <span className="hidden sm:inline">Terminate</span>
           </button>
         </div>
       </header>
 
       <div className="flex flex-1 overflow-hidden">
-        {/* Left Sidebar — glass surface */}
+        {/* Left Workspace Sidebar */}
         <aside
           className={cn(
-            "hidden shrink-0 flex-col border-r border-white/[0.04] bg-[var(--surface-0)]/80 backdrop-blur-xl transition-[width] duration-300 lg:flex",
-            sidebarCollapsed ? "w-14" : "w-56"
+            "hidden shrink-0 flex-col border-r border-[#111111] bg-[#000000] transition-[width] duration-500 lg:flex",
+            sidebarCollapsed ? "w-20" : "w-64"
           )}
         >
-          <div className="flex h-10 items-center justify-end px-2">
+          <div className="flex h-14 items-center justify-between px-6">
+            {!sidebarCollapsed && <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#333333]">Navigation</span>}
             <button
               onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-              className="rounded-lg p-1.5 text-[var(--text-muted)] transition-all duration-300 hover:bg-white/[0.03] hover:text-[var(--text-secondary)]"
+              className="rounded-lg p-1.5 text-[#333333] transition-all duration-300 hover:text-[#EAEAEA]"
             >
               {sidebarCollapsed ? <PanelLeft size={16} /> : <PanelLeftClose size={16} />}
             </button>
           </div>
 
-          <nav className="flex-1 space-y-0.5 px-2">
+          <nav className="flex-1 space-y-1 px-4 pt-2">
             {NAV_ITEMS.map((item) => {
               const isActive = pathname === item.href || pathname.startsWith(item.href + "/")
               return (
@@ -160,40 +164,46 @@ export default function AppShell({
           </nav>
 
           {!sidebarCollapsed && (
-            <div className="border-t border-white/[0.04] p-3">
-              <div className="glass-surface-light p-3">
-                <p className="typo-label text-[10px]">Free plan</p>
-                <p className="mt-1 text-[12px] text-[var(--text-secondary)]">5 insights / month</p>
+            <div className="p-6">
+              <div className="bg-[#050505] border border-[#111111] rounded-[20px] p-6 flex flex-col gap-4">
+                <div className="flex flex-col gap-1">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-[#555555]">Current License</p>
+                  <p className="text-[14px] font-medium text-[#EAEAEA]">Operational Base</p>
+                </div>
+                <div className="w-full bg-[#111111] h-1.5 rounded-full overflow-hidden">
+                   <div className="bg-[#EAEAEA] h-full w-[35%] rounded-full" />
+                </div>
                 <Link
                   href="/settings"
-                  className="mt-2 flex items-center gap-1 text-[12px] font-medium text-[var(--text-secondary)] transition-colors duration-300 hover:text-[var(--text-primary)]"
+                  className="flex items-center justify-between group"
                 >
-                  Upgrade <ChevronRight size={12} />
+                  <span className="text-[11px] font-bold uppercase tracking-widest text-[#555555] group-hover:text-[#EAEAEA] transition-colors">Expand limits</span>
+                  <ChevronRight size={14} className="text-[#333] group-hover:text-[#EAEAEA] transition-colors" />
                 </Link>
               </div>
             </div>
           )}
         </aside>
 
-        {/* Main Content */}
-        <main className="flex flex-1 overflow-hidden">
+        {/* Main Operational View */}
+        <main className="flex flex-1 overflow-hidden bg-[#000000]">
           <div className="flex-1 overflow-y-auto">
-            <div className="mx-auto max-w-[1400px] px-4 py-6 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-[1400px] px-8 py-10 lg:px-12">
               {children}
             </div>
           </div>
 
-          {/* Right Panel (contextual) — glass surface */}
+          {/* Contextual Intelligence Panel */}
           {rightPanel && (
-            <aside className="hidden w-80 shrink-0 overflow-y-auto border-l border-white/[0.04] bg-[var(--surface-0)]/60 backdrop-blur-xl xl:block">
+            <aside className="hidden w-[400px] shrink-0 overflow-y-auto border-l border-[#111111] bg-[#000000] xl:block">
               {rightPanel}
             </aside>
           )}
         </main>
       </div>
 
-      {/* Mobile Bottom Nav — glass floating bar */}
-      <nav className="glass-floating flex shrink-0 items-center justify-around rounded-none border-t border-white/[0.05] pb-[env(safe-area-inset-bottom)] lg:hidden">
+      {/* Legacy Mobile Overlay */}
+      <nav className="flex h-16 shrink-0 items-center justify-around border-t border-[#111111] bg-[#000000] pb-[env(safe-area-inset-bottom)] lg:hidden">
         {NAV_ITEMS.map((item) => {
           const Icon = item.icon
           const isActive = pathname === item.href || pathname.startsWith(item.href + "/")
@@ -202,12 +212,12 @@ export default function AppShell({
               key={item.href}
               href={item.href}
               className={cn(
-                "flex flex-col items-center gap-0.5 px-3 py-2.5 text-[10px] font-medium transition-all duration-300",
-                isActive ? "text-[var(--text-primary)]" : "text-[var(--text-muted)]"
+                "flex flex-col items-center gap-1 px-4 text-[10px] font-bold uppercase tracking-widest transition-all duration-300",
+                isActive ? "text-[#EAEAEA]" : "text-[#333333]"
               )}
             >
-              <Icon size={20} />
-              <span>{item.label}</span>
+              <Icon size={18} />
+              <span className="scale-75">{item.label}</span>
             </Link>
           )
         })}

@@ -147,7 +147,6 @@ function mapStatus(stripeStatus: string): "active" | "trialing" | "past_due" | "
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function findUserByCustomer(
   supabase: ReturnType<typeof getServiceSupabase>,
   customerId: string,

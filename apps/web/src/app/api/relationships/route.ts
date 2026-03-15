@@ -31,7 +31,7 @@ export async function POST(req: Request) {
   }
 
   const body = await req.json()
-  const { target_name, relationship_type, birth_date } = body
+  const { target_name, relationship_type } = body
 
   if (!target_name || typeof target_name !== "string" || !target_name.trim()) {
     return NextResponse.json({ error: "target_name is required" }, { status: 400 })

@@ -17,19 +17,19 @@ export default function RelationshipList({
       {relationships.map((rel) => (
         <div
           key={rel.id}
-          className="glass-surface-light p-5 transition duration-300 hover:border-white/[0.08] hover:bg-white/[0.04]"
+          className="bg-[#0A0A0A] border border-[#1F1F1F] rounded-[16px] p-5 transition duration-300 hover:border-white/[0.08] hover:bg-[#0A0A0A]"
         >
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="text-base font-medium text-white">
+              <p className="text-base font-medium text-[#EAEAEA]">
                 {rel.source_name}{" -> "}{rel.target_name}
               </p>
-              <p className="mt-1 text-xs uppercase tracking-[0.18em] text-white/40">
+              <p className="mt-1 text-xs uppercase tracking-[0.18em] text-[#EAEAEA]/40">
                 {rel.relationship_type}
               </p>
             </div>
 
-            <div className="rounded-full border border-white/[0.06] bg-white/[0.03] px-3 py-1 text-xs font-medium text-white/65">
+            <div className="rounded-full border border-[#1F1F1F] bg-[#0A0A0A] px-3 py-1 text-xs font-medium text-[#9A9A9A]">
               Live pattern
             </div>
           </div>
@@ -37,10 +37,10 @@ export default function RelationshipList({
           <div className="mt-5 grid gap-4 sm:grid-cols-2">
             <div>
               <div className="mb-2 flex items-center justify-between">
-                <p className="text-xs uppercase tracking-[0.18em] text-white/40">Tension</p>
-                <p className="text-xs text-white/55">{Math.round(rel.tension_score * 100)}%</p>
+                <p className="text-xs uppercase tracking-[0.18em] text-[#EAEAEA]/40">Tension</p>
+                <p className="text-xs text-[#EAEAEA]/55">{Math.round(rel.tension_score * 100)}%</p>
               </div>
-              <div className="h-2 rounded-full bg-white/[0.06]">
+              <div className="h-2 rounded-full bg-[#1F1F1F]">
                 <div
                   className="h-2 rounded-full bg-white"
                   style={{ width: `${Math.max(8, rel.tension_score * 100)}%` }}
@@ -50,10 +50,10 @@ export default function RelationshipList({
 
             <div>
               <div className="mb-2 flex items-center justify-between">
-                <p className="text-xs uppercase tracking-[0.18em] text-white/40">Trust</p>
-                <p className="text-xs text-white/55">{Math.round(rel.trust_score * 100)}%</p>
+                <p className="text-xs uppercase tracking-[0.18em] text-[#EAEAEA]/40">Trust</p>
+                <p className="text-xs text-[#EAEAEA]/55">{Math.round(rel.trust_score * 100)}%</p>
               </div>
-              <div className="h-2 rounded-full bg-white/[0.06]">
+              <div className="h-2 rounded-full bg-[#1F1F1F]">
                 <div
                   className="h-2 rounded-full rounded-full bg-[#e9dfcf]"
                   style={{ width: `${Math.max(8, rel.trust_score * 100)}%` }}

@@ -19,48 +19,42 @@ export default function AuthShell({
   footerLinkHref: string
 }) {
   return (
-    <main className="relative flex min-h-screen bg-[var(--surface-0)]">
-      {/* Atmospheric background */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute left-[-10%] top-[-5%] h-[44rem] w-[44rem] rounded-full bg-violet-500/[0.12] blur-3xl" />
-        <div className="absolute right-[-6%] top-[10%] h-[38rem] w-[38rem] rounded-full bg-sky-500/[0.10] blur-3xl" />
-        <div className="absolute bottom-[-10%] left-[18%] h-[34rem] w-[34rem] rounded-full bg-fuchsia-500/[0.10] blur-3xl" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(5,5,5,0.38),rgba(5,5,5,0.52))]" />
-      </div>
+    <main className="relative flex min-h-screen bg-[#000000]">
+      <div className="pointer-events-none absolute inset-0 bg-[#000000]" />
       {/* Left info panel */}
-      <div className="relative hidden flex-1 flex-col justify-center border-r border-[var(--border-subtle)] px-12 lg:flex xl:px-20">
-        <Link href="/" className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[var(--text-muted)]">
+      <div className="relative hidden flex-1 flex-col justify-center border-r border-[#1F1F1F] bg-[#000000] px-12 lg:flex xl:px-20 z-10">
+        <Link href="/" className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#555555]">
           Defrag
         </Link>
 
-        <h1 className="mt-6 max-w-lg text-3xl font-semibold tracking-tight text-[var(--text-primary)]">
+        <h1 className="mt-6 max-w-lg text-3xl font-semibold tracking-tight text-[#EAEAEA]">
           {title}
         </h1>
-        <p className="mt-4 max-w-md text-sm leading-relaxed text-[var(--text-secondary)]">{body}</p>
+        <p className="mt-4 max-w-md text-sm leading-relaxed text-[#9A9A9A]">{body}</p>
 
         <div className="mt-8 grid max-w-md gap-3 sm:grid-cols-2">
-          <div className="glass-surface-light p-4">
-            <p className="text-[10px] font-medium uppercase tracking-wider text-[var(--text-muted)]">Clear insight</p>
-            <p className="mt-2 text-[13px] leading-relaxed text-[var(--text-secondary)]">Understand patterns before they become larger problems.</p>
+          <div className="bg-[#0A0A0A] border border-[#1F1F1F] rounded-[16px] p-[24px]">
+            <p className="text-[10px] font-medium uppercase tracking-wider text-[#555555]">Clear insight</p>
+            <p className="mt-2 text-[13px] leading-relaxed text-[#9A9A9A]">Understand patterns before they become larger problems.</p>
           </div>
-          <div className="glass-surface-light p-4">
-            <p className="text-[10px] font-medium uppercase tracking-wider text-[var(--text-muted)]">Healthy outcomes</p>
-            <p className="mt-2 text-[13px] leading-relaxed text-[var(--text-secondary)]">Guidance designed to reduce stigma and improve communication.</p>
+          <div className="bg-[#0A0A0A] border border-[#1F1F1F] rounded-[16px] p-[24px]">
+            <p className="text-[10px] font-medium uppercase tracking-wider text-[#555555]">Healthy outcomes</p>
+            <p className="mt-2 text-[13px] leading-relaxed text-[#9A9A9A]">Guidance designed to reduce stigma and improve communication.</p>
           </div>
         </div>
       </div>
 
       {/* Right form panel */}
-      <div className="relative flex w-full flex-col items-center justify-center px-6 py-12 lg:w-[480px] lg:shrink-0">
+      <div className="relative flex w-full flex-col items-center justify-center px-6 py-12 lg:w-[480px] lg:shrink-0 z-10 bg-[#000000]">
         <div className="w-full max-w-sm">
-          <Link href="/" className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[var(--text-muted)] lg:hidden">
+          <Link href="/" className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[#555555] lg:hidden">
             Defrag
           </Link>
-          <p className="mt-4 text-[11px] font-medium uppercase tracking-wider text-[var(--text-muted)] lg:mt-0">{eyebrow}</p>
+          <p className="mt-4 text-[11px] font-medium uppercase tracking-wider text-[#555555] lg:mt-0">{eyebrow}</p>
           <div className="mt-5">{children}</div>
-          <p className="mt-6 text-[13px] text-[var(--text-muted)]">
+          <p className="mt-6 text-[13px] text-[#555555]">
             {footerText}{" "}
-            <Link href={footerLinkHref} className="font-medium text-[var(--text-secondary)] transition-colors hover:text-[var(--text-primary)]">
+            <Link href={footerLinkHref} className="font-medium text-[#9A9A9A] transition-colors hover:text-[#EAEAEA]">
               {footerLinkLabel}
             </Link>
           </p>

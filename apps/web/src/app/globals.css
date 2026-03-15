@@ -13,32 +13,29 @@
 }
 
 :root {
-  /* Deep Obsidian base — shifted to #050505 for cinematic depth */
-  --background: #050505;
-  --foreground: #F5F5F0;
+  /* Ultra-Premium Base */
+  --background: #000000;
+  --foreground: #EAEAEA;
 
-  /* Surface system — layered depth */
-  --surface-0: #050505;
-  --surface-1: #0E0E0E;
+  /* Surface system */
+  --surface-0: #000000;
+  --surface-1: #0A0A0A;
   --surface-2: #161616;
-  --surface-3: #1E1E1E;
+  --surface-3: #1F1F1F;
 
-  /* Text hierarchy — Soft Bone / Warm Creme */
-  --text-primary: #F5F5F0;
-  --text-secondary: #A8A8A0;
-  --text-tertiary: #6B6B64;
-  --text-muted: #4A4A45;
+  /* Text hierarchy */
+  --text-primary: #EAEAEA;
+  --text-secondary: #9A9A9A;
+  --text-tertiary: #555555;
+  --text-muted: #555555;
 
-  /* Borders — Muted Slate / Charcoal */
-  --border: rgba(255, 255, 255, 0.08);
-  --border-subtle: rgba(255, 255, 255, 0.04);
+  /* Borders */
+  --border: #1F1F1F;
+  --border-subtle: #1F1F1F;
 
-  /* Accent glow system */
-  --accent: #F5F5F0;
-  --glow-primary: rgba(245, 245, 240, 0.06);
-  --glow-warm: rgba(200, 180, 160, 0.05);
-  --glow-violet: rgba(168, 85, 247, 0.08);
-  --glow-sky: rgba(56, 189, 248, 0.06);
+  /* Accent */
+  --accent: #4F6BFF;
+  --glow-primary: rgba(79, 107, 255, 0.05);
 
   /* Signal colors */
   --signal-low: #22c55e;
@@ -59,16 +56,13 @@
 }
 
 html {
-  background: #050505;
+  background: #000000;
   color: var(--foreground);
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
 }
 
 body {
-  background:
-    radial-gradient(circle at 20% 0%, rgba(255, 255, 255, 0.04), transparent 40%),
-    radial-gradient(circle at 80% 10%, rgba(255, 255, 255, 0.03), transparent 45%),
-    #050505;
+  background: #000000;
   color: var(--foreground);
   font-family: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
   font-size: 15px;
@@ -149,8 +143,7 @@ textarea::placeholder {
 
 /* Deep background gradient */
 .bg-deep-gradient {
-  background: radial-gradient(ellipse at 20% 0%, #1A1A1A 0%, #050505 50%),
-              radial-gradient(ellipse at 80% 100%, #141414 0%, #050505 50%);
+  background: #000000;
 }
 
 /* Serif accent font class */

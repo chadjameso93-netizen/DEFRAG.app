@@ -18,33 +18,33 @@ export default function TimelinePreview({ events }: { events: EventItem[] }) {
     <div>
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/40">Timeline preview</p>
-          <h3 className="mt-3 text-lg font-medium text-white">Recent movement and forward awareness</h3>
+          <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#EAEAEA]/40">Timeline preview</p>
+          <h3 className="mt-3 text-lg font-medium text-[#EAEAEA]">Recent movement and forward awareness</h3>
         </div>
-        <Link href="/timeline" className="hidden items-center gap-2 text-sm text-white/65 transition hover:text-white sm:inline-flex">
+        <Link href="/timeline" className="hidden items-center gap-2 text-sm text-[#9A9A9A] transition hover:text-[#EAEAEA] sm:inline-flex">
           Open timeline
           <ArrowRight size={16} />
         </Link>
       </div>
 
-      <div className="mt-5 rounded-[24px] border border-white/[0.06] bg-white/[0.03] p-4 text-sm leading-7 text-white/70">{guidance}</div>
+      <div className="mt-5 rounded-[24px] border border-[#1F1F1F] bg-[#0A0A0A] p-4 text-sm leading-7 text-[#EAEAEA]/70">{guidance}</div>
 
       <div className="mt-6 space-y-3">
         {preview.map((event) => (
-          <div key={event.id} className="glass-surface-light p-4">
+          <div key={event.id} className="bg-[#0A0A0A] border border-[#1F1F1F] rounded-[16px] p-4">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.20em] text-white/42">{event.event_type}</p>
-              <p className="text-xs text-white/45">{new Date(event.created_at).toLocaleString()}</p>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.20em] text-[#555555]">{event.event_type}</p>
+              <p className="text-xs text-[#EAEAEA]/45">{new Date(event.created_at).toLocaleString()}</p>
             </div>
-            <p className="mt-3 text-sm text-white/78">
-              <span className="font-medium text-white">{event.actor}</span> with <span className="font-medium text-white">{event.target}</span>
+            <p className="mt-3 text-sm text-[#EAEAEA]/78">
+              <span className="font-medium text-[#EAEAEA]">{event.actor}</span> with <span className="font-medium text-[#EAEAEA]">{event.target}</span>
             </p>
-            <p className="mt-2 text-sm leading-7 text-white/62">{event.notes}</p>
+            <p className="mt-2 text-sm leading-7 text-[#EAEAEA]/62">{event.notes}</p>
           </div>
         ))}
       </div>
 
-      <Link href="/timeline" className="mt-5 inline-flex items-center gap-2 text-sm text-white/70 transition hover:text-white sm:hidden">
+      <Link href="/timeline" className="mt-5 inline-flex items-center gap-2 text-sm text-[#EAEAEA]/70 transition hover:text-[#EAEAEA] sm:hidden">
         Open timeline
         <ArrowRight size={16} />
       </Link>

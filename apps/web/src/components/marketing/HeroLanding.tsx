@@ -1,189 +1,255 @@
 "use client"
 
+import React, { useState } from "react"
 import Link from "next/link"
-import { ArrowRight, BrainCircuit, Clock3, Network, ShieldCheck, Sparkles } from "lucide-react"
 import { motion } from "framer-motion"
-import BrandMesh from "@/components/brand/BrandMesh"
-import GlowCard from "@/components/ui/GlowCard"
-import FadeIn from "@/components/ui/FadeIn"
-import MagneticButton from "@/components/ui/MagneticButton"
-import { CurtainRevealContainer, CurtainRevealItem } from "@/components/ui/CurtainReveal"
+import { ArrowRight, Lock, Target, Clock, Activity } from "lucide-react"
 import PremiumFooter from "@/components/marketing/PremiumFooter"
+import BrandMesh from "@/components/brand/BrandMesh"
+import { ChatPreview } from "@/components/marketing/ChatPreview"
+import { Panel } from "@/components/ui/Panel"
+import { Button } from "@/components/ui/Button"
 
-function Metric({
-  label,
-  value,
-}: {
-  label: string
-  value: string
-}) {
-  return (
-    <div className="glass-inset px-4 py-4">
-      <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--text-muted)]">{label}</p>
-      <p className="mt-2 text-lg font-semibold tracking-tight text-[var(--text-primary)]">{value}</p>
-    </div>
-  )
-}
-
-function Feature({
-  icon,
-  title,
-  body,
-  delay = 0,
-}: {
-  icon: React.ReactNode
-  title: string
-  body: string
-  delay?: number
-}) {
-  return (
-    <FadeIn delay={delay}>
-      <GlowCard className="p-6">
-        <div className="inline-flex rounded-2xl glass-inset p-3 text-[var(--text-primary)]">
-          {icon}
-        </div>
-        <h3 className="mt-5 text-lg font-medium text-[var(--text-primary)]">{title}</h3>
-        <p className="mt-3 text-sm leading-7 text-[var(--text-secondary)]">{body}</p>
-      </GlowCard>
-    </FadeIn>
-  )
+const FADE_UP_VARIANTS = {
+  hidden: { opacity: 0, y: 15 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.1,
+      duration: 0.8,
+      ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+    },
+  }),
 }
 
 export default function HeroLanding() {
+  const [heroInput, setHeroInput] = useState(
+    "I need to tell my co-founder that I'm taking over the project lead role, but they are highly defensive and avoid direct conflict."
+  )
+  const [ctaInput, setCtaInput] = useState("")
+
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[var(--surface-0)] px-3 py-3 text-[var(--text-primary)] sm:px-4 sm:py-4 lg:px-6 lg:py-6">
+    <main className="min-h-screen bg-[#000000] text-[#EAEAEA] selection:bg-[#EAEAEA] selection:text-[#000000] font-sans antialiased relative overflow-x-hidden">
       <BrandMesh />
+      
+      {/* 1. HERO SECTION */}
+      <section className="relative w-full mx-auto max-w-[1240px] px-8 sm:px-12 pt-[220px] pb-[160px] z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-[100px] items-start">
+          
+          {/* Left Column: Tactical Direction */}
+          <div className="lg:col-span-6 flex flex-col gap-[56px]">
+            <div className="flex flex-col gap-[32px]">
+              <motion.div 
+                custom={0}
+                initial="hidden"
+                animate="visible"
+                variants={FADE_UP_VARIANTS}
+                className="inline-flex items-center gap-3 border border-[#111] bg-[#050505] rounded-full px-4 py-2 w-fit"
+              >
+                <div className="w-1.5 h-1.5 rounded-full bg-[#EAEAEA] shadow-[0_0_8px_rgba(255,255,255,0.4)]" />
+                <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-[#555555]">Structural Intelligence Field</span>
+              </motion.div>
+              
+              <motion.h1 
+                custom={1}
+                initial="hidden"
+                animate="visible"
+                variants={FADE_UP_VARIANTS}
+                className="text-[56px] md:text-[80px] leading-[0.9] font-semibold text-[#EAEAEA] tracking-tight"
+              >
+                Calculated <br />Interaction.
+              </motion.h1>
+              
+              <motion.p 
+                custom={2}
+                initial="hidden"
+                animate="visible"
+                variants={FADE_UP_VARIANTS}
+                className="text-[18px] md:text-[22px] leading-relaxed text-[#555555] font-light max-w-[500px]"
+              >
+                Defrag renders the subtext of high-stakes conversations into tactical clarity. Identify the friction points before you engage.
+              </motion.p>
+            </div>
 
-      <div className="relative mx-auto max-w-7xl space-y-4 lg:space-y-6">
-        <CurtainRevealContainer>
-        <CurtainRevealItem>
-        <GlowCard className="p-4 sm:p-6 lg:p-8">
-          <div className="rounded-[var(--radius-xl)] border border-white/[0.04] bg-[linear-gradient(180deg,rgba(255,255,255,0.03),transparent)] px-6 py-10 sm:px-8 lg:px-12 lg:py-16">
-            <div className="grid items-center gap-10 lg:grid-cols-[1.08fr_0.92fr]">
-              <div>
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-                  className="inline-flex items-center rounded-full border border-white/[0.06] bg-white/[0.03] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-[var(--text-muted)]"
-                >
-                  Defrag Platform
-                </motion.div>
-
-                <motion.h1
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
-                  className="mt-6 max-w-4xl text-4xl font-semibold tracking-tight text-[var(--text-primary)] sm:text-5xl lg:text-[4.5rem] lg:leading-[0.98]"
-                >
-                  Understand the relationship system before the next move.
-                </motion.h1>
-
-                <motion.p
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
-                  className="mt-6 max-w-2xl font-serif-accent text-base leading-8 text-[var(--text-secondary)] sm:text-lg"
-                >
-                  Defrag helps you map people, track meaningful events, compare possible responses, and receive practical guidance before important conversations.
-                </motion.p>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-                  className="mt-8 flex flex-col gap-3 sm:flex-row"
-                >
-                  <MagneticButton
-                    href="/signup"
-                    className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[var(--text-primary)] px-6 py-3 text-sm font-medium text-[var(--surface-0)] shadow-[0_0_30px_rgba(245,245,240,0.06)] transition-shadow duration-400 hover:shadow-[0_0_40px_rgba(245,245,240,0.1)]"
-                  >
-                    Start free trial
-                    <ArrowRight size={16} />
-                  </MagneticButton>
-                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }} transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}>
-                    <Link
-                      href="/dashboard"
-                      className="inline-flex items-center justify-center rounded-2xl border border-white/[0.06] bg-white/[0.03] px-6 py-3 text-sm font-medium text-[var(--text-primary)] transition-all duration-300 hover:bg-white/[0.06]"
-                    >
-                      View dashboard
-                    </Link>
-                  </motion.div>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-                  className="mt-8 grid gap-3 sm:grid-cols-3"
-                >
-                  <Metric label="Map" value="Relationships" />
-                  <Metric label="Track" value="Timeline" />
-                  <Metric label="Prepare" value="Simulations" />
-                </motion.div>
+            <motion.div 
+              custom={3}
+              initial="hidden"
+              animate="visible"
+              variants={FADE_UP_VARIANTS}
+              className="flex flex-col gap-[24px] max-w-[540px]"
+            >
+              <div className="relative">
+                <textarea
+                  value={heroInput}
+                  onChange={(e) => setHeroInput(e.target.value)}
+                  className="relative w-full h-[160px] bg-[#050505] border border-[#111] rounded-[24px] p-[28px] text-[#EAEAEA] text-[16px] resize-none focus:outline-none focus:border-[#333] transition-all duration-500 placeholder:text-[#333] font-light leading-relaxed shadow-2xl"
+                  placeholder="Input scenario for analysis..."
+                  spellCheck={false}
+                />
               </div>
+              <div className="flex flex-col sm:flex-row items-center gap-6">
+                 <Link href="/signup" className="w-full sm:w-auto">
+                   <Button className="w-full sm:px-10 h-[56px] text-[16px] gap-3">
+                     Process Situation
+                     <Activity size={16} />
+                   </Button>
+                 </Link>
+                 <span className="text-[10px] font-bold uppercase tracking-widest text-[#333] whitespace-nowrap">Transient Processing Encryption Active</span>
+              </div>
+            </motion.div>
+          </div>
 
-              <FadeIn delay={0.3}>
-                <GlowCard className="p-5 sm:p-6">
-                  <div className="grid gap-3">
-                    <div className="glass-inset p-4">
-                      <p className="text-[10px] font-semibold uppercase tracking-[0.20em] text-[var(--text-muted)]">Relationship map</p>
-                      <p className="mt-2 text-sm leading-7 text-[var(--text-secondary)]">See who is involved and where the strongest pressure points sit.</p>
-                    </div>
-                    <div className="glass-inset p-4">
-                      <p className="text-[10px] font-semibold uppercase tracking-[0.20em] text-[var(--text-muted)]">Timeline</p>
-                      <p className="mt-2 text-sm leading-7 text-[var(--text-secondary)]">Track the events shaping the active dynamic instead of reacting to a single moment.</p>
-                    </div>
-                    <div className="glass-inset p-4">
-                      <p className="text-[10px] font-semibold uppercase tracking-[0.20em] text-[var(--text-muted)]">AI guidance</p>
-                      <p className="mt-2 font-serif-accent text-sm leading-7 text-[var(--text-secondary)]">Turn situations into structured insight and clearer next steps.</p>
-                    </div>
-                    <div className="glass-inset p-4">
-                      <p className="text-[10px] font-semibold uppercase tracking-[0.20em] text-[var(--text-muted)]">Simulation</p>
-                      <p className="mt-2 text-sm leading-7 text-[var(--text-secondary)]">Compare possible responses before the conversation happens.</p>
-                    </div>
+          {/* Right Column: The Artifact */}
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }} 
+            animate={{ opacity: 1, x: 0 }} 
+            transition={{ duration: 1.2, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-6 w-full lg:sticky lg:top-[220px]"
+          >
+            <ChatPreview />
+          </motion.div>
+        </div>
+      </section>
+
+      {/* 2. SPECIFICATION GRID */}
+      <section className="relative w-full mx-auto max-w-[1240px] px-8 sm:px-12 py-[160px] z-10 border-t border-[#111111]">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-20">
+          {[
+            { 
+              icon: Lock, 
+              title: "Encrypted Inference", 
+              desc: "Defrag utilizes hardware-isolated processing environments. We extract structural subtext without ever persisting raw transcripts or identity markers." 
+            },
+            { 
+              icon: Target, 
+              title: "Operational Vector", 
+              desc: "Get precise phrasing, tonal calibration, and framing advice derived from the ego-preservation dynamics of your target. No generic archetypes." 
+            },
+            { 
+              icon: Clock, 
+              title: "Temporal Calculus", 
+              desc: "Interaction succeeds on timing. We evaluate the pressure levels of the relational field to identify the ideal activation window for the conversation." 
+            }
+          ].map((item, i) => (
+            <motion.div 
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1, duration: 0.8 }}
+              className="flex flex-col gap-8"
+            >
+              <div className="w-12 h-12 rounded-[16px] bg-[#050505] border border-[#111] flex items-center justify-center">
+                <item.icon size={20} className="text-[#EAEAEA] opacity-40"/>
+              </div>
+              <div className="space-y-4">
+                <h3 className="text-[20px] font-semibold text-[#EAEAEA] tracking-tight">{item.title}</h3>
+                <p className="text-[15px] leading-relaxed text-[#555] font-light">
+                  {item.desc}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* 3. INTERFACE PROOF */}
+      <section className="relative w-full mx-auto max-w-[1240px] px-8 sm:px-12 py-[200px] z-10 border-t border-[#111111]">
+        <div className="flex flex-col pb-32 items-center text-center max-w-[640px] mx-auto gap-6">
+          <span className="text-[10px] items-center gap-3 font-bold uppercase tracking-[0.4em] text-[#333] flex">
+             <div className="w-1 h-1 rounded-full bg-[#EAEAEA] opacity-20" />
+             The Artifact
+             <div className="w-1 h-1 rounded-full bg-[#EAEAEA] opacity-20" />
+          </span>
+          <h2 className="text-[48px] font-semibold text-[#EAEAEA] tracking-tight leading-[1.0]">Intelligence is Structured.</h2>
+          <p className="text-[18px] text-[#555] font-light leading-relaxed">
+            Defrag abandons the chat bubble. We render your situation as a precise dashboard of tactical risks and openings.
+          </p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-[48px]">
+          <Panel className="flex flex-col gap-[48px] p-10 hover:border-[#333] transition-all duration-700 bg-[#020202]">
+            <div className="flex items-center justify-between border-b border-[#111] pb-6">
+               <span className="text-[10px] font-bold uppercase tracking-widest text-[#555555]">Relational Matrix</span>
+               <div className="h-1.5 w-1.5 rounded-full bg-[#EAEAEA] opacity-10" />
+            </div>
+            <div className="h-[280px] w-full bg-[#000000] border border-[#111] rounded-[16px] relative overflow-hidden flex items-center justify-center">
+               <div className="absolute inset-0 opacity-5 [background-image:radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px]" />
+               <div className="w-[140px] h-[140px] rounded-full border border-dashed border-[#111] flex items-center justify-center">
+                  <div className="w-[64px] h-[64px] rounded-full bg-[#0A0A0A] border border-[#1F1F1F] flex items-center justify-center shadow-2xl">
+                    <div className="w-2 h-2 rounded-full bg-[#EAEAEA] animate-pulse" />
                   </div>
-                </GlowCard>
-              </FadeIn>
+               </div>
+               <div className="absolute left-[15%] top-[25%] w-12 h-12 rounded-full border border-[#111] flex items-center justify-center">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#333]" />
+               </div>
+               <div className="absolute right-[20%] bottom-[15%] w-16 h-16 rounded-full border border-[#111] flex items-center justify-center">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#333]" />
+               </div>
+            </div>
+            <div className="flex flex-col gap-4">
+              <h4 className="text-[18px] font-medium tracking-tight">Status Mapping</h4>
+              <p className="text-[15px] text-[#555] font-light leading-relaxed">Visualize the hidden distance between perceived authority and intent during high-stakes shifts.</p>
+            </div>
+          </Panel>
+
+          <Panel className="flex flex-col gap-[48px] p-10 hover:border-[#333] transition-all duration-700 bg-[#020202]">
+            <div className="flex items-center justify-between border-b border-[#111] pb-6">
+               <span className="text-[10px] font-bold uppercase tracking-widest text-[#555555]">Trajectory System</span>
+               <div className="h-1.5 w-1.5 rounded-full bg-[#EAEAEA] opacity-10" />
+            </div>
+            <div className="h-[280px] w-full bg-[#000000] border border-[#111] rounded-[16px] p-8 flex flex-col justify-between">
+              {[0.8, 0.45, 0.65, 0.3].map((v, i) => (
+                <div key={i} className="flex flex-col gap-3">
+                  <div className="flex justify-between items-end">
+                    <div className="w-[140px] h-1 bg-[#111] rounded-full overflow-hidden">
+                      <div className="h-full bg-[#EAEAEA] opacity-40 transition-all duration-1000" style={{ width: `${v*100}%` }} />
+                    </div>
+                    <span className="text-[9px] text-[#222] font-mono tracking-widest uppercase">Signal_Log_0{i+1}</span>
+                  </div>
+                  <div className="w-full h-[1px] bg-[#111] opacity-50" />
+                </div>
+              ))}
+            </div>
+            <div className="flex flex-col gap-4">
+              <h4 className="text-[18px] font-medium tracking-tight">Signal Persistence</h4>
+              <p className="text-[15px] text-[#555] font-light leading-relaxed">Map the intensity of historical signals to isolate behavioral loops before they manifest as crisis points.</p>
+            </div>
+          </Panel>
+        </div>
+      </section>
+
+      {/* 4. FINAL CTA INTAKE */}
+      <section className="relative w-full mx-auto max-w-[1240px] px-8 sm:px-12 py-[240px] z-10 border-t border-[#111111]">
+        <div className="max-w-[800px] mx-auto flex flex-col gap-[64px] items-center text-center">
+          <div className="flex flex-col gap-8">
+            <h2 className="text-[64px] font-semibold text-[#EAEAEA] tracking-tight leading-[1.0]">Ready for intake.</h2>
+            <p className="text-[20px] text-[#555] font-light leading-relaxed max-w-lg mx-auto">Enter the situation you are currently avoiding to begin the decryption process.</p>
+          </div>
+          
+          <div className="w-full flex flex-col gap-[28px] text-left">
+            <textarea
+              value={ctaInput}
+              onChange={(e) => setCtaInput(e.target.value)}
+              className="w-full h-[160px] bg-[#050505] border border-[#111] rounded-[24px] p-[28px] text-[#EAEAEA] text-[16px] resize-none focus:outline-none focus:border-[#333] transition-all duration-500 placeholder:text-[#333] font-light shadow-2xl"
+              placeholder="What conversation is looming?"
+              spellCheck={false}
+            />
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-8">
+               <Link href="/signup" className="w-full sm:w-auto">
+                 <Button className="w-full sm:px-12 h-[60px] text-[17px] gap-3">
+                   Commence System Intake
+                   <ArrowRight size={18} />
+                 </Button>
+               </Link>
+               <span className="text-[10px] font-bold uppercase tracking-widest text-[#222] hidden md:block">System Node: Operational / 100% Signal Strength</span>
             </div>
           </div>
-        </GlowCard>
-        </CurtainRevealItem>
+        </div>
+      </section>
 
-        <CurtainRevealItem>
-        <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4 md:gap-6">
-          <Feature delay={0} icon={<Network size={20} />} title="Relationship mapping" body="Organize the people in your system and see how the connections influence each other." />
-          <Feature delay={0.1} icon={<Clock3 size={20} />} title="Timeline awareness" body="Review conflict, repair, and stress over time so the larger pattern becomes visible." />
-          <Feature delay={0.2} icon={<BrainCircuit size={20} />} title="Decision support" body="Use structured guidance to move with more clarity and less reactivity." />
-          <Feature delay={0.3} icon={<ShieldCheck size={20} />} title="Healthier outcomes" body="Built to support better conversations, better timing, and more grounded choices." />
-        </section>
-        </CurtainRevealItem>
-
-        <CurtainRevealItem>
-        <FadeIn>
-          <GlowCard className="p-6 sm:p-8 lg:p-10">
-            <div className="grid gap-4 lg:grid-cols-3">
-              <div className="glass-inset p-5">
-                <Sparkles size={18} className="text-[var(--text-primary)]" />
-                <h3 className="mt-4 text-base font-medium text-[var(--text-primary)]">Premium interface</h3>
-                <p className="mt-3 text-sm leading-7 text-[var(--text-secondary)]">Dark glass surfaces, stronger hierarchy, and cleaner spacing across every core screen.</p>
-              </div>
-              <div className="glass-inset p-5">
-                <Network size={18} className="text-[var(--text-primary)]" />
-                <h3 className="mt-4 text-base font-medium text-[var(--text-primary)]">Organized system view</h3>
-                <p className="mt-3 text-sm leading-7 text-[var(--text-secondary)]">The dashboard, relationships, and timeline pages all point back to the same platform purpose.</p>
-              </div>
-              <div className="glass-inset p-5">
-                <BrainCircuit size={18} className="text-[var(--text-primary)]" />
-                <h3 className="mt-4 text-base font-medium text-[var(--text-primary)]">Action-oriented guidance</h3>
-                <p className="mt-3 text-sm leading-7 text-[var(--text-secondary)]">Simulations and AI guidance are framed around real next-step preparation.</p>
-              </div>
-            </div>
-          </GlowCard>
-        </FadeIn>
-        </CurtainRevealItem>
-        </CurtainRevealContainer>
-
+      <div className="bg-[#000000] border-t border-[#111111] relative z-10">
         <PremiumFooter />
       </div>
     </main>

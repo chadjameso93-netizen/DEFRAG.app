@@ -1,5 +1,4 @@
 "use client"
-
 import { useOnboarding, stepIndex, TOTAL_STEPS } from "@/lib/store/onboarding"
 import BrandMesh from "@/components/brand/BrandMesh"
 import StepWelcome from "@/components/onboarding/StepWelcome"
@@ -30,18 +29,18 @@ export default function OnboardingPage() {
   const current = stepIndex(step) + 1
 
   return (
-    <main className="canvas-base relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4 py-12 text-[var(--text-primary)]">
+    <main className="canvas-base relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4 py-12 text-[#EAEAEA]">
       <BrandMesh />
       <div className="relative w-full max-w-lg space-y-8">
         {step !== "welcome" && (
           <div className="flex items-center gap-3">
-            <div className="h-1 flex-1 overflow-hidden rounded-full bg-white/[0.06]">
+            <div className="h-1 flex-1 overflow-hidden rounded-full bg-[#1F1F1F]">
               <div
-                className="h-full rounded-full bg-white/50 transition-all duration-500"
+                className="h-full rounded-full bg-[#EAEAEA] transition-all duration-500"
                 style={{ width: `${(current / TOTAL_STEPS) * 100}%` }}
               />
             </div>
-            <span className="text-xs tabular-nums text-[var(--text-muted)]">
+            <span className="text-xs tabular-nums text-[#555555]">
               {current}/{TOTAL_STEPS}
             </span>
           </div>

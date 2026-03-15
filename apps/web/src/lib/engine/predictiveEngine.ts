@@ -1,6 +1,8 @@
 import { analyzeSystem } from "./systemEngine"
 
-export function predictConflict(events:any[]){
+import type { SystemEvent } from "../schema/systemSchema"
+
+export function predictConflict(events: SystemEvent[]) {
 
   const state = analyzeSystem(events)
 

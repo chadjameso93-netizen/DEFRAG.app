@@ -1,5 +1,4 @@
 "use client"
-
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Bot, Clock3, CreditCard, LayoutDashboard, Settings, Users } from "lucide-react"
@@ -34,8 +33,8 @@ export default function MobileBottomNav() {
               className={cn(
                 "flex flex-col items-center justify-center gap-1 rounded-xl px-1 py-2.5 text-[10px] font-medium transition-all duration-300",
                 active
-                  ? "bg-white/[0.08] text-[var(--text-primary)]"
-                  : "text-[var(--text-muted)] hover:text-[var(--text-secondary)]"
+                  ? "bg-white/[0.08] text-[#EAEAEA]"
+                  : "text-[#555555] hover:text-[#9A9A9A]"
               )}
             >
               <Icon size={16} />

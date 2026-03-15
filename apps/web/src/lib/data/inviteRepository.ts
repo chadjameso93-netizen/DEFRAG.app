@@ -55,6 +55,7 @@ function statusValue(value: string): InviteRecord["status"] {
   return "sent"
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function mapInviteRow(row: any): InviteRecord {
   return {
     id: row.id,

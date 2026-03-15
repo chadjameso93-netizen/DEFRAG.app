@@ -1,5 +1,4 @@
 "use client"
-
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import AuthShell from "@/components/auth/AuthShell"
@@ -44,9 +43,9 @@ export default function LoginPage() {
     >
       <div className="space-y-4">
         <div>
-          <label className="mb-1 block text-[12px] text-[var(--text-muted)]">Email</label>
+          <label className="mb-1 block text-[12px] text-[#555555]">Email</label>
           <input
-            className="glass-input w-full"
+            className="bg-[#000000] border border-[#1F1F1F] rounded-[12px] p-2 focus:border-[#4F6BFF] focus:outline-none transition-colors text-[#EAEAEA] w-full"
             placeholder="you@example.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -54,10 +53,10 @@ export default function LoginPage() {
         </div>
 
         <div>
-          <label className="mb-1 block text-[12px] text-[var(--text-muted)]">Password</label>
+          <label className="mb-1 block text-[12px] text-[#555555]">Password</label>
           <input
             type="password"
-            className="glass-input w-full"
+            className="bg-[#000000] border border-[#1F1F1F] rounded-[12px] p-2 focus:border-[#4F6BFF] focus:outline-none transition-colors text-[#EAEAEA] w-full"
             placeholder="Enter password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -67,7 +66,7 @@ export default function LoginPage() {
         <button
           onClick={handleLogin}
           disabled={loading}
-          className="w-full rounded-2xl bg-[var(--text-primary)] px-4 py-2.5 text-sm font-medium text-[var(--surface-0)] shadow-[0_0_20px_rgba(245,245,240,0.04)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,245,240,0.08)] disabled:opacity-50"
+          className="w-full rounded-[8px] bg-[#EAEAEA] px-4 py-2.5 text-sm font-medium text-[#000000] shadow-none transition-colors duration-300 hover:bg-[#FFFFFF] disabled:opacity-50 text-[#000000]"
         >
           {loading ? "Logging in..." : "Log in"}
         </button>

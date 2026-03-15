@@ -1,16 +1,15 @@
 "use client"
+import { Panel } from "@/components/ui/Panel";
 
 import { useState, useEffect } from "react"
 import { useOnboarding } from "@/lib/store/onboarding"
-import GlowCard from "@/components/ui/GlowCard"
 
 export default function StepFirstInsight() {
   const { firstEventDescription, firstRelationshipName, insightResult, setField, setStep } = useOnboarding()
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(!insightResult)
 
   useEffect(() => {
     if (insightResult) return
-    setLoading(true)
     fetch("/api/insights", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -26,21 +25,21 @@ export default function StepFirstInsight() {
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <GlowCard className="p-8 sm:p-10">
-      <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-white/45">Step 8</p>
-      <h2 className="mt-4 text-2xl font-semibold tracking-tight text-white">Your first insight</h2>
+    <Panel className="p-8 sm:p-10">
+      <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#EAEAEA]/45">Step 8</p>
+      <h2 className="mt-4 text-2xl font-semibold tracking-tight text-[#EAEAEA]">Your first insight</h2>
 
       {loading ? (
         <div className="mt-6 space-y-3">
-          <div className="h-4 animate-pulse rounded bg-white/[0.06]" />
-          <div className="h-4 w-3/4 animate-pulse rounded bg-white/[0.06]" />
-          <div className="h-4 w-1/2 animate-pulse rounded bg-white/[0.06]" />
-          <p className="mt-4 text-sm text-white/40">Analyzing your situation...</p>
+          <div className="h-4 animate-pulse rounded bg-[#1F1F1F]" />
+          <div className="h-4 w-3/4 animate-pulse rounded bg-[#1F1F1F]" />
+          <div className="h-4 w-1/2 animate-pulse rounded bg-[#1F1F1F]" />
+          <p className="mt-4 text-sm text-[#EAEAEA]/40">Analyzing your situation...</p>
         </div>
       ) : insightResult ? (
         <div className="mt-6 space-y-4">
-          <div className="glass-surface-light p-5">
-            <p className="whitespace-pre-wrap text-sm leading-7 text-white/80">{insightResult}</p>
+          <div className="bg-[#0A0A0A] border border-[#1F1F1F] rounded-[16px] p-5">
+            <p className="whitespace-pre-wrap text-sm leading-7 text-[#EAEAEA]/80">{insightResult}</p>
           </div>
         </div>
       ) : null}
@@ -48,10 +47,10 @@ export default function StepFirstInsight() {
       <button
         onClick={() => setStep("guided-tour")}
         disabled={loading}
-        className="mt-6 w-full rounded-2xl bg-[var(--text-primary)] px-6 py-3 text-sm font-medium text-[var(--surface-0)] shadow-[0_0_20px_rgba(245,245,240,0.04)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,245,240,0.08)] disabled:opacity-30"
+        className="mt-6 w-full rounded-[8px] bg-[#EAEAEA] px-6 py-3 text-sm font-medium text-[#000000] shadow-none transition-all duration-300 hover:shadow-none disabled:opacity-30"
       >
         Continue to Defrag
       </button>
-    </GlowCard>
+    </Panel>
   )
 }

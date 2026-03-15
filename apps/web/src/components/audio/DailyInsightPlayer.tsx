@@ -1,10 +1,8 @@
-
 "use client"
-
 export default function DailyInsightPlayer(){
 
   return (
-    <div className="glass-surface-light p-6">
+    <div className="bg-[#0A0A0A] border border-[#1F1F1F] rounded-[16px] p-6">
 
       <h2 className="text-xl font-semibold mb-4">
         Daily Strategic Read
@@ -14,7 +12,7 @@ export default function DailyInsightPlayer(){
         <source src="/audio/daily.mp3" type="audio/mpeg"/>
       </audio>
 
-      <details className="text-white/70">
+      <details className="text-[#EAEAEA]/70">
         <summary className="cursor-pointer">
           Expand transcript
         </summary>

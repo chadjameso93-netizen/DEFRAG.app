@@ -1,8 +1,5 @@
 "use client"
-
 import { useState } from "react"
-import GlowCard from "@/components/ui/GlowCard"
-import MagneticButton from "@/components/ui/MagneticButton"
 
 function Plan({
   name,
@@ -24,39 +21,44 @@ function Plan({
   disabled?: boolean
 }) {
   return (
-    <GlowCard className={`p-6 ${featured ? "border-[var(--border)] bg-[var(--surface-2)]" : ""}`}>
-      <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[var(--text-muted)]">{name}</p>
-      <p className="mt-4 text-4xl font-semibold tracking-tight text-[var(--text-primary)]">{price}</p>
-      <p className="mt-3 text-sm leading-7 text-[var(--text-secondary)]">{description}</p>
+    <div className={`bg-[#0A0A0A] border border-[#1F1F1F] rounded-[16px] p-[32px] transform-gpu transition-all duration-300 hover:border-[#333] hover:-translate-y-1 hover:shadow-2xl relative flex flex-col justify-between h-full`}>
+      <div>
+        <p className="text-[12px] font-semibold uppercase tracking-wider text-[#9A9A9A]">{name}</p>
+        <p className="mt-[16px] text-4xl font-semibold tracking-tight text-[#EAEAEA]">{price}</p>
+        <p className="mt-[16px] text-[14px] leading-relaxed text-[#9A9A9A] font-light min-h-[60px]">{description}</p>
 
-      <div className="mt-6 space-y-3">
-        {points.map((point) => (
-          <div key={point} className="glass-surface-light px-4 py-3 text-sm text-[var(--text-secondary)]">
-            {point}
-          </div>
-        ))}
+        <div className="mt-[32px] space-y-[12px]">
+          {points.map((point) => (
+            <div key={point} className="flex items-center gap-[12px] text-[13px] text-[#EAEAEA] font-light">
+              <div className="w-[4px] h-[4px] bg-[#4F6BFF] rounded-full" />
+              {point}
+            </div>
+          ))}
+        </div>
       </div>
 
       {featured ? (
-        <div className="mt-8">
-          <MagneticButton
+        <div className="mt-[32px]">
+          <button
             onClick={onClick}
             disabled={disabled}
-            className="w-full rounded-2xl px-5 py-3 text-sm font-medium transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-60 bg-[var(--text-primary)] text-[var(--surface-0)] shadow-[0_0_20px_rgba(245,245,240,0.04)] hover:shadow-[0_0_30px_rgba(245,245,240,0.08)]"
+            className="w-full rounded-[8px] bg-[#EAEAEA] text-[#000000] px-[24px] py-[12px] text-[13px] font-medium transition-colors duration-300 hover:bg-[#FFFFFF] disabled:opacity-50"
           >
             {cta}
-          </MagneticButton>
+          </button>
         </div>
       ) : (
-        <button
-          onClick={onClick}
-          disabled={disabled}
-          className="mt-8 w-full rounded-2xl border border-white/[0.06] bg-white/[0.03] px-5 py-3 text-sm font-medium text-[var(--text-primary)] transition-colors duration-300 hover:bg-white/[0.06] disabled:cursor-not-allowed disabled:opacity-60"
-        >
-          {cta}
-        </button>
+        <div className="mt-[32px]">
+          <button
+            onClick={onClick}
+            disabled={disabled}
+            className="w-full rounded-[8px] border border-[#1F1F1F] bg-transparent text-[#EAEAEA] px-[24px] py-[12px] text-[13px] font-medium transition-colors duration-300 hover:bg-[#111111] disabled:opacity-50"
+          >
+            {cta}
+          </button>
+        </div>
       )}
-    </GlowCard>
+    </div>
   )
 }
 
@@ -86,7 +88,7 @@ export default function PricingPlans() {
   }
 
   return (
-    <section className="grid gap-4 lg:grid-cols-3 lg:gap-6">
+    <section className="grid gap-[24px] lg:grid-cols-3 items-stretch">
       <Plan
         name="Free"
         price="Free"
@@ -108,7 +110,7 @@ export default function PricingPlans() {
           onClick={checkoutCore}
           disabled={checkoutLoading}
         />
-        {checkoutError ? <p className="mt-2 text-sm text-rose-300">{checkoutError}</p> : null}
+        {checkoutError ? <p className="mt-2 text-sm text-[#f87171]">{checkoutError}</p> : null}
       </div>
       <Plan
         name="Developer / API"

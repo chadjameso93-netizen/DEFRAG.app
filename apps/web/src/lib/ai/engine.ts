@@ -4,7 +4,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 })
 
-export async function generateInsight(context: any) {
+export async function generateInsight(context: unknown) {
 
   const prompt = `
   You are the Defrag relational insight engine.

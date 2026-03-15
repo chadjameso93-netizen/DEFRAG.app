@@ -1,22 +1,24 @@
 "use client"
-
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import AppShell from "@/components/layout/AppShell"
-import { ArrowRight, MessageSquare, TrendingUp, Users, Zap } from "lucide-react"
+import { MessageSquare, TrendingUp, Users, Zap, Map, Target } from "lucide-react"
 import type { Relationship, SystemEvent } from "@/lib/types"
+import SystemMap from "@/components/dashboard/SystemMap"
+import { Panel } from "@/components/ui/Panel"
+import { Button } from "@/components/ui/Button"
 
 function PressureIndicator({ level }: { level: "low" | "moderate" | "high" }) {
   const config = {
-    low: { text: "text-emerald-400", label: "Low", dot: "bg-emerald-400" },
-    moderate: { text: "text-amber-400", label: "Moderate", dot: "bg-amber-400" },
-    high: { text: "text-red-400", label: "High", dot: "bg-red-400" },
+    low: { label: "Low", opacity: "opacity-40" },
+    moderate: { label: "Moderate", opacity: "opacity-70" },
+    high: { label: "High", opacity: "opacity-100" },
   }
   const c = config[level]
   return (
     <div className="flex items-center gap-2">
-      <div className={`h-2 w-2 rounded-full ${c.dot}`} />
-      <span className={`text-sm font-medium ${c.text}`}>{c.label}</span>
+      <div className={`h-1.5 w-1.5 rounded-full bg-[#EAEAEA] ${c.opacity}`} />
+      <span className={`text-[13px] font-medium text-[#EAEAEA] ${c.opacity}`}>{c.label}</span>
     </div>
   )
 }
@@ -27,13 +29,13 @@ function Skeleton({ className }: { className?: string }) {
 
 function StatCard({ label, value, icon: Icon }: { label: string; value: string; icon: React.ComponentType<{ size?: number; className?: string }> }) {
   return (
-    <div className="glass-surface-light p-4">
+    <Panel className="p-5 flex flex-col justify-between hover:border-[#333] transition-colors duration-500">
       <div className="flex items-center gap-2">
-        <Icon size={14} className="text-[var(--text-muted)]" />
-        <p className="text-[11px] font-medium uppercase tracking-wider text-[var(--text-muted)]">{label}</p>
+        <Icon size={14} className="text-[#555555]" />
+        <p className="text-[10px] font-semibold uppercase tracking-widest text-[#555555]">{label}</p>
       </div>
-      <p className="mt-2 text-lg font-semibold text-[var(--text-primary)]">{value}</p>
-    </div>
+      <p className="mt-4 text-2xl font-semibold text-[#EAEAEA] tracking-tight">{value}</p>
+    </Panel>
   )
 }
 
@@ -94,120 +96,128 @@ export default function DashboardPage() {
 
   return (
     <AppShell>
-      <div className="animate-[page-enter_0.5s_ease_both] space-y-6">
-        <div>
-          <h1 className="text-xl font-semibold text-[var(--text-primary)]">Today</h1>
-          <p className="mt-1 text-sm text-[var(--text-secondary)]">Your relational field at a glance.</p>
+      <div className="animate-[page-enter_0.5s_ease_both] space-y-8 max-w-[1200px] mx-auto pb-20">
+        <div className="flex flex-col gap-2">
+          <h1 className="text-3xl font-semibold tracking-tight text-[#EAEAEA]">Workspace Overview</h1>
+          <p className="text-[15px] text-[#9A9A9A] font-light">Your relational field and active trajectories.</p>
         </div>
 
-        {/* Stats row */}
-        <div className="grid gap-3 sm:grid-cols-3">
-          <div className="glass-surface-light p-4">
+        {/* Stats Grid */}
+        <div className="grid gap-4 sm:grid-cols-3">
+          <Panel className="p-5 flex flex-col justify-between hover:border-[#333] transition-colors duration-500">
             <div className="flex items-center gap-2">
-              <Zap size={14} className="text-[var(--text-muted)]" />
-              <p className="text-[11px] font-medium uppercase tracking-wider text-[var(--text-muted)]">Field pressure</p>
-            </div>
-            <div className="mt-2">
-              <PressureIndicator level={pressureLevel} />
-            </div>
-          </div>
-          <StatCard label="Relationships" value={String(relationships.length)} icon={Users} />
-          <StatCard label="Events tracked" value={String(events.length)} icon={TrendingUp} />
-        </div>
-
-        {/* Priority Relationship */}
-        {priorityRel && (
-          <div className="glass-surface-light p-5">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-[11px] font-medium uppercase tracking-wider text-[var(--text-muted)]">Priority relationship</p>
-                <p className="mt-1 text-base font-medium text-[var(--text-primary)]">{priorityRel.target_name}</p>
-                <p className="mt-0.5 text-sm text-[var(--text-secondary)]">
-                  {priorityRel.relationship_type} &middot; tension {Math.round((priorityRel.tension_score ?? 0) * 100)}%
-                </p>
-              </div>
-              <PressureIndicator
-                level={(priorityRel.tension_score ?? 0) > 0.65 ? "high" : (priorityRel.tension_score ?? 0) > 0.45 ? "moderate" : "low"}
-              />
+              <Zap size={14} className="text-[#555555]" />
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-[#555555]">Field pressure</p>
             </div>
             <div className="mt-4">
-              <Link href="/relationships" className="text-[13px] font-medium text-[var(--text-secondary)] transition-colors duration-300 hover:text-[var(--text-primary)]">
-                View details &rarr;
-              </Link>
+              <PressureIndicator level={pressureLevel} />
             </div>
-          </div>
-        )}
-
-        {/* Suggested Action */}
-        <div className="glass-surface-light p-5">
-          <p className="text-[11px] font-medium uppercase tracking-wider text-[var(--text-muted)]">Suggested action</p>
-          <p className="mt-2 text-sm leading-relaxed text-[var(--text-secondary)]">
-            {pressureLevel === "high"
-              ? "Consider pausing before initiating any difficult conversations today. A calm observation approach is likely more effective right now."
-              : pressureLevel === "moderate"
-              ? "Short, clear check-ins with your closest relationships may help ease current tension before it builds."
-              : "Things are relatively calm. This is a good window for meaningful conversations or gentle reconnection."}
-          </p>
-          <div className="mt-4">
-            <Link
-              href="/ai"
-              className="inline-flex items-center gap-2 rounded-2xl bg-[var(--text-primary)] px-4 py-2 text-[13px] font-medium text-[var(--surface-0)] shadow-[0_0_20px_rgba(245,245,240,0.04)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,245,240,0.08)]"
-            >
-              <MessageSquare size={14} />
-              Ask about a situation
-            </Link>
-          </div>
+          </Panel>
+          <StatCard label="Relationships" value={String(relationships.length)} icon={Users} />
+          <StatCard label="System Events" value={String(events.length)} icon={TrendingUp} />
         </div>
 
-        {/* Recent Events */}
-        <div className="glass-surface-light p-5">
-          <div className="flex items-center justify-between">
-            <p className="text-[11px] font-medium uppercase tracking-wider text-[var(--text-muted)]">Recent events</p>
-            <Link href="/timeline" className="text-[12px] text-[var(--text-muted)] transition-colors duration-300 hover:text-[var(--text-secondary)]">
-              View all
-            </Link>
-          </div>
-          {recentEvents.length === 0 ? (
-            <div className="mt-4 rounded-2xl border border-dashed border-[var(--border-subtle)] py-8 text-center">
-              <p className="text-sm text-[var(--text-muted)]">No events yet</p>
-              <Link href="/timeline" className="mt-2 inline-block text-[13px] font-medium text-[var(--text-secondary)] transition-colors duration-300 hover:text-[var(--text-primary)]">
-                Log your first event &rarr;
-              </Link>
-            </div>
-          ) : (
-            <div className="mt-3 space-y-2">
-              {recentEvents.map((evt) => (
-                <div key={evt.id} className="flex items-start gap-3 rounded-md px-3 py-2 transition-colors duration-300 hover:bg-white/[0.03]">
-                  <div className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full ${
-                    evt.event_type === "conflict" ? "bg-red-400" :
-                    evt.event_type === "repair" ? "bg-emerald-400" : "bg-amber-400"
-                  }`} />
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-2">
-                      <p className="text-[13px] font-medium text-[var(--text-primary)]">{evt.event_type}</p>
-                      <span className="text-[11px] text-[var(--text-muted)]">{evt.actor} &rarr; {evt.target}</span>
-                    </div>
-                    <p className="mt-0.5 truncate text-[12px] text-[var(--text-muted)]">{evt.notes}</p>
-                  </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          {/* Main Content Area */}
+          <div className="lg:col-span-8 flex flex-col gap-8">
+            {/* System Map Visualization */}
+            <Panel className="p-0 overflow-hidden hover:border-[#333] transition-colors duration-500">
+              <div className="px-8 py-6 border-b border-[#1A1A1A] flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                   <Map size={14} className="text-[#555555]"/>
+                   <span className="text-[10px] font-bold uppercase tracking-widest text-[#555555]">Expression Map</span>
                 </div>
-              ))}
-            </div>
-          )}
-        </div>
+                <div className="h-1.5 w-1.5 rounded-full bg-[#EAEAEA] opacity-40 animate-pulse" />
+              </div>
+              <div className="p-8">
+                <SystemMap relationships={relationships} />
+              </div>
+            </Panel>
 
-        {/* Empty state for no relationships */}
-        {relationships.length === 0 && (
-          <div className="rounded-2xl border border-dashed border-[var(--border-subtle)] py-12 text-center">
-            <Users size={24} className="mx-auto text-[var(--text-muted)]" />
-            <p className="mt-3 text-sm text-[var(--text-secondary)]">No relationships mapped yet</p>
-            <Link
-              href="/relationships"
-              className="mt-3 inline-flex items-center gap-1 text-[13px] font-medium text-[var(--text-secondary)] transition-colors duration-300 hover:text-[var(--text-primary)]"
-            >
-              Add your first relationship <ArrowRight size={14} />
-            </Link>
+            {/* Recent Trajectory Log */}
+            <Panel className="flex flex-col gap-8 hover:border-[#333] transition-colors duration-500">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                   <TrendingUp size={14} className="text-[#555555]"/>
+                   <span className="text-[10px] font-bold uppercase tracking-widest text-[#555555]">Recent Trajectories</span>
+                </div>
+                <Link href="/timeline" className="text-[10px] uppercase font-bold tracking-widest text-[#555555] hover:text-[#9A9A9A] transition-colors">
+                  View Timeline &rarr;
+                </Link>
+              </div>
+              
+              {recentEvents.length === 0 ? (
+                <div className="rounded-[12px] border border-dashed border-[#1F1F1F] py-12 text-center">
+                  <p className="text-[13px] text-[#555555]">No events logged in this cycle.</p>
+                </div>
+              ) : (
+                <div className="flex flex-col gap-4">
+                  {recentEvents.map((evt) => (
+                    <div key={evt.id} className="group flex items-center justify-between p-4 border border-[#111] bg-[#050505] rounded-[12px] hover:border-[#333] transition-all duration-300">
+                      <div className="flex items-center gap-4">
+                        <div className="w-1.5 h-1.5 rounded-full bg-[#EAEAEA] opacity-40 group-hover:opacity-100 transition-opacity" />
+                        <div className="flex flex-col gap-1">
+                          <span className="text-[13px] text-[#EAEAEA] font-medium uppercase tracking-tight">{evt.event_type}</span>
+                          <span className="text-[11px] text-[#555555]">{evt.actor} &rarr; {evt.target}</span>
+                        </div>
+                      </div>
+                      <span className="text-[11px] text-[#555555] font-mono">{new Date(evt.created_at).toLocaleDateString()}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </Panel>
           </div>
-        )}
+
+          {/* Sidebar Area */}
+          <div className="lg:col-span-4 flex flex-col gap-8">
+            {/* Priority Focus */}
+            {priorityRel && (
+              <Panel className="flex flex-col gap-6 hover:border-[#333] transition-colors duration-500">
+                <div className="flex items-center gap-3">
+                   <Target size={14} className="text-[#555555]"/>
+                   <span className="text-[10px] font-bold uppercase tracking-widest text-[#555555]">System Focus</span>
+                </div>
+                <div className="flex flex-col gap-1">
+                  <h3 className="text-[18px] font-semibold text-[#EAEAEA]">{priorityRel.target_name}</h3>
+                  <p className="text-[13px] text-[#9A9A9A]">{priorityRel.relationship_type}</p>
+                </div>
+                <div className="pt-6 border-t border-[#1A1A1A] flex flex-col gap-2">
+                   <div className="flex justify-between items-center text-[10px] uppercase tracking-widest text-[#555555]">
+                      <span>Tension</span>
+                      <span>{Math.round((priorityRel.tension_score ?? 0) * 100)}%</span>
+                   </div>
+                   <div className="h-1 w-full bg-[#111] rounded-full overflow-hidden">
+                      <div className="h-full bg-[#EAEAEA] opacity-40" style={{ width: `${(priorityRel.tension_score ?? 0) * 100}%` }} />
+                   </div>
+                </div>
+                <Link href="/relationships">
+                  <Button variant="outline" className="w-full text-[12px] h-10">
+                    Analyze Depth
+                  </Button>
+                </Link>
+              </Panel>
+            )}
+
+            {/* Active Guidance */}
+            <Panel className="flex flex-col gap-6 bg-[#0A0A0A] border-l-2 border-l-[#EAEAEA] hover:border-[#333] transition-colors duration-500">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-[#555555]">System Insight</span>
+              <p className="text-[14px] leading-relaxed text-[#9A9A9A] font-light">
+                {pressureLevel === "high"
+                  ? "Field pressure is critical. Structural pause recommended. Non-engagement is the optimal trajectory for the next 48 hours."
+                  : pressureLevel === "moderate"
+                  ? "Elevated friction detected. Small, low-stakes interactions are required to stabilize the system before deep dives."
+                  : "Field pressure is minimal. This is the optimal window for addressing structural boundary issues."}
+              </p>
+              <Link href="/ai">
+                <Button className="w-full text-[12px] h-10">
+                  <MessageSquare size={14} className="mr-2" />
+                  Run Situation Parse
+                </Button>
+              </Link>
+            </Panel>
+          </div>
+        </div>
       </div>
     </AppShell>
   )

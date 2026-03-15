@@ -1,9 +1,10 @@
 "use client"
-
 import { useEffect, useState, useCallback, useRef } from "react"
 import AppShell from "@/components/layout/AppShell"
-import { Send, RefreshCw, X, ChevronDown, Sparkles, FileText } from "lucide-react"
+import { Send, RefreshCw, X, ChevronDown, FileText, Activity, Terminal } from "lucide-react"
 import type { Relationship, ProofJson } from "@/lib/types"
+import { Panel } from "@/components/ui/Panel"
+import { Button } from "@/components/ui/Button"
 
 interface Message {
   id: string
@@ -24,32 +25,39 @@ const INTENTS = [
 
 function ProofPanel({ proof, onClose }: { proof: ProofJson; onClose: () => void }) {
   return (
-    <div className="p-5">
+    <div className="p-8 flex flex-col gap-10">
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-semibold text-[var(--text-primary)]">What is this based on?</h3>
-        <button onClick={onClose} className="rounded-md p-1 text-[var(--text-muted)] transition-colors duration-300 hover:bg-white/[0.03] hover:text-[var(--text-secondary)]">
-          <X size={16} />
+        <div className="flex items-center gap-3">
+           <Terminal size={14} className="text-[#4F6BFF]" />
+           <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#555555]">Reasoning Log</span>
+        </div>
+        <button onClick={onClose} className="rounded-full p-2 text-[#555555] transition-all hover:bg-[#111] hover:text-[#EAEAEA]">
+          <X size={18} />
         </button>
       </div>
 
-      <div className="mt-4 space-y-4">
+      <div className="flex flex-col gap-8">
         {/* Intent */}
-        <div>
-          <p className="text-[10px] font-medium uppercase tracking-wider text-[var(--text-muted)]">Intent</p>
-          <p className="mt-1 text-[13px] text-[var(--text-secondary)]">{proof.intent.type.replace(/_/g, " ")}</p>
-          <p className="mt-0.5 text-[12px] text-[var(--text-muted)]">{proof.intent.goal}</p>
+        <div className="flex flex-col gap-2">
+          <p className="text-[10px] font-bold uppercase tracking-widest text-[#333]">System Intent</p>
+          <p className="text-[14px] font-medium text-[#EAEAEA] capitalize">{proof.intent.type.replace(/_/g, " ")}</p>
+          <p className="text-[13px] leading-relaxed text-[#9A9A9A] font-light italic">{proof.intent.goal}</p>
         </div>
 
         {/* Context */}
-        <div>
-          <p className="text-[10px] font-medium uppercase tracking-wider text-[var(--text-muted)]">Context summary</p>
-          <div className="mt-1 space-y-1 text-[12px] text-[var(--text-secondary)]">
-            <p><span className="text-[var(--text-muted)]">Relationship state:</span> {proof.context_summary.relationship_state}</p>
+        <div className="flex flex-col gap-4">
+          <p className="text-[10px] font-bold uppercase tracking-widest text-[#333]">Relational Context</p>
+          <div className="bg-[#050505] border border-[#1A1A1A] rounded-[12px] p-5 flex flex-col gap-4">
+            <p className="text-[13px] text-[#9A9A9A] leading-relaxed"><span className="text-[#EAEAEA] font-medium uppercase text-[10px] mr-2">State:</span> {proof.context_summary.relationship_state}</p>
             {proof.context_summary.recent_events.length > 0 && (
-              <div>
-                <span className="text-[var(--text-muted)]">Recent events:</span>
-                <ul className="ml-3 mt-0.5 list-disc space-y-0.5">
-                  {proof.context_summary.recent_events.map((e, i) => <li key={i}>{e}</li>)}
+              <div className="flex flex-col gap-2 border-t border-[#111] pt-4">
+                <span className="text-[#EAEAEA] font-medium uppercase text-[10px]">Recent Signals:</span>
+                <ul className="flex flex-col gap-2">
+                  {proof.context_summary.recent_events.map((e, i) => (
+                    <li key={i} className="text-[12px] text-[#555555] flex items-center gap-3">
+                       <div className="w-1 h-1 rounded-full bg-[#333]" /> {e}
+                    </li>
+                  ))}
                 </ul>
               </div>
             )}
@@ -58,24 +66,22 @@ function ProofPanel({ proof, onClose }: { proof: ProofJson; onClose: () => void 
 
         {/* Patterns */}
         {proof.patterns_detected.length > 0 && (
-          <div>
-            <p className="text-[10px] font-medium uppercase tracking-wider text-[var(--text-muted)]">Patterns detected</p>
-            <div className="mt-1 space-y-2">
+          <div className="flex flex-col gap-4">
+            <p className="text-[10px] font-bold uppercase tracking-widest text-[#333]">Pattern Detection</p>
+            <div className="flex flex-col gap-3">
               {proof.patterns_detected.map((p, i) => (
-                <div key={i} className="glass-surface-light p-2.5">
-                  <div className="flex items-center gap-2">
-                    <p className="text-[12px] font-medium text-[var(--text-primary)]">{p.name}</p>
-                    <span className={`rounded-full px-1.5 py-0.5 text-[10px] font-medium ${
-                      p.confidence === "high" ? "bg-emerald-500/10 text-emerald-400" :
-                      p.confidence === "medium" ? "bg-amber-500/10 text-amber-400" :
-                      "bg-white/[0.04] text-[var(--text-secondary)]"
-                    }`}>
-                      {p.confidence}
-                    </span>
+                <div key={i} className="bg-[#050505] border border-[#1A1A1A] rounded-[12px] p-5">
+                  <div className="flex items-center justify-between mb-3">
+                    <p className="text-[13px] font-medium text-[#EAEAEA]">{p.name}</p>
+                    <span className="text-[10px] uppercase font-bold tracking-widest text-[#333]">{p.confidence} Confidence</span>
                   </div>
                   {p.evidence.length > 0 && (
-                    <ul className="ml-3 mt-1 list-disc space-y-0.5 text-[11px] text-[var(--text-muted)]">
-                      {p.evidence.map((e, j) => <li key={j}>{e}</li>)}
+                    <ul className="flex flex-col gap-1.5 opacity-60">
+                      {p.evidence.map((e, j) => (
+                        <li key={j} className="text-[11px] text-[#555555] flex items-start gap-2">
+                           <span className="mt-1">&rarr;</span> {e}
+                        </li>
+                      ))}
                     </ul>
                   )}
                 </div>
@@ -85,33 +91,20 @@ function ProofPanel({ proof, onClose }: { proof: ProofJson; onClose: () => void 
         )}
 
         {/* Timing */}
-        <div>
-          <p className="text-[10px] font-medium uppercase tracking-wider text-[var(--text-muted)]">Timing assessment</p>
-          <div className="mt-1 glass-surface-light p-2.5 text-[12px]">
-            <div className="flex items-center gap-3">
-              <span className="text-[var(--text-muted)]">Pressure:</span>
-              <span className={
-                proof.timing_assessment.pressure_level === "high" ? "text-red-400" :
-                proof.timing_assessment.pressure_level === "moderate" ? "text-amber-400" : "text-emerald-400"
-              }>{proof.timing_assessment.pressure_level}</span>
+        <div className="flex flex-col gap-4">
+          <p className="text-[10px] font-bold uppercase tracking-widest text-[#333]">Timing Matrix</p>
+          <div className="bg-[#050505] border border-[#1A1A1A] rounded-[12px] p-5 flex flex-col gap-4">
+            <div className="flex items-center justify-between">
+              <span className="text-[11px] text-[#555555]">System Pressure</span>
+              <span className="text-[12px] font-mono text-[#EAEAEA] uppercase">{proof.timing_assessment.pressure_level}</span>
             </div>
-            <div className="mt-1 flex items-center gap-3">
-              <span className="text-[var(--text-muted)]">Conversation support:</span>
-              <span className="text-[var(--text-secondary)]">{proof.timing_assessment.support_for_direct_conversation}</span>
+            <div className="flex items-center justify-between border-t border-[#111] pt-4">
+              <span className="text-[11px] text-[#555555]">Response Support</span>
+              <span className="text-[12px] font-mono text-[#EAEAEA] uppercase">{proof.timing_assessment.support_for_direct_conversation}</span>
             </div>
             {proof.timing_assessment.notes && (
-              <p className="mt-1.5 text-[var(--text-secondary)]">{proof.timing_assessment.notes}</p>
+              <p className="text-[13px] leading-relaxed text-[#9A9A9A] font-light italic mt-2 border-t border-[#111] pt-4">{proof.timing_assessment.notes}</p>
             )}
-          </div>
-        </div>
-
-        {/* Hypothesis */}
-        <div>
-          <p className="text-[10px] font-medium uppercase tracking-wider text-[var(--text-muted)]">Relational hypothesis</p>
-          <div className="mt-1 space-y-1.5 text-[12px] text-[var(--text-secondary)]">
-            <p><span className="text-[var(--text-muted)]">Your experience:</span> {proof.relational_hypothesis.user_experience}</p>
-            <p><span className="text-[var(--text-muted)]">Their experience:</span> {proof.relational_hypothesis.other_experience}</p>
-            <p><span className="text-[var(--text-muted)]">Dynamic:</span> {proof.relational_hypothesis.dynamic_summary}</p>
           </div>
         </div>
       </div>
@@ -128,41 +121,74 @@ function MessageBubble({
   onShowProof?: (proof: ProofJson) => void
   onRegenerate?: () => void
 }) {
+  const renderStructuredContent = (content: string) => {
+    const sections = content.split(/\n\n(?=Summary:|Observed pattern:|Timing insight:|Suggested approach:)/i);
+    
+    if (sections.length > 1) {
+      return (
+        <div className="flex flex-col gap-[32px]">
+          {sections.map((sec, idx) => {
+            const match = sec.match(/^(Summary|Observed pattern|Timing insight|Suggested approach):\s*([\s\S]*)/i);
+            if (match) {
+              return (
+                <div key={idx} className="flex flex-col gap-[12px]">
+                  <h4 className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#555555]">{match[1]}</h4>
+                  <p className="text-[15px] leading-relaxed text-[#EAEAEA] font-light">{match[2].trim()}</p>
+                </div>
+              );
+            }
+            return <p key={idx} className="text-[15px] leading-relaxed text-[#EAEAEA] font-light">{sec.trim()}</p>;
+          })}
+        </div>
+      );
+    }
+    return <div className="text-[15px] leading-relaxed text-[#EAEAEA] font-light whitespace-pre-wrap">{content}</div>;
+  };
+
   if (message.role === "user") {
     return (
-      <div className="flex justify-end">
-        <div className="surface-matte max-w-[80%] rounded-2xl px-4 py-2.5">
-          <p className="text-[13px] leading-relaxed text-[var(--text-primary)]">{message.content}</p>
+      <div className="flex justify-end pr-4">
+        <div className="bg-[#0A0A0A] border border-[#1F1F1F] max-w-[85%] rounded-[16px] rounded-tr-none px-6 py-4 shadow-2xl">
+          <p className="text-[15px] leading-relaxed text-[#9A9A9A] font-light italic">
+             &quot;{message.content}&quot;
+          </p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="flex flex-col gap-2">
-      <div className="glass-surface-light max-w-[85%] px-4 py-3">
-        <div className="flex items-center gap-2 pb-2">
-          <Sparkles size={12} className="text-[var(--text-muted)]" />
-          <span className="text-[11px] text-[var(--text-muted)]">DEFRAG AI</span>
+    <div className="flex flex-col gap-4 w-full max-w-3xl mx-auto pl-4">
+      <Panel className="p-8 hover:border-[#333] transition-all duration-500 shadow-2xl relative overflow-hidden group bg-[#020202]">
+        <div className="flex items-center justify-between pb-6 border-b border-[#111] mb-8">
+          <div className="flex items-center gap-3">
+            <Activity size={14} className="text-[#4F6BFF] opacity-60" />
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#555555]">System Intelligence Analysis</span>
+          </div>
+          <div className="h-1.5 w-1.5 rounded-full bg-[#EAEAEA] opacity-40 group-hover:opacity-100 transition-opacity" />
         </div>
-        <div className="font-serif-accent text-[13px] leading-relaxed text-[var(--text-primary)] whitespace-pre-wrap">{message.content}</div>
-      </div>
-      <div className="flex items-center gap-2">
+        
+        {renderStructuredContent(message.content)}
+      </Panel>
+
+      <div className="flex items-center gap-2 ml-2">
         {message.proof_json && onShowProof && (
-          <button
+          <Button
+            variant="ghost"
             onClick={() => onShowProof(message.proof_json!)}
-            className="inline-flex items-center gap-1.5 rounded-lg border border-white/[0.06] px-2.5 py-1 text-[11px] text-[var(--text-muted)] transition-colors duration-300 hover:bg-white/[0.03] hover:text-[var(--text-secondary)]"
+            className="h-9 px-4 text-[10px] uppercase tracking-widest font-bold text-[#555]"
           >
-            <FileText size={12} /> What is this based on?
-          </button>
+            <FileText size={14} className="mr-2" /> Audit Reasoning
+          </Button>
         )}
         {onRegenerate && (
-          <button
+          <Button
+            variant="ghost"
             onClick={onRegenerate}
-            className="inline-flex items-center gap-1.5 rounded-lg border border-white/[0.06] px-2.5 py-1 text-[11px] text-[var(--text-muted)] transition-colors duration-300 hover:bg-white/[0.03] hover:text-[var(--text-secondary)]"
+            className="h-9 px-4 text-[10px] uppercase tracking-widest font-bold text-[#555]"
           >
-            <RefreshCw size={12} /> Say it another way
-          </button>
+            <RefreshCw size={14} className="mr-2" /> Recalculate
+          </Button>
         )}
       </div>
     </div>
@@ -277,17 +303,24 @@ export default function AIPage() {
     <AppShell rightPanel={rightPanel}>
       <div className="flex h-full flex-col" style={{ height: "calc(100vh - 48px - 48px)" }}>
         {/* Messages area */}
-        <div ref={scrollRef} className="flex-1 overflow-y-auto px-1 py-4">
+        <div ref={scrollRef} className="flex-1 overflow-y-auto px-1 py-8">
           {messages.length === 0 ? (
-            <div className="flex h-full flex-col items-center justify-center">
-              <Sparkles size={28} className="text-[var(--text-muted)]" />
-              <h2 className="mt-4 text-lg font-semibold text-[var(--text-primary)]">Defrag AI</h2>
-              <p className="mt-2 max-w-sm text-center text-[13px] leading-relaxed text-[var(--text-muted)]">
-                Ask about a relationship dynamic, get timing guidance, process an interaction, or simulate a conversation.
-              </p>
-              <div className="mt-6 grid gap-2 sm:grid-cols-2">
+            <div className="flex h-full flex-col items-center justify-center p-8">
+              <div className="flex flex-col items-center gap-4 mb-12">
+                 <div className="w-12 h-12 rounded-[16px] bg-[#0A0A0A] border border-[#1F1F1F] flex items-center justify-center shadow-2xl">
+                    <Activity size={24} className="text-[#4F6BFF] opacity-60" />
+                 </div>
+                 <div className="text-center flex flex-col gap-2">
+                    <h2 className="text-3xl font-semibold tracking-tight text-[#EAEAEA]">Operational Interface</h2>
+                    <p className="max-w-md text-[15px] font-light text-[#555555]">
+                      Select a situation or relationship focus to begin calculating subtext dynamics and pacing risks.
+                    </p>
+                 </div>
+              </div>
+              
+              <div className="grid gap-3 sm:grid-cols-2 max-w-2xl w-full">
                 {[
-                  "How do I bring up something that's been bothering me?",
+                  "How do I bring up something that is bothering me?",
                   "Is this a good time to have a difficult conversation?",
                   "Help me understand what happened in that interaction",
                   "What patterns are showing up in this relationship?",
@@ -295,15 +328,15 @@ export default function AIPage() {
                   <button
                     key={prompt}
                     onClick={() => { setInput(prompt); sendMessage(prompt) }}
-                    className="glass-surface-light px-3 py-2.5 text-left text-[12px] leading-relaxed text-[var(--text-secondary)] transition-colors duration-300 hover:bg-white/[0.06]"
+                    className="bg-[#050505] border border-[#1A1A1A] rounded-[16px] p-6 text-left text-[14px] leading-relaxed text-[#9A9A9A] transition-all duration-500 hover:border-[#333] hover:-translate-y-1 font-light"
                   >
-                    {prompt}
+                    &quot;{prompt}&quot;
                   </button>
                 ))}
               </div>
             </div>
           ) : (
-            <div className="mx-auto max-w-2xl space-y-4">
+            <div className="mx-auto max-w-4xl space-y-12">
               {messages.map((msg, i) => (
                 <MessageBubble
                   key={msg.id}
@@ -315,13 +348,13 @@ export default function AIPage() {
                 />
               ))}
               {loading && (
-                <div className="flex items-center gap-2 px-1">
-                  <div className="flex gap-1">
-                    <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--text-muted)]" />
-                    <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--text-muted)] [animation-delay:150ms]" />
-                    <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--text-muted)] [animation-delay:300ms]" />
+                <div className="flex items-center gap-4 px-8 max-w-3xl mx-auto">
+                  <div className="flex gap-1.5">
+                    <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#EAEAEA] opacity-20" />
+                    <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#EAEAEA] opacity-40 [animation-delay:150ms]" />
+                    <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#EAEAEA] opacity-60 [animation-delay:300ms]" />
                   </div>
-                  <span className="text-[11px] text-[var(--text-muted)]">Thinking...</span>
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#333]">Calculating Dynamics...</span>
                 </div>
               )}
             </div>
@@ -329,53 +362,52 @@ export default function AIPage() {
         </div>
 
         {/* Prompt Composer */}
-        <div className="shrink-0 border-t border-white/[0.04] bg-[var(--surface-0)] p-4">
-          {/* Composer controls */}
-          <div className="mx-auto max-w-2xl">
-            <div className="mb-2 flex items-center gap-2">
-              <div className="relative">
+        <div className="shrink-0 border-t border-[#111] bg-[#000000] p-8">
+          <div className="mx-auto max-w-3xl flex flex-col gap-6">
+            <div className="flex items-center gap-4">
+              <div className="relative group">
                 <select
                   value={selectedRelId}
                   onChange={(e) => setSelectedRelId(e.target.value)}
-                  className="appearance-none rounded-lg border border-white/[0.06] bg-white/[0.03] py-1 pl-2.5 pr-7 text-[11px] text-[var(--text-secondary)] outline-none transition-colors duration-300 focus:border-white/[0.1]"
+                  className="appearance-none rounded-[12px] border border-[#1F1F1F] bg-[#0A0A0A] py-3 pl-4 pr-10 text-[11px] font-bold uppercase tracking-widest text-[#555555] outline-none transition-all duration-300 focus:border-[#4F6BFF] hover:border-[#333] cursor-pointer"
                 >
-                  <option value="">No relationship</option>
+                  <option value="">No Active Focus</option>
                   {relationships.map((r) => (
                     <option key={r.id} value={r.id}>{r.target_name}</option>
                   ))}
                 </select>
-                <ChevronDown size={12} className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[var(--text-muted)]" />
+                <ChevronDown size={14} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#333]" />
               </div>
-              <div className="relative">
+              <div className="relative group">
                 <select
                   value={selectedIntent}
                   onChange={(e) => setSelectedIntent(e.target.value)}
-                  className="appearance-none rounded-lg border border-white/[0.06] bg-white/[0.03] py-1 pl-2.5 pr-7 text-[11px] text-[var(--text-secondary)] outline-none transition-colors duration-300 focus:border-white/[0.1]"
+                  className="appearance-none rounded-[12px] border border-[#1F1F1F] bg-[#0A0A0A] py-3 pl-4 pr-10 text-[11px] font-bold uppercase tracking-widest text-[#555555] outline-none transition-all duration-300 focus:border-[#4F6BFF] hover:border-[#333] cursor-pointer"
                 >
                   {INTENTS.map((i) => (
                     <option key={i.value} value={i.value}>{i.label}</option>
                   ))}
                 </select>
-                <ChevronDown size={12} className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[var(--text-muted)]" />
+                <ChevronDown size={14} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#333]" />
               </div>
             </div>
 
-            <div className="flex items-end gap-2 rounded-2xl border border-white/[0.06] bg-white/[0.03] p-2">
+            <div className="flex items-end gap-3 rounded-[20px] border border-[#1F1F1F] bg-[#050505] p-3 shadow-2xl focus-within:border-[#333] transition-all">
               <textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="Describe your situation..."
+                placeholder="Submit situation for analysis..."
                 rows={1}
-                className="max-h-32 min-h-[36px] flex-1 resize-none bg-transparent px-2 py-1.5 text-[13px] text-[var(--text-primary)] outline-none placeholder:text-[var(--text-muted)]"
+                className="max-h-64 min-h-[48px] flex-1 resize-none bg-transparent px-4 py-3 text-[15px] text-[#EAEAEA] font-light outline-none placeholder:text-[#333] leading-relaxed"
               />
-              <button
+              <Button
                 onClick={() => sendMessage()}
                 disabled={!input.trim() || loading}
-                className="shrink-0 rounded-xl bg-[var(--text-primary)] p-2 text-[var(--surface-0)] shadow-[0_0_20px_rgba(245,245,240,0.04)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,245,240,0.08)] disabled:opacity-30"
+                className="shrink-0 h-11 w-11 rounded-full p-0 flex items-center justify-center bg-[#EAEAEA] hover:bg-[#FFFFFF]"
               >
-                <Send size={14} />
-              </button>
+                <Send size={18} />
+              </Button>
             </div>
           </div>
         </div>

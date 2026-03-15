@@ -1,9 +1,9 @@
 "use client"
+import { Panel } from "@/components/ui/Panel";
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { LayoutDashboard, Users, Bot } from "lucide-react"
-import GlowCard from "@/components/ui/GlowCard"
 
 const TOUR_STEPS = [
   {
@@ -32,15 +32,15 @@ export default function StepGuidedTour() {
   const isLast = tourIndex === TOUR_STEPS.length - 1
 
   return (
-    <GlowCard className="p-8 text-center sm:p-10">
-      <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-white/45">Quick tour</p>
+    <Panel className="p-8 text-center sm:p-10">
+      <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#EAEAEA]/45">Quick tour</p>
 
-      <div className="mx-auto mt-6 inline-flex glass-surface-light p-4">
-        <Icon size={32} className="text-white" />
+      <div className="mx-auto mt-6 inline-flex bg-[#0A0A0A] border border-[#1F1F1F] rounded-[16px] p-4">
+        <Icon size={32} className="text-[#EAEAEA]" />
       </div>
 
-      <h2 className="mt-5 text-2xl font-semibold tracking-tight text-white">{current.title}</h2>
-      <p className="mx-auto mt-3 max-w-sm text-sm leading-7 text-white/60">{current.description}</p>
+      <h2 className="mt-5 text-2xl font-semibold tracking-tight text-[#EAEAEA]">{current.title}</h2>
+      <p className="mx-auto mt-3 max-w-sm text-sm leading-7 text-[#9A9A9A]">{current.description}</p>
 
       <div className="mt-6 flex justify-center gap-2">
         {TOUR_STEPS.map((_, i) => (
@@ -59,10 +59,10 @@ export default function StepGuidedTour() {
             setTourIndex(tourIndex + 1)
           }
         }}
-        className="mt-6 w-full rounded-2xl bg-[var(--text-primary)] px-6 py-3 text-sm font-medium text-[var(--surface-0)] shadow-[0_0_20px_rgba(245,245,240,0.04)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,245,240,0.08)]"
+        className="mt-6 w-full rounded-[8px] bg-[#EAEAEA] px-6 py-3 text-sm font-medium text-[#000000] shadow-none transition-all duration-300 hover:shadow-none"
       >
         {isLast ? "Go to your dashboard" : "Next"}
       </button>
-    </GlowCard>
+    </Panel>
   )
 }

@@ -14,3 +14,13 @@ __pycache__
 .claude/
 CLAUDE.md
 .mcp.json
+.codersinflow
+.vscode
+.codex
+out
+*.vsix
+.claude
+.git
+*.log
+*.tmp
+.github

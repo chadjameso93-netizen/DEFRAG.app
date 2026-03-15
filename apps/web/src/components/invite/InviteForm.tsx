@@ -1,7 +1,7 @@
 "use client"
+import { Panel } from "@/components/ui/Panel";
 
 import { useState } from "react"
-import PremiumPanel from "@/components/ui/PremiumPanel"
 
 export default function InviteForm() {
   const [name, setName] = useState("")
@@ -73,22 +73,22 @@ export default function InviteForm() {
   }
 
   return (
-    <PremiumPanel className="p-5 sm:p-6">
-      <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/40">Invite flow</p>
-      <h3 className="mt-4 text-lg font-medium text-white">Add a person and send intake</h3>
-      <p className="mt-3 text-sm leading-7 text-white/60">
+    <Panel className="p-5 sm:p-6">
+      <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#EAEAEA]/40">Invite flow</p>
+      <h3 className="mt-4 text-lg font-medium text-[#EAEAEA]">Add a person and send intake</h3>
+      <p className="mt-3 text-sm leading-7 text-[#9A9A9A]">
         Use email, SMS, or a manual link so the other person can complete a simple intake page.
       </p>
 
       <div className="mt-6 grid gap-3">
         <input
-          className="glass-input"
+          className="bg-[#000000] border border-[#1F1F1F] rounded-[12px] p-2 focus:border-[#4F6BFF] focus:outline-none transition-colors text-[#EAEAEA]"
           placeholder="Person name"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
         <select
-          className="glass-input"
+          className="bg-[#000000] border border-[#1F1F1F] rounded-[12px] p-2 focus:border-[#4F6BFF] focus:outline-none transition-colors text-[#EAEAEA]"
           value={relationship}
           onChange={(e) => setRelationship(e.target.value)}
         >
@@ -97,7 +97,7 @@ export default function InviteForm() {
           <option value="team">Team</option>
         </select>
         <select
-          className="glass-input"
+          className="bg-[#000000] border border-[#1F1F1F] rounded-[12px] p-2 focus:border-[#4F6BFF] focus:outline-none transition-colors text-[#EAEAEA]"
           value={deliveryMethod}
           onChange={(e) => setDeliveryMethod(e.target.value as "email" | "sms" | "manual")}
         >
@@ -107,7 +107,7 @@ export default function InviteForm() {
         </select>
         {deliveryMethod === "email" ? (
           <input
-            className="glass-input"
+            className="bg-[#000000] border border-[#1F1F1F] rounded-[12px] p-2 focus:border-[#4F6BFF] focus:outline-none transition-colors text-[#EAEAEA]"
             placeholder="Email address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -115,7 +115,7 @@ export default function InviteForm() {
         ) : null}
         {deliveryMethod === "sms" ? (
           <input
-            className="glass-input"
+            className="bg-[#000000] border border-[#1F1F1F] rounded-[12px] p-2 focus:border-[#4F6BFF] focus:outline-none transition-colors text-[#EAEAEA]"
             placeholder="Phone number"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
@@ -125,13 +125,13 @@ export default function InviteForm() {
           type="button"
           onClick={submit}
           disabled={submitting}
-          className="rounded-2xl bg-[var(--text-primary)] px-5 py-3 text-sm font-medium text-[var(--surface-0)] shadow-[0_0_20px_rgba(245,245,240,0.04)] transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,245,240,0.08)] disabled:cursor-not-allowed disabled:opacity-60"
+          className="rounded-[8px] bg-[#EAEAEA] px-5 py-3 text-sm font-medium text-[#000000] shadow-none transition-all duration-300 hover:shadow-none disabled:cursor-not-allowed disabled:opacity-60"
         >
           {submitting ? "Creating invite..." : "Create invite"}
         </button>
-        {error ? <p className="text-sm text-rose-300">{error}</p> : null}
-        {message ? <p className="text-sm text-white/65">{message}</p> : null}
+        {error ? <p className="text-sm text-[#f87171]">{error}</p> : null}
+        {message ? <p className="text-sm text-[#9A9A9A]">{message}</p> : null}
       </div>
-    </PremiumPanel>
+    </Panel>
   )
 }

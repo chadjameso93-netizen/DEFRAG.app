@@ -1,5 +1,4 @@
 "use client"
-
 import ReactFlow, { Background, Controls, type Edge, type Node } from "reactflow"
 import "reactflow/dist/style.css"
 
@@ -97,7 +96,7 @@ export default function RelationshipGraph() {
   return (
     <div className="glass-surface relative h-[520px] w-full overflow-hidden">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.03),transparent_50%)]" />
-      <div className="absolute left-5 top-5 z-10 rounded-xl border border-white/[0.06] bg-white/[0.03] px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--text-muted)] backdrop-blur-xl">
+      <div className="absolute left-5 top-5 z-10 rounded-xl border border-[#1F1F1F] bg-[#0A0A0A] px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#555555] backdrop-blur-xl">
         Relationship map
       </div>
       <ReactFlow

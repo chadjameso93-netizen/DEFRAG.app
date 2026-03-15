@@ -1,84 +1,61 @@
 /* ── Material System ── Glass surfaces, edge highlights, shadow depth ── */
 
-/* Primary glass surface — use on panels, cards, containers */
+/* Primary surface — use on panels, cards, containers */
 .glass-surface {
   position: relative;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 18px;
-  box-shadow:
-    0 10px 40px rgba(0, 0, 0, 0.7),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  background: #0A0A0A;
+  border: 1px solid #1F1F1F;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
-/* Apple-style edge highlight */
+/* Deprecated edge highlight */
 .glass-surface::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0.25),
-    transparent 20%
-  );
-  opacity: 0.5;
-  pointer-events: none;
-  z-index: 1;
+  display: none;
 }
 
-/* Lighter glass — for nested or secondary surfaces */
+/* Lighter surface — for nested or secondary surfaces */
 .glass-surface-light {
   position: relative;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 14px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  background: #0A0A0A;
+  border: 1px solid #1F1F1F;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateZ(0); /* transform-gpu */
 }
 
-/* Floating glass — navigation, popovers, modals */
+.glass-surface-light:hover {
+  transform: translateY(-4px);
+  border-color: #333333;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+/* Floating surface — navigation, popovers, modals */
 .glass-floating {
   position: relative;
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  background: rgba(10, 10, 10, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+  background: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid #1F1F1F;
 }
 
 .glass-floating::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0.15),
-    transparent 30%
-  );
-  opacity: 0.4;
-  pointer-events: none;
-  z-index: 1;
+  display: none;
 }
 
-/* Inset glass — for recessed inner cards inside glass panels */
+/* Inset surface */
 .glass-inset {
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 14px;
-  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4);
+  background: #000000;
+  border: 1px solid #1F1F1F;
+  border-radius: 12px;
 }
 
 /* Matte dark surface — for user messages, inputs in chat */
 .surface-matte {
-  background: rgba(20, 20, 20, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  border-radius: 14px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  background: #111111;
+  border: 1px solid #1F1F1F;
+  border-radius: 16px;
 }
 
 /* ── Shadow Depth Tokens ── */
@@ -94,37 +71,30 @@
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
-/* ── Base Canvas ── cinematic radial gradient on #050505 */
+/* ── Base Canvas ── */
 .canvas-base {
-  background:
-    radial-gradient(circle at 20% 0%, rgba(255, 255, 255, 0.04), transparent 40%),
-    radial-gradient(circle at 80% 10%, rgba(255, 255, 255, 0.03), transparent 45%),
-    #050505;
+  background: #000000;
 }
 
-/* Glass input field */
+/* Restyled input field */
 .glass-input {
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 14px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background: #000000;
+  border: 1px solid #1F1F1F;
+  border-radius: 12px;
+  padding: 8px 12px;
+  transition: all 0.3s ease;
 }
 
 .glass-input:focus,
 .glass-input:focus-within {
-  border-color: rgba(255, 255, 255, 0.16);
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+  border-color: #4F6BFF;
   outline: none;
 }
 
-/* Glass node — for graph/map nodes */
+/* Solid Node */
 .glass-node {
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #0A0A0A;
+  border: 1px solid #1F1F1F;
   border-radius: 14px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
   transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1), box-shadow 0.3s ease;
@@ -132,5 +102,6 @@
 
 .glass-node:hover {
   transform: scale(1.08);
+  border-color: #333333;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
 }
