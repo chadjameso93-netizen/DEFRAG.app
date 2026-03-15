@@ -19,9 +19,16 @@ export default function AuthShell({
   footerLinkHref: string
 }) {
   return (
-    <main className="flex min-h-screen bg-[var(--surface-0)]">
+    <main className="relative flex min-h-screen bg-[var(--surface-0)]">
+      {/* Atmospheric background */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute left-[-10%] top-[-5%] h-[44rem] w-[44rem] rounded-full bg-violet-500/[0.12] blur-3xl" />
+        <div className="absolute right-[-6%] top-[10%] h-[38rem] w-[38rem] rounded-full bg-sky-500/[0.10] blur-3xl" />
+        <div className="absolute bottom-[-10%] left-[18%] h-[34rem] w-[34rem] rounded-full bg-fuchsia-500/[0.10] blur-3xl" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(5,5,5,0.38),rgba(5,5,5,0.52))]" />
+      </div>
       {/* Left info panel */}
-      <div className="hidden flex-1 flex-col justify-center border-r border-[var(--border-subtle)] px-12 lg:flex xl:px-20">
+      <div className="relative hidden flex-1 flex-col justify-center border-r border-[var(--border-subtle)] px-12 lg:flex xl:px-20">
         <Link href="/" className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[var(--text-muted)]">
           Defrag
         </Link>
@@ -44,7 +51,7 @@ export default function AuthShell({
       </div>
 
       {/* Right form panel */}
-      <div className="flex w-full flex-col items-center justify-center px-6 py-12 lg:w-[480px] lg:shrink-0">
+      <div className="relative flex w-full flex-col items-center justify-center px-6 py-12 lg:w-[480px] lg:shrink-0">
         <div className="w-full max-w-sm">
           <Link href="/" className="text-[11px] font-semibold uppercase tracking-[0.3em] text-[var(--text-muted)] lg:hidden">
             Defrag

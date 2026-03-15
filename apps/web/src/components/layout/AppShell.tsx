@@ -81,7 +81,14 @@ export default function AppShell({
   }
 
   return (
-    <div className="flex h-screen flex-col bg-[var(--surface-0)]">
+    <div className="relative flex h-screen flex-col bg-[var(--surface-0)]">
+      {/* Atmospheric gradient background for authenticated layout */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute left-[-8%] top-[-8%] h-[40rem] w-[40rem] rounded-full bg-violet-500/[0.10] blur-3xl" />
+        <div className="absolute right-[-6%] top-[5%] h-[36rem] w-[36rem] rounded-full bg-sky-500/[0.08] blur-3xl" />
+        <div className="absolute bottom-[-8%] left-[20%] h-[30rem] w-[30rem] rounded-full bg-fuchsia-500/[0.08] blur-3xl" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(5,5,5,0.40),rgba(5,5,5,0.55))]" />
+      </div>
       {/* Top Navigation Bar — glass floating */}
       <header className="glass-floating flex h-13 shrink-0 items-center border-b border-white/[0.05] px-5">
         <Link href="/dashboard" className="flex items-center gap-2">
