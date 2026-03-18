@@ -2,9 +2,9 @@ import { NextResponse, type NextRequest } from "next/server"
 import { updateSession } from "@/lib/supabase/middleware"
 
 // Routes that require authentication
-const PROTECTED_ROUTES = ["/dashboard", "/relationships", "/timeline", "/ai", "/settings", "/onboarding"]
+const PROTECTED_ROUTES = ["/app", "/dashboard", "/relationships", "/timeline", "/daily-read", "/ai", "/settings", "/onboarding", "/invite"]
 
-// Routes that authenticated users should NOT see (redirect to /dashboard)
+// Routes that authenticated users should NOT see (redirect to /app)
 const AUTH_ROUTES = ["/login", "/signup"]
 
 // Public routes that anyone can access
@@ -38,7 +38,7 @@ export async function middleware(request: NextRequest) {
   // Authenticated → redirect away from auth routes
   if (user && isAuthRoute) {
     const url = request.nextUrl.clone()
-    url.pathname = "/dashboard"
+    url.pathname = "/app"
     return NextResponse.redirect(url)
   }
 

@@ -6,6 +6,7 @@ import type { Relationship, SystemEvent } from "@/lib/types"
 import Link from "next/link"
 import { Panel } from "@/components/ui/Panel"
 import { Button } from "@/components/ui/Button"
+import { getEvents, getRelationships } from "@/lib/api"
 
 function ActivationIndicator({ level }: { level: "supportive" | "soft" | "fragile" }) {
   const opacity = level === "fragile" ? "opacity-100" : level === "soft" ? "opacity-60" : "opacity-30"
@@ -190,18 +191,12 @@ export default function TimelinePage() {
 
   const loadData = useCallback(async () => {
     try {
-      const [evtRes, relRes] = await Promise.all([
-        fetch("/api/events"),
-        fetch("/api/relationships"),
+      const [eventsData, relationshipsData] = await Promise.all([
+        getEvents<SystemEvent>(),
+        getRelationships<Relationship>(),
       ])
-      if (evtRes.ok) {
-        const d = await evtRes.json()
-        setEvents(d.events ?? d ?? [])
-      }
-      if (relRes.ok) {
-        const d = await relRes.json()
-        setRelationships(d.relationships ?? d ?? [])
-      }
+      setEvents(eventsData.events ?? [])
+      setRelationships(relationshipsData.relationships ?? [])
     } catch {} finally {
       setLoading(false)
     }

@@ -1,15 +1,15 @@
 "use client"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Bot, Clock3, CreditCard, LayoutDashboard, Settings, Users } from "lucide-react"
+import { BookOpenText, Clock3, CreditCard, LayoutDashboard, Settings, Users } from "lucide-react"
 import { cn } from "@/lib/cn"
 
 const items = [
-  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/app", label: "Workspace", icon: LayoutDashboard },
   { href: "/timeline", label: "Timeline", icon: Clock3 },
-  { href: "/ai", label: "AI", icon: Bot },
+  { href: "/daily-read", label: "Daily", icon: BookOpenText },
   { href: "/relationships", label: "People", icon: Users },
-  { href: "/pricing", label: "Pricing", icon: CreditCard },
+  { href: "/billing", label: "Billing", icon: CreditCard },
   { href: "/settings", label: "Settings", icon: Settings },
 ]
 

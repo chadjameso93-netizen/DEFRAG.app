@@ -4,11 +4,11 @@ import { Menu, X } from "lucide-react"
 import { useState } from "react"
 
 const items = [
-  { href: "/dashboard", label: "Dashboard" },
+  { href: "/app", label: "Workspace" },
   { href: "/relationships", label: "Relationships" },
   { href: "/timeline", label: "Timeline" },
-  { href: "/simulations", label: "Simulations" },
-  { href: "/pricing", label: "Pricing" },
+  { href: "/daily-read", label: "Daily Read" },
+  { href: "/billing", label: "Billing" },
   { href: "/settings", label: "Settings" },
 ]
 

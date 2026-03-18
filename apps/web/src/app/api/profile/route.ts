@@ -72,3 +72,7 @@ export async function PUT(req: Request) {
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
   return NextResponse.json({ ok: true, profile: data })
 }
+
+export async function POST(req: Request) {
+  return PUT(req)
+}

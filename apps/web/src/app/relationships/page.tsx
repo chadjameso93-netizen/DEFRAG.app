@@ -6,6 +6,7 @@ import type { Relationship, SystemEvent } from "@/lib/types"
 import Link from "next/link"
 import { Panel } from "@/components/ui/Panel"
 import { Button } from "@/components/ui/Button"
+import { apiPost, getEvents, getRelationships } from "@/lib/api"
 
 function TensionIndicator({ level }: { level: "low" | "moderate" | "high" }) {
   const opacity = level === "high" ? "opacity-100" : level === "moderate" ? "opacity-60" : "opacity-30"
@@ -100,18 +101,12 @@ export default function RelationshipsPage() {
 
   const loadData = useCallback(async () => {
     try {
-      const [relRes, evtRes] = await Promise.all([
-        fetch("/api/relationships"),
-        fetch("/api/events"),
+      const [relationshipsData, eventsData] = await Promise.all([
+        getRelationships<Relationship>(),
+        getEvents<SystemEvent>(),
       ])
-      if (relRes.ok) {
-        const d = await relRes.json()
-        setRelationships(d.relationships ?? d ?? [])
-      }
-      if (evtRes.ok) {
-        const d = await evtRes.json()
-        setEvents(d.events ?? d ?? [])
-      }
+      setRelationships(relationshipsData.relationships ?? [])
+      setEvents(eventsData.events ?? [])
     } catch {} finally {
       setLoading(false)
     }
@@ -124,16 +119,10 @@ export default function RelationshipsPage() {
     if (!formData.target_name.trim()) return
     setSubmitting(true)
     try {
-      const res = await fetch("/api/relationships", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      })
-      if (res.ok) {
-        setFormData({ target_name: "", relationship_type: "personal" })
-        setShowForm(false)
-        loadData()
-      }
+      await apiPost("/api/relationships", formData)
+      setFormData({ target_name: "", relationship_type: "personal" })
+      setShowForm(false)
+      loadData()
     } finally {
       setSubmitting(false)
     }

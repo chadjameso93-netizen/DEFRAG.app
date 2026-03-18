@@ -1,5 +1,6 @@
 "use client"
 import { useState } from "react"
+import { apiPost } from "@/lib/api"
 
 function Plan({
   name,
@@ -73,13 +74,12 @@ export default function PricingPlans() {
     setCheckoutError("")
 
     try {
-      const res = await fetch("/api/billing/create-checkout", { method: "POST" })
-      const data = await res.json()
-      if (res.ok && data?.url) {
+      const data = await apiPost<{ url?: string }>("/api/billing/checkout", {})
+      if (data?.url) {
         window.location.href = data.url
         return
       }
-      setCheckoutError(data?.error || "Checkout could not be started. Please try again.")
+      setCheckoutError("Checkout could not be started. Please try again.")
     } catch {
       setCheckoutError("Network issue while starting checkout. Please try again.")
     } finally {

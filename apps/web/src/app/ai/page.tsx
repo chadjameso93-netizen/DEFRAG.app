@@ -5,6 +5,7 @@ import { Send, RefreshCw, X, ChevronDown, FileText, Activity, Terminal } from "l
 import type { Relationship, ProofJson } from "@/lib/types"
 import { Panel } from "@/components/ui/Panel"
 import { Button } from "@/components/ui/Button"
+import { getRelationships } from "@/lib/api"
 
 interface Message {
   id: string
@@ -207,11 +208,8 @@ export default function AIPage() {
 
   const loadRelationships = useCallback(async () => {
     try {
-      const res = await fetch("/api/relationships")
-      if (res.ok) {
-        const d = await res.json()
-        setRelationships(d.relationships ?? d ?? [])
-      }
+      const data = await getRelationships<Relationship>()
+      setRelationships(data.relationships ?? [])
     } catch {}
   }, [])
 

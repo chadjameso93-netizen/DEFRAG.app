@@ -28,10 +28,10 @@ export default function GuidanceSummary() {
       </div>
 
       <Link
-        href="/ai"
+        href="/app"
         className="mt-6 inline-flex items-center gap-2 rounded-[8px] bg-[#EAEAEA] px-4 py-2 text-sm font-medium text-[#000000] shadow-none transition-all duration-300 hover:shadow-none"
       >
-        Open Defrag AI
+        Open workspace
         <ArrowRight size={16} />
       </Link>
     </Panel>

@@ -16,11 +16,11 @@ export default function MainNav() {
         </Link>
 
         <nav className="flex gap-6 text-sm text-[#9A9A9A]">
-          <Link href="/dashboard" className="transition-colors duration-300 hover:text-[#EAEAEA]">Dashboard</Link>
+          <Link href="/app" className="transition-colors duration-300 hover:text-[#EAEAEA]">Workspace</Link>
           <Link href="/relationships" className="transition-colors duration-300 hover:text-[#EAEAEA]">Relationships</Link>
           <Link href="/timeline" className="transition-colors duration-300 hover:text-[#EAEAEA]">Timeline</Link>
-          <Link href="/simulations" className="transition-colors duration-300 hover:text-[#EAEAEA]">Simulations</Link>
-          <Link href="/pricing" className="transition-colors duration-300 hover:text-[#EAEAEA]">Pricing</Link>
+          <Link href="/daily-read" className="transition-colors duration-300 hover:text-[#EAEAEA]">Daily Read</Link>
+          <Link href="/billing" className="transition-colors duration-300 hover:text-[#EAEAEA]">Billing</Link>
         </nav>
       </div>
     </motion.header>

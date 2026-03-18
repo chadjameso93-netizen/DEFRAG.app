@@ -3,6 +3,7 @@ import { Panel } from "@/components/ui/Panel";
 
 import { useEffect, useState } from "react"
 import { Pause, Play, Volume2 } from "lucide-react"
+import { getDailyRead } from "@/lib/api"
 
 export default function DailyReadPanel() {
   const [expanded, setExpanded] = useState(false)
@@ -14,8 +15,7 @@ export default function DailyReadPanel() {
 
     async function load() {
       try {
-        const res = await fetch("/api/system")
-        const data = await res.json()
+        const data = await getDailyRead()
         if (!cancelled && data?.insight) {
           setInsight(data.insight)
         }

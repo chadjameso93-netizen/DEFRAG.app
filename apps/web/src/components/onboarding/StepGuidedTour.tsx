@@ -54,14 +54,14 @@ export default function StepGuidedTour() {
       <button
         onClick={() => {
           if (isLast) {
-            router.push("/dashboard")
+            router.push("/app")
           } else {
             setTourIndex(tourIndex + 1)
           }
         }}
         className="mt-6 w-full rounded-[8px] bg-[#EAEAEA] px-6 py-3 text-sm font-medium text-[#000000] shadow-none transition-all duration-300 hover:shadow-none"
       >
-        {isLast ? "Go to your dashboard" : "Next"}
+        {isLast ? "Go to your workspace" : "Next"}
       </button>
     </Panel>
   )

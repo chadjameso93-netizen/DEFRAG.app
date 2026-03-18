@@ -1,5 +1,6 @@
 "use client"
 import { useState } from "react"
+import { apiPut } from "@/lib/api"
 
 export default function ProfileSetupForm() {
   const [fullName, setFullName] = useState("")
@@ -11,21 +12,20 @@ export default function ProfileSetupForm() {
   async function saveProfile() {
     setMessage("Saving...")
     try {
-      const res = await fetch("/api/profile", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ fullName, birthDate, birthTime, birthPlace }),
+      const data = await apiPut<{ ok?: boolean }>("/api/profile", {
+        full_name: fullName,
+        birth_date: birthDate,
+        birth_time: birthTime,
+        birth_place: birthPlace,
       })
 
-      const data = await res.json()
-
-      if (!res.ok || !data?.ok) {
+      if (!data?.ok) {
         setMessage("Could not save profile.")
         return
       }
 
       setMessage("Profile saved.")
-      window.location.href = "/dashboard"
+      window.location.href = "/app"
     } catch {
       setMessage("Could not save profile.")
     }

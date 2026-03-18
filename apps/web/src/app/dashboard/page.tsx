@@ -7,6 +7,7 @@ import type { Relationship, SystemEvent } from "@/lib/types"
 import SystemMap from "@/components/dashboard/SystemMap"
 import { Panel } from "@/components/ui/Panel"
 import { Button } from "@/components/ui/Button"
+import { getEvents, getRelationships } from "@/lib/api"
 
 function PressureIndicator({ level }: { level: "low" | "moderate" | "high" }) {
   const config = {
@@ -47,18 +48,12 @@ export default function DashboardPage() {
   useEffect(() => {
     async function load() {
       try {
-        const [relRes, evtRes] = await Promise.all([
-          fetch("/api/relationships"),
-          fetch("/api/events"),
+        const [relationshipsData, eventsData] = await Promise.all([
+          getRelationships<Relationship>(),
+          getEvents<SystemEvent>(),
         ])
-        if (relRes.ok) {
-          const relData = await relRes.json()
-          setRelationships(relData.relationships ?? relData ?? [])
-        }
-        if (evtRes.ok) {
-          const evtData = await evtRes.json()
-          setEvents(evtData.events ?? evtData ?? [])
-        }
+        setRelationships(relationshipsData.relationships ?? [])
+        setEvents(eventsData.events ?? [])
       } catch {
         // Fallback to empty state
       } finally {

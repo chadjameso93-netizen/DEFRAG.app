@@ -5,13 +5,13 @@ const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     "",
-    "/pricing",
+    "/billing",
     "/login",
     "/signup",
-    "/dashboard",
+    "/app",
     "/relationships",
     "/timeline",
-    "/simulations",
+    "/daily-read",
     "/settings",
     "/onboarding",
     "/privacy",
