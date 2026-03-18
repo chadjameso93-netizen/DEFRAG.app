@@ -24,3 +24,5 @@ out
 *.log
 *.tmp
 .github
+.vercel
+.env*.local
