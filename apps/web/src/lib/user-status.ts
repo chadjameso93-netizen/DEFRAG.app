@@ -2,7 +2,7 @@ import type { Entitlement } from "@/lib/types"
 import { getEntitlement } from "@/lib/entitlements"
 import { createServerClient } from "@/lib/supabase/server"
 
-const DEFAULT_HOME_PATH = "/app"
+export const DEFAULT_HOME_PATH = "/dashboard"
 
 export interface UserStatus {
   isAuthenticated: boolean

@@ -5,7 +5,7 @@ import { BookOpenText, Clock3, CreditCard, LayoutDashboard, Settings, Users } fr
 import { cn } from "@/lib/cn"
 
 const items = [
-  { href: "/app", label: "Workspace", icon: LayoutDashboard },
+  { href: "/dashboard", label: "Workspace", icon: LayoutDashboard },
   { href: "/timeline", label: "Timeline", icon: Clock3 },
   { href: "/daily-read", label: "Daily", icon: BookOpenText },
   { href: "/relationships", label: "People", icon: Users },

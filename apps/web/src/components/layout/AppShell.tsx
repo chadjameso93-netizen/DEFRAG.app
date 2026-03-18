@@ -19,7 +19,7 @@ import {
 import { cn } from "@/lib/cn"
 
 const NAV_ITEMS = [
-  { href: "/app", label: "Overview", icon: LayoutGrid },
+  { href: "/dashboard", label: "Overview", icon: LayoutGrid },
   { href: "/relationships", label: "Field", icon: Users },
   { href: "/timeline", label: "Timeline", icon: Calendar },
   { href: "/daily-read", label: "Daily Read", icon: MessageSquare },
@@ -86,7 +86,7 @@ export default function AppShell({
       {/* Structural Top Bar */}
       <header className="z-50 flex h-16 shrink-0 items-center justify-between border-b border-[#111111] bg-[#000000] px-8">
         <div className="flex items-center gap-12">
-          <Link href="/app" className="flex items-center gap-3">
+          <Link href="/dashboard" className="flex items-center gap-3">
              <div className="w-8 h-8 rounded-lg bg-[#EAEAEA] flex items-center justify-center">
                 <Activity size={18} className="text-[#000000]" />
              </div>

@@ -28,7 +28,7 @@ export default function GuidanceSummary() {
       </div>
 
       <Link
-        href="/app"
+        href="/dashboard"
         className="mt-6 inline-flex items-center gap-2 rounded-[8px] bg-[#EAEAEA] px-4 py-2 text-sm font-medium text-[#000000] shadow-none transition-all duration-300 hover:shadow-none"
       >
         Open workspace

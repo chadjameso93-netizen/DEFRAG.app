@@ -74,7 +74,7 @@ export default function RelationshipDetailPage() {
               See what this looks like, the recent timeline, and where to focus next.
             </p>
           </div>
-          <Link href="/app">
+          <Link href="/dashboard">
             <Button className="h-11 px-5">
               <Activity size={16} />
               Open workspace

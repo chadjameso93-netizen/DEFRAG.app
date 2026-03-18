@@ -12,12 +12,12 @@ describe("user-status", () => {
 
     expect(status.isAuthenticated).toBe(true)
     expect(status.onboardingComplete).toBe(true)
-    expect(status.homePath).toBe("/app")
+    expect(status.homePath).toBe("/dashboard")
   })
 
   it("redirects protected unauthenticated users to login", () => {
     const redirectPath = getRedirectPath(
-      { isAuthenticated: false, onboardingComplete: false, homePath: "/app" },
+      { isAuthenticated: false, onboardingComplete: false, homePath: "/dashboard" },
       { isProtectedRoute: true },
     )
 
@@ -26,7 +26,7 @@ describe("user-status", () => {
 
   it("redirects incomplete authenticated users to onboarding", () => {
     const redirectPath = getRedirectPath(
-      { isAuthenticated: true, onboardingComplete: false, homePath: "/app" },
+      { isAuthenticated: true, onboardingComplete: false, homePath: "/dashboard" },
       { isProtectedRoute: true },
     )
 
@@ -35,10 +35,10 @@ describe("user-status", () => {
 
   it("redirects authenticated auth-route visits to the home path", () => {
     const redirectPath = getRedirectPath(
-      { isAuthenticated: true, onboardingComplete: true, homePath: "/app" },
+      { isAuthenticated: true, onboardingComplete: true, homePath: "/dashboard" },
       { isAuthRoute: true },
     )
 
-    expect(redirectPath).toBe("/app")
+    expect(redirectPath).toBe("/dashboard")
   })
 })

@@ -4,7 +4,7 @@ import { Menu, X } from "lucide-react"
 import { useState } from "react"
 
 const items = [
-  { href: "/app", label: "Workspace" },
+  { href: "/dashboard", label: "Workspace" },
   { href: "/relationships", label: "Relationships" },
   { href: "/timeline", label: "Timeline" },
   { href: "/daily-read", label: "Daily Read" },

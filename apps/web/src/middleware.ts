@@ -1,11 +1,11 @@
 import { NextResponse, type NextRequest } from "next/server"
 import { updateSession } from "@/lib/supabase/middleware"
-import { getRedirectPath } from "@/lib/user-status"
+import { DEFAULT_HOME_PATH, getRedirectPath } from "@/lib/user-status"
 
 // Routes that require authentication
 const PROTECTED_ROUTES = ["/app", "/dashboard", "/relationships", "/timeline", "/daily-read", "/ai", "/settings", "/onboarding", "/invite"]
 
-// Routes that authenticated users should NOT see (redirect to /app)
+// Routes that authenticated users should NOT see (redirect to the canonical home route)
 const AUTH_ROUTES = ["/login", "/signup"]
 
 // Public routes that anyone can access
@@ -31,7 +31,7 @@ export async function middleware(request: NextRequest) {
 
   // Not authenticated → redirect to login for protected routes
   const unauthenticatedRedirect = getRedirectPath(
-    { isAuthenticated: Boolean(user), onboardingComplete: false, homePath: "/app" },
+    { isAuthenticated: Boolean(user), onboardingComplete: false, homePath: DEFAULT_HOME_PATH },
     { isProtectedRoute: isProtected, isAuthRoute: isAuthRoute }
   )
 
@@ -45,9 +45,9 @@ export async function middleware(request: NextRequest) {
   if (user && isAuthRoute) {
     const url = request.nextUrl.clone()
     url.pathname = getRedirectPath(
-      { isAuthenticated: true, onboardingComplete: true, homePath: "/app" },
+      { isAuthenticated: true, onboardingComplete: true, homePath: DEFAULT_HOME_PATH },
       { isAuthRoute: true }
-    ) || "/app"
+    ) || DEFAULT_HOME_PATH
     return NextResponse.redirect(url)
   }
 
@@ -62,7 +62,7 @@ export async function middleware(request: NextRequest) {
     if (!profile) {
       const url = request.nextUrl.clone()
       url.pathname = getRedirectPath(
-        { isAuthenticated: true, onboardingComplete: false, homePath: "/app" },
+        { isAuthenticated: true, onboardingComplete: false, homePath: DEFAULT_HOME_PATH },
         { isProtectedRoute: true }
       ) || "/onboarding"
       return NextResponse.redirect(url)

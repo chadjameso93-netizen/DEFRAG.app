@@ -16,7 +16,7 @@ export default function MainNav() {
         </Link>
 
         <nav className="flex gap-6 text-sm text-[#9A9A9A]">
-          <Link href="/app" className="transition-colors duration-300 hover:text-[#EAEAEA]">Workspace</Link>
+          <Link href="/dashboard" className="transition-colors duration-300 hover:text-[#EAEAEA]">Workspace</Link>
           <Link href="/relationships" className="transition-colors duration-300 hover:text-[#EAEAEA]">Relationships</Link>
           <Link href="/timeline" className="transition-colors duration-300 hover:text-[#EAEAEA]">Timeline</Link>
           <Link href="/daily-read" className="transition-colors duration-300 hover:text-[#EAEAEA]">Daily Read</Link>
