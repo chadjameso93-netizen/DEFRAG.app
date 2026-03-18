@@ -5,24 +5,34 @@ import { useState, useEffect } from "react"
 import { useOnboarding } from "@/lib/store/onboarding"
 
 export default function StepFirstInsight() {
-  const { firstEventDescription, firstRelationshipName, insightResult, setField, setStep } = useOnboarding()
+  const {
+    firstEventDescription,
+    firstRelationshipName,
+    firstRelationshipType,
+    firstRelationshipBirthDate,
+    insightResult,
+    setField,
+    setStep,
+  } = useOnboarding()
   const [loading, setLoading] = useState(!insightResult)
 
   useEffect(() => {
     if (insightResult) return
-    fetch("/api/insights", {
+    fetch("/api/onboarding/bootstrap", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        message: firstEventDescription,
+        event_description: firstEventDescription,
         relationship_name: firstRelationshipName,
+        relationship_type: firstRelationshipType,
+        relationship_birth_date: firstRelationshipBirthDate,
       }),
     })
       .then((r) => r.json())
-      .then((data) => setField("insightResult", data.output_text || data.insight || "Defrag is processing your situation."))
+      .then((data) => setField("insightResult", data.insight || data.output_text || "Defrag is processing your situation."))
       .catch(() => setField("insightResult", "Defrag could not generate an insight right now. You can try again from the dashboard."))
       .finally(() => setLoading(false))
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [firstEventDescription, firstRelationshipBirthDate, firstRelationshipName, firstRelationshipType, insightResult, setField])
 
   return (
     <Panel className="p-8 sm:p-10">
