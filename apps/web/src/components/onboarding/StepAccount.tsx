@@ -18,7 +18,7 @@ export default function StepAccount() {
       const res = await fetch("/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, fullName }),
       })
       const data = await res.json()
       if (!res.ok) {

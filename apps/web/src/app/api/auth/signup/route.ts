@@ -1,24 +1,41 @@
 import { NextResponse } from "next/server"
-import { createAdminClient } from "@/lib/supabase/admin"
+import { createServerClient } from "@/lib/supabase/server"
 
 export async function POST(req: Request) {
-  const { email, password } = await req.json()
+  const { email, password, fullName } = await req.json()
 
   if (!email || !password) {
     return NextResponse.json({ error: "Email and password are required." }, { status: 400 })
   }
 
-  const supabase = createAdminClient()
+  const supabase = await createServerClient()
 
-  const { data, error } = await supabase.auth.admin.createUser({
+  const { data, error } = await supabase.auth.signUp({
     email,
     password,
-    email_confirm: true,
+    options: {
+      data: {
+        full_name: fullName || "",
+      },
+    },
   })
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 400 })
   }
 
-  return NextResponse.json({ user: data.user })
+  if (data.session) {
+    return NextResponse.json({ user: data.user, session: data.session })
+  }
+
+  const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  })
+
+  if (signInError) {
+    return NextResponse.json({ error: signInError.message }, { status: 400 })
+  }
+
+  return NextResponse.json({ user: signInData.user, session: signInData.session })
 }

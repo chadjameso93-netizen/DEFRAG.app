@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server"
 import { updateSession } from "@/lib/supabase/middleware"
+import { getRedirectPath } from "@/lib/user-status"
 
 // Routes that require authentication
 const PROTECTED_ROUTES = ["/app", "/dashboard", "/relationships", "/timeline", "/daily-read", "/ai", "/settings", "/onboarding", "/invite"]
@@ -29,16 +30,24 @@ export async function middleware(request: NextRequest) {
   const isAuthRoute = AUTH_ROUTES.some((r) => pathname === r || pathname.startsWith(r + "/"))
 
   // Not authenticated → redirect to login for protected routes
-  if (!user && isProtected) {
+  const unauthenticatedRedirect = getRedirectPath(
+    { isAuthenticated: Boolean(user), onboardingComplete: false, homePath: "/app" },
+    { isProtectedRoute: isProtected, isAuthRoute: isAuthRoute }
+  )
+
+  if (!user && unauthenticatedRedirect) {
     const url = request.nextUrl.clone()
-    url.pathname = "/login"
+    url.pathname = unauthenticatedRedirect
     return NextResponse.redirect(url)
   }
 
   // Authenticated → redirect away from auth routes
   if (user && isAuthRoute) {
     const url = request.nextUrl.clone()
-    url.pathname = "/app"
+    url.pathname = getRedirectPath(
+      { isAuthenticated: true, onboardingComplete: true, homePath: "/app" },
+      { isAuthRoute: true }
+    ) || "/app"
     return NextResponse.redirect(url)
   }
 
@@ -52,7 +61,10 @@ export async function middleware(request: NextRequest) {
 
     if (!profile) {
       const url = request.nextUrl.clone()
-      url.pathname = "/onboarding"
+      url.pathname = getRedirectPath(
+        { isAuthenticated: true, onboardingComplete: false, homePath: "/app" },
+        { isProtectedRoute: true }
+      ) || "/onboarding"
       return NextResponse.redirect(url)
     }
   }

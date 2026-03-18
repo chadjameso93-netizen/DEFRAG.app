@@ -54,7 +54,7 @@ export default function StepGuidedTour() {
       <button
         onClick={() => {
           if (isLast) {
-            router.push("/app")
+            router.push("/dashboard")
           } else {
             setTourIndex(tourIndex + 1)
           }

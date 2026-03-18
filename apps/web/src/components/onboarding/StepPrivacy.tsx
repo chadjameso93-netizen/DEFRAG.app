@@ -1,10 +1,46 @@
 "use client"
 import { Panel } from "@/components/ui/Panel";
 
+import { useState } from "react"
 import { useOnboarding } from "@/lib/store/onboarding"
 
 export default function StepPrivacy() {
-  const { privacyAccepted, setField, setStep } = useOnboarding()
+  const { privacyAccepted, fullName, birthDate, birthTime, birthPlace, timeConfidence, setField, setStep } = useOnboarding()
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState("")
+
+  async function handleContinue() {
+    setSubmitting(true)
+    setError("")
+
+    try {
+      const res = await fetch("/api/onboarding/submit", {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          full_name: fullName,
+          dob: birthDate,
+          birth_time: birthTime || null,
+          birth_city: birthPlace,
+          time_confidence: timeConfidence,
+        }),
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) {
+        setError(data.error || "We could not save your profile yet.")
+        return
+      }
+
+      setStep("first-relationship")
+    } catch {
+      setError("We could not save your profile yet.")
+    } finally {
+      setSubmitting(false)
+    }
+  }
 
   return (
     <Panel className="p-8 sm:p-10">
@@ -47,12 +83,14 @@ export default function StepPrivacy() {
         </span>
       </label>
 
+      {error ? <p className="mt-4 text-sm text-red-400">{error}</p> : null}
+
       <button
-        onClick={() => setStep("first-relationship")}
-        disabled={!privacyAccepted}
+        onClick={handleContinue}
+        disabled={!privacyAccepted || submitting}
         className="mt-6 w-full rounded-[8px] bg-[#EAEAEA] px-6 py-3 text-sm font-medium text-[#000000] shadow-none transition-all duration-300 hover:shadow-none disabled:opacity-30"
       >
-        Continue
+        {submitting ? "Saving your profile..." : "Continue"}
       </button>
     </Panel>
   )

@@ -1,31 +1,51 @@
 # Defrag
 
-Defrag is a relational intelligence platform that helps people understand patterns in relationships, families, and teams.
+Defrag is a relational intelligence platform built as a monorepo with:
 
-## Local development
+- `apps/web` — Next.js frontend and product-facing API routes
+- `apps/api` — Python API services
+- `infra/` — Supabase migrations and infrastructure assets
 
-1. Copy environment template
+## Quickstart
 
-   cp .env.example .env
+1. Copy the environment template
+   - `cp .env.example .env`
+2. Install workspace dependencies
+   - `pnpm install`
+3. Start the web app
+   - `cd apps/web`
+   - `pnpm preview:dev`
+4. Start the API app
+   - `cd apps/api`
+   - `python3 -m venv .venv`
+   - `source .venv/bin/activate`
+   - `pip install -r requirements.txt`
+   - `uvicorn app.main:app --reload --host 0.0.0.0 --port 8000`
 
-2. Start infrastructure
+## Validation
 
-   docker compose up -d
+- Web build: `cd apps/web && pnpm build`
+- Web tests: `cd apps/web && pnpm test`
+- API compile check: `python -m compileall apps/api/app`
 
-3. Start API
+## CI
 
-   cd apps/api
-   python3 -m venv .venv
-   source .venv/bin/activate
-   pip install -r requirements.txt
-   uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+GitHub Actions runs:
 
-4. Start web
+- Python compile validation for `apps/api`
+- Web dependency install, build, and tests for `apps/web`
 
-   cd apps/web
-   npm install
-   npm run preview:dev
+## Staging
 
-5. Open local preview
+- Preview deploys use Vercel.
+- Standard preview flow:
+  - `vercel deploy apps/web -y`
+- After deploy, smoke test:
+  - onboarding page loads
+  - `GET /api/me`
+  - onboarding submit returns expected auth/validation behavior
 
-   http://localhost:3000
+## Notes
+
+- Use `pnpm` for JavaScript workspace commands.
+- Keep `.env.example` current when adding required configuration.
